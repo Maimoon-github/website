@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import HeroSectionDetail
+from .views import HomeDataView
 
 urlpatterns = [
-    path('', HeroSectionDetail.as_view(), name='hero-detail'),
+    path('', HomeDataView.as_view(), name='home-data'),
 ]
