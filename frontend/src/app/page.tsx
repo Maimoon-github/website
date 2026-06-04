@@ -136,6 +136,72 @@ export default async function HomePage() {
 
         </div>
       </section>
+
+      {/* 4. Projects Section - High Fidelity Grid based on Image Analogy */}
+      <section className="bg-[#131026] py-32 border-t border-[#8B65BF]/10">
+        <div className="max-w-[1440px] mx-auto px-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+            <div>
+              <h2 className="text-6xl font-black font-display text-[#E5DEFE] mb-4">Project</h2>
+              <div className="h-1 w-24 bg-[#8B65BF] rounded-full" />
+            </div>
+            <div className="text-right">
+              <span className="text-[#8B65BF] font-mono text-xs uppercase tracking-[0.3em] block mb-2">Portfolio_Manifest</span>
+              <h3 className="text-2xl font-bold text-[#968E9C]">See What Work I <br/> Generated</h3>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#8B65BF]/10 border border-[#8B65BF]/20 rounded-2xl overflow-hidden">
+            {projects.length > 0 ? projects.slice(0, 4).map((project) => (
+              <div key={project.id} className="bg-[#131026] group relative overflow-hidden flex flex-col h-full">
+                {/* Image Section (Top half of the box in sketch) */}
+                <div className="aspect-square overflow-hidden relative border-b border-[#8B65BF]/10">
+                  {project.cover_image ? (
+                    <img 
+                      src={project.cover_image.startsWith('http') ? project.cover_image : `${backendUrl}${project.cover_image}`} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#1F1A40]/50 flex items-center justify-center">
+                       <span className="text-[#8B65BF]/30 font-mono text-[10px]">IMAGE_NOT_LOADED</span>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#131026] to-transparent opacity-60" />
+                </div>
+
+                {/* Project Information Section (Bottom half of the box in sketch) */}
+                <div className="p-8 flex-grow flex flex-col justify-between bg-[#1F1A40]/10 group-hover:bg-[#1F1A40]/30 transition-all">
+                  <div>
+                    <h4 className="text-xl font-black text-[#E5DEFE] mb-3 group-hover:text-[#8B65BF] transition-colors">{project.title}</h4>
+                    <p className="text-sm text-[#968E9C] line-clamp-3 leading-relaxed mb-6 font-medium">
+                      {project.short_info || project.description}
+                    </p>
+                  </div>
+                  
+                  <Link href={`/projects/${project.slug}`} className="inline-flex items-center gap-3 text-[10px] font-black tracking-widest text-[#8B65BF] hover:text-[#E5DEFE] transition-colors">
+                    <span>LAUNCH OPERATION</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </Link>
+                </div>
+              </div>
+            )) : Array.from({length: 4}).map((_, i) => (
+              <div key={i} className="bg-[#131026] aspect-[4/5] animate-pulse flex flex-col">
+                <div className="flex-grow bg-[#1F1A40]/50 m-4 rounded-lg" />
+                <div className="h-4 w-1/2 bg-[#1F1A40]/50 mx-4 mb-2 rounded" />
+                <div className="h-4 w-3/4 bg-[#1F1A40]/50 mx-4 mb-8 rounded" />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link href="/projects" className="inline-block relative py-4 group">
+               <span className="text-[11px] font-black tracking-[0.5em] text-[#8B65BF] group-hover:text-[#E5DEFE] transition-colors">VIEW ALL ARCHIVES</span>
+               <div className="h-0.5 w-full bg-[#8B65BF] mt-2 origin-left scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

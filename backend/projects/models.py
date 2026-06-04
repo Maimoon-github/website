@@ -9,6 +9,8 @@ class Project(models.Model):
     website_url = models.URLField(blank=True)
     is_featured = models.BooleanField(default=False)
     cover_image = models.ImageField(upload_to='projects/covers/', blank=True, null=True)
+    short_info = models.CharField(max_length=255, blank=True, help_text="Small tagline for the project card")
+    icon_name = models.CharField(max_length=100, blank=True, help_text="Lucide icon name")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -23,6 +23,8 @@ export interface Project {
   website_url: string;
   is_featured: boolean;
   cover_image: string | null;
+  short_info: string;
+  icon_name: string;
 }
 
 export interface HeroSection {
