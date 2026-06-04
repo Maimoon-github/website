@@ -5,11 +5,14 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/a
 export interface HomeData {
   hero: {
     title: string;
-    role_title: string;
+    title_accent: string;
+    system_status: string;
     description: string;
     tech_stack: string;
-    cta_primary_text: string;
-    cta_primary_link: string;
+    protocol_text: string;
+    protocol_link: string;
+    architecture_text: string;
+    architecture_link: string;
     hero_image: string | null;
   } | null;
   bio: {
@@ -31,7 +34,7 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
         'Content-Type': 'application/json',
         ...options.headers,
       },
-      next: { revalidate: 60 } // Cache for 60 seconds
+      next: { revalidate: 60 }
     });
 
     if (!res.ok) {

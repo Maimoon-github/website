@@ -2,11 +2,19 @@ from django.db import models
 
 class HeroSection(models.Model):
     title = models.CharField(max_length=255)
-    role_title = models.CharField(max_length=255, blank=True)
+    title_accent = models.CharField(max_length=255, blank=True, help_text="The accent part of the title (e.g. 'Engineer Architect')")
+    system_status = models.CharField(max_length=100, default="SYSTEM ARCHITECTURE READY")
     description = models.TextField(blank=True)
-    tech_stack = models.TextField(blank=True, help_text="Comma-separated list of tech stack items")
-    cta_primary_text = models.CharField(max_length=50, blank=True)
-    cta_primary_link = models.CharField(max_length=255, blank=True)
+    tech_stack = models.TextField(blank=True, help_text="Comma-separated items for the marquee bar")
+    
+    # Initialize Protocol (Primary CTA)
+    protocol_text = models.CharField(max_length=50, default="INITIALIZE PROTOCOL")
+    protocol_link = models.CharField(max_length=255, blank=True)
+    
+    # View Architecture (Secondary CTA)
+    architecture_text = models.CharField(max_length=50, default="VIEW ARCHITECTURE")
+    architecture_link = models.CharField(max_length=255, blank=True)
+    
     hero_image = models.ImageField(upload_to='home/hero/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

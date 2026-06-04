@@ -30,9 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable} h-full antialiased dark`}
+      className="h-full antialiased dark"
     >
-      <body className="font-sans min-h-screen flex flex-col bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 overflow-x-hidden selection:bg-indigo-500/30">
+      <body className="min-h-screen flex flex-col bg-[#131026] text-[#e5defe] overflow-x-hidden selection:bg-[#8B65BF]/30">
         <Header />
         {children}
         <Footer />
