@@ -63,17 +63,11 @@ export default async function HomePage() {
             <div className="lg:col-span-5 relative">
               <div className="absolute -inset-4 bg-[#8B65BF]/20 blur-[60px] rounded-full opacity-50" />
               <div className="relative border-4 border-[#1F1A40] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700">
-                {hero?.hero_image ? (
-                  <img 
-                    src={hero.hero_image.startsWith('http') ? hero.hero_image : `${backendUrl}${hero.hero_image}`} 
-                    alt={hero.title || "System Architecture"} 
-                    className="w-full aspect-[4/3] object-cover" 
-                  />
-                ) : (
-                  <div className="aspect-[4/3] bg-[#1c192f] flex items-center justify-center">
-                    <span className="text-[#8B65BF] font-mono text-xs uppercase tracking-widest opacity-40">System_Module_Empty</span>
-                  </div>
-                )}
+                <img 
+                  src="/image/hero image.jpeg" 
+                  alt={hero?.title || "System Architecture"} 
+                  className="w-full aspect-[4/3] object-cover" 
+                />
                 <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
               </div>
             </div>
@@ -94,22 +88,24 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* 3. Bio & Journey - Contrasting Light Mode as per Image */}
-      <section className="bg-[#EBEBEB] text-[#131026] py-32">
-        <div className="max-w-[1440px] mx-auto px-10 space-y-32">
+      {/* 3. Bio & Journey - Mystical Black Lotus Theme */}
+      <section className="bg-[#131026] text-[#E5DEFE] py-32 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[#5F2DA6]/5 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-[1440px] mx-auto px-10 space-y-32 relative z-10">
           
           {/* Bio Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-4 flex items-center gap-8">
-               <div className="w-16 h-16 rounded-full border-2 border-zinc-300 flex items-center justify-center p-3">
+               <div className="w-16 h-16 rounded-full border-2 border-[#8B65BF]/30 flex items-center justify-center p-3 bg-[#1F1A40]/50">
                   <svg className="w-full h-full text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                </div>
-               <h2 className="text-5xl font-black font-display">
-                {bio?.title || "Bio"} <span className="font-light text-zinc-400">{bio?.subtitle || "Info"}</span>
+               <h2 className="text-5xl font-black font-display text-[#E5DEFE]">
+                {bio?.title || "Bio"} <span className="font-light text-[#8B65BF]">{bio?.subtitle || "Info"}</span>
                </h2>
             </div>
             <div className="lg:col-span-8">
-              <p className="text-xl md:text-2xl font-medium leading-relaxed text-zinc-600 max-w-4xl">
+              <p className="text-xl md:text-2xl font-medium leading-relaxed text-[#968E9C] max-w-4xl">
                 {bio?.content || "Agentic AI Architect building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows. Stack: Python, LangChain, FastAPI, Next.js, Vector DBs. Focused on turning research into production-grade agents."}
               </p>
             </div>
@@ -118,22 +114,22 @@ export default async function HomePage() {
           {/* Journey Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-4 flex items-center gap-8">
-               <div className="w-16 h-16 rounded-full border-2 border-zinc-300 flex items-center justify-center p-3">
+               <div className="w-16 h-16 rounded-full border-2 border-[#8B65BF]/30 flex items-center justify-center p-3 bg-[#1F1A40]/50">
                   <svg className="w-full h-full text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                </div>
-               <h2 className="text-5xl font-black font-display">
-                Journey <span className="font-light text-zinc-400">Info</span>
+               <h2 className="text-5xl font-black font-display text-[#E5DEFE]">
+                Journey <span className="font-light text-[#8B65BF]">Info</span>
                </h2>
             </div>
-            <div className="lg:col-span-8 space-y-2">
+            <div className="lg:col-span-8 space-y-4">
               {journey.length > 0 ? journey.map((phase) => (
-                <div key={phase.phase_number} className="text-lg md:text-xl font-bold leading-snug">
-                  <span className="font-black mr-2">{phase.title} →</span>
-                  <span className="text-zinc-500 font-medium">{phase.subtitle} →</span>
-                  <span className="text-zinc-600 font-medium ml-1">{phase.description}</span>
+                <div key={phase.phase_number} className="text-lg md:text-xl font-bold leading-snug p-6 rounded-xl border border-[#8B65BF]/10 bg-[#1F1A40]/30 hover:border-[#8B65BF]/40 transition-all">
+                  <span className="font-black mr-2 text-[#8B65BF]">{phase.title} →</span>
+                  <span className="text-[#E5DEFE] font-medium">{phase.subtitle} →</span>
+                  <span className="text-[#968E9C] font-medium ml-1">{phase.description}</span>
                 </div>
               )) : (
-                <div className="text-zinc-400 animate-pulse font-mono tracking-widest uppercase text-sm">Sequence_Loading_Protocol...</div>
+                <div className="text-[#8B65BF] animate-pulse font-mono tracking-widest uppercase text-sm">Sequence_Loading_Protocol...</div>
               )}
             </div>
           </div>
