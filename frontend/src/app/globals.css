@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap');
 @import "tailwindcss";
 
+/* 
+  Tailwind v4 @theme directive. 
+  IDE warning "Unknown at rule @theme" is expected as of June 2026 
+  for standard CSS validators. 
+*/
 @theme inline {
-  /* Ethereal Logic Design System - Dark Mode Primary */
-  --color-surface: #131026;
-  --color-surface-container: #1F1A40;
-  --color-primary-glow: #8B65BF;
-  --color-on-surface: #E5DEFE;
-  --color-on-surface-variant: #968E9C;
+  /* Mystical Black Lotus Design System */
+  --color-lotus-core: #5F2DA6;
+  --color-lotus-deep: #4E3473;
+  --color-lotus-glow: #8B65BF;
+  --color-lotus-surface: #1F1A40;
+  --color-lotus-void: #131026;
   
   --font-display: 'Manrope', sans-serif;
   --font-body: 'Hanken Grotesk', sans-serif;
@@ -18,10 +23,12 @@
   --background: #131026;
   --foreground: #E5DEFE;
   --accent: #8B65BF;
+  --surface: #1F1A40;
+  --void: #131026;
 }
 
 body {
-  background-color: var(--background);
+  background-color: var(--void);
   color: var(--foreground);
   font-family: 'Hanken Grotesk', sans-serif;
   line-height: 1.5;
@@ -35,35 +42,25 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 
-/* Design System Utilities */
-.glass-surface {
-  background: rgba(31, 26, 64, 0.4);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 101, 191, 0.15);
-  border-radius: 1rem;
-}
-
+/* Mystical Utilities */
 .ethereal-glow {
-  box-shadow: 0 0 30px rgba(139, 101, 191, 0.2);
+  box-shadow: 0 0 50px rgba(139, 101, 191, 0.3);
 }
 
-.pill-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.75rem;
-  background: rgba(139, 101, 191, 0.1);
-  border: 1px solid rgba(139, 101, 191, 0.3);
-  border-radius: 9999px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #8B65BF;
+.glass-morphism {
+  background: rgba(31, 26, 64, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 101, 191, 0.2);
 }
 
-/* Infinite Scrolling Tech Marquee */
+.lotus-gradient-text {
+  background: linear-gradient(135deg, #8B65BF 0%, #5F2DA6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Automatic Scrolling Tech Bar */
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -72,38 +69,37 @@ h1, h2, h3 {
 .marquee-container {
   width: 100%;
   overflow: hidden;
-  background: #1F1A40;
-  border-top: 1px solid rgba(139, 101, 191, 0.1);
-  border-bottom: 1px solid rgba(139, 101, 191, 0.1);
+  background: var(--surface);
+  border-top: 1px solid rgba(139, 101, 191, 0.2);
+  border-bottom: 1px solid rgba(139, 101, 191, 0.2);
   white-space: nowrap;
-  padding: 1rem 0;
+  padding: 1.25rem 0;
 }
 
 .marquee-content {
   display: inline-flex;
-  gap: 3rem;
-  animation: scroll 40s linear infinite;
-  will-change: transform;
+  gap: 4rem;
+  animation: scroll 45s linear infinite;
 }
 
 .marquee-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   color: #968E9C;
 }
 
 .marquee-dot {
-  width: 4px;
-  height: 4px;
-  background: #8B65BF;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
   border-radius: 50%;
-  opacity: 0.4;
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
