@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import ContactInfo, ContactMessage
+from .serializers import ContactInfoSerializer, ContactMessageSerializer
 
-# Create your views here.
+class ContactInfoDetail(generics.ListAPIView):
+    queryset = ContactInfo.objects.filter(is_active=True)
+    serializer_class = ContactInfoSerializer
+
+class ContactMessageCreate(generics.CreateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer

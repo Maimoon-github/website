@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import ContentPage
+from .serializers import ContentPageSerializer
 
-# Create your views here.
+class ContentPageDetail(generics.RetrieveAPIView):
+    queryset = ContentPage.objects.filter(is_published=True)
+    serializer_class = ContentPageSerializer
+    lookup_field = 'slug'
