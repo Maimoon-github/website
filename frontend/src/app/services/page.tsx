@@ -1,0 +1,86 @@
+import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Services | Antigravity",
+  description: "Explore the cutting-edge services offered by Antigravity, ranging from full-stack web development to AI integration.",
+};
+
+const services = [
+  {
+    title: "AI & Agentic Workflows",
+    description: "Design and deployment of intelligent autonomous agents using LangChain, CrewAI, and custom node-based orchestrators to automate complex tasks.",
+    icon: (
+      <svg className="w-8 h-8 text-[#8B65BF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    )
+  },
+  {
+    title: "High-Fidelity Web Apps",
+    description: "Building bleeding-edge web applications using Next.js and robust backend frameworks like Django. Focused on performance, SEO, and user experience.",
+    icon: (
+      <svg className="w-8 h-8 text-[#8B65BF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    )
+  },
+  {
+    title: "Premium UI/UX Design",
+    description: "Crafting atmospheric, premium digital experiences with dark themes, glassmorphism, and smooth micro-animations tailored to represent your brand's unique identity.",
+    icon: (
+      <svg className="w-8 h-8 text-[#8B65BF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      </svg>
+    )
+  }
+];
+
+export default function ServicesPage() {
+  return (
+    <main className="min-h-screen bg-[#131026] text-[#E5DEFE] py-32 relative">
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#8B65BF]/5 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="max-w-[1440px] mx-auto px-10 relative z-10">
+        <div className="text-center mb-24">
+          <div className="text-[#8B65BF] font-mono text-sm tracking-widest uppercase mb-4">
+            Capabilities Matrix
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black font-display mb-6">
+            Our <span className="text-[#8B65BF] font-light">Services</span>
+          </h1>
+          <p className="text-xl text-[#968E9C] font-medium leading-relaxed max-w-2xl mx-auto">
+            We provide a suite of premium development and design services to elevate your digital presence and operational automation.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <div key={index} className="bg-[#1F1A40]/30 border border-[#1F1A40] rounded-2xl p-8 hover:border-[#8B65BF]/50 hover:bg-[#1F1A40]/50 transition-all group relative overflow-hidden">
+              <div className="absolute -inset-2 bg-gradient-to-br from-[#8B65BF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur" />
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-2xl border border-[#8B65BF]/30 bg-[#131026] flex items-center justify-center mb-8 shadow-[0_0_15px_rgba(139,101,191,0.1)] group-hover:scale-110 transition-transform">
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-[#E5DEFE]">{service.title}</h3>
+                <p className="text-[#968E9C] leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-24 text-center border border-[#1F1A40] bg-[#1F1A40]/20 rounded-2xl p-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-black mb-4">Ready to Initialize a New Project?</h2>
+          <p className="text-[#968E9C] text-lg mb-8">
+            Contact us to define the architecture and payload of your next venture.
+          </p>
+          <a href="/contact" className="inline-block bg-[#8B65BF] text-[#131026] px-10 py-4 rounded-md font-black text-sm tracking-widest transition-all hover:scale-105 shadow-[0_0_30px_rgba(139,101,191,0.3)]">
+            OPEN COMMS CHANNEL
+          </a>
+        </div>
+      </div>
+    </main>
+  );
+}

@@ -13,18 +13,36 @@ export interface BlogPost {
   published_at: string;
 }
 
+export interface Technology {
+  id: number;
+  name: string;
+  icon_name: string;
+}
+
+export interface ProjectImage {
+  id: number;
+  image: string;
+  caption: string;
+  order: number;
+}
+
 export interface Project {
   id: number;
   title: string;
   slug: string;
+  category: string;
+  category_display: string;
   client_name: string;
   description: string;
+  role: string;
   completion_date: string;
   website_url: string;
+  github_url: string;
   is_featured: boolean;
   cover_image: string | null;
   short_info: string;
-  icon_name: string;
+  technologies: Technology[];
+  gallery: ProjectImage[];
 }
 
 export interface HeroSection {
