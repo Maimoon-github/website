@@ -11,96 +11,130 @@ export default async function HomePage() {
   ]);
 
   const { hero, bio, journey } = homeData;
+  const backendUrl = 'http://localhost:8000';
+
+  // For the infinite scroll effect, we duplicate the items
+  const techItems = hero?.tech_stack ? hero.tech_stack.split(',') : [
+    'Models/APIs [via vLLM/Ollama]',
+    'agent frameworks [LangGraph, CrewAI, AutoGen, Pydantic AI]',
+    'MCP tool[context layer]',
+    'memory & retrieval [Qdrant, Redis]',
+    'orchestration [Celery]',
+    'eval & observability [Langfuse]',
+    'serving/infra [FastAPI, Docker, NixOS]',
+    'guardrails [Guardrails AI]',
+    'data/state [Postgres, Redis]'
+  ];
 
   return (
-    <main className="min-h-screen bg-[#F2F2F2]">
-      {/* 1. Hero Section - Focused & Clear */}
-      <section className="pt-12 pb-20 overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <span className="inline-block px-3 py-1 bg-[#8B65BF]/10 text-[#8B65BF] text-[10px] font-black tracking-widest uppercase rounded-full mb-6">
-                {hero?.system_status || "SYSTEM READY"}
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl text-[#131026] mb-6">
+    <main className="min-h-screen bg-[#131026] text-[#E5DEFE]">
+      {/* 1. Hero Section - Deep Midnight Mode */}
+      <section className="relative pt-20 pb-32 overflow-hidden border-b border-[#1F1A40]">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[#8B65BF]/5 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-[1440px] mx-auto px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            <div className="lg:col-span-7 z-10">
+              <div className="pill-badge mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#8B65BF] animate-pulse" />
+                {hero?.system_status || "SYSTEM ARCHITECTURE READY"}
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.05] tracking-tight">
                 {hero?.title || "Agentic AI"} <br/>
-                <span className="text-[#8B65BF]">{hero?.title_accent || "Engineer Architect"}</span>
+                <span className="text-[#8B65BF] italic">{hero?.title_accent || "Engineer Architect"}</span>
               </h1>
-              <p className="text-lg text-zinc-600 font-medium leading-relaxed mb-10 max-w-lg">
-                {hero?.description || "Building autonomous systems that transform complex LLM orchestration into scalable automation."}
+              
+              <p className="text-xl text-[#968E9C] font-medium leading-relaxed mb-12 max-w-2xl">
+                {hero?.description || "AI Developer & Agentic Workflow Architect building autonomous systems that transform complex LLM orchestration into scalable, high-impact automation."}
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/projects" className="bg-[#131026] text-white px-8 py-4 rounded-xl font-bold transition-all hover:bg-[#8B65BF] shadow-lg shadow-black/10">
-                  See My Work
+              
+              <div className="flex flex-wrap gap-6">
+                <Link href="/projects" className="bg-[#8B65BF] text-[#131026] px-10 py-5 rounded-md font-black text-xs tracking-widest transition-all hover:scale-105 shadow-[0_0_40px_rgba(139,101,191,0.3)]">
+                  {hero?.protocol_text || "INITIALIZE PROTOCOL"}
                 </Link>
-                <Link href="/contact" className="bg-white border border-zinc-200 text-[#131026] px-8 py-4 rounded-xl font-bold transition-all hover:border-[#8B65BF] hover:text-[#8B65BF]">
-                  Get In Touch
+                <Link href="/contact" className="border border-[#8B65BF]/40 text-[#8B65BF] px-10 py-5 rounded-md font-black text-xs tracking-widest transition-all hover:bg-[#8B65BF]/10">
+                  {hero?.architecture_text || "VIEW ARCHITECTURE"}
                 </Link>
               </div>
             </div>
 
-            <div className="relative group lg:block hidden">
-              <div className="absolute -inset-4 bg-[#8B65BF]/10 rounded-3xl -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
-              <div className="relative aspect-video rounded-2xl overflow-hidden border-2 border-white shadow-2xl">
+            <div className="lg:col-span-5 relative">
+              <div className="absolute -inset-4 bg-[#8B65BF]/20 blur-[60px] rounded-full opacity-50" />
+              <div className="relative border-4 border-[#1F1A40] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700">
                 {hero?.hero_image ? (
                   <img 
-                    src={hero.hero_image.startsWith('http') ? hero.hero_image : `http://localhost:8000${hero.hero_image}`} 
-                    alt="Hero" 
-                    className="w-full h-full object-cover" 
+                    src={hero.hero_image.startsWith('http') ? hero.hero_image : `${backendUrl}${hero.hero_image}`} 
+                    alt="System Architecture" 
+                    className="w-full aspect-[4/3] object-cover" 
                   />
                 ) : (
-                  <div className="w-full h-full bg-zinc-200 flex items-center justify-center">
-                    <svg className="w-12 h-12 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  <div className="aspect-[4/3] bg-[#1c192f] flex items-center justify-center">
+                    <span className="text-[#8B65BF] font-mono text-xs uppercase tracking-widest opacity-40">System_Module_Empty</span>
                   </div>
                 )}
+                <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* 2. Simplified Tech Bar */}
-      <div className="bg-white border-y border-zinc-200 py-6">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 opacity-60 grayscale hover:grayscale-0 transition-all">
-            {hero?.tech_stack ? hero.tech_stack.split(',').map((item, i) => (
-              <span key={i} className="text-[10px] font-black uppercase tracking-[0.2em]">{item.trim()}</span>
-            )) : (
-              ['FastAPI', 'Next.js', 'PyTorch', 'Docker', 'Redis'].map(item => (
-                <span key={item} className="text-[10px] font-black uppercase tracking-[0.2em]">{item}</span>
-              ))
-            )}
-          </div>
+      {/* 2. Automatic Scrolling Tech Bar */}
+      <div className="marquee-container">
+        <div className="marquee-content">
+          {[...techItems, ...techItems].map((item, i) => (
+            <div key={i} className="marquee-item">
+              <span className="marquee-dot" />
+              {item.trim()}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* 3. Logic & Story - More Readable */}
-      <section className="py-24 max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      {/* 3. Bio & Journey - Contrasting Light Mode as per Image */}
+      <section className="bg-[#EBEBEB] text-[#131026] py-32">
+        <div className="max-w-[1440px] mx-auto px-10 space-y-32">
           
-          {/* Bio info */}
-          <div className="lg:col-span-5">
-            <span className="text-[10px] font-black text-[#8B65BF] uppercase tracking-widest block mb-4">Discovery</span>
-            <h2 className="text-3xl font-black mb-6">The Bio <span className="text-zinc-300">Info</span></h2>
-            <p className="text-lg text-zinc-600 leading-relaxed font-medium">
-              {bio?.content || "Building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows."}
-            </p>
+          {/* Bio Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-4 flex items-center gap-8">
+               <div className="w-16 h-16 rounded-full border-2 border-zinc-300 flex items-center justify-center p-3">
+                  <svg className="w-full h-full text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+               </div>
+               <h2 className="text-5xl font-black font-display">
+                {bio?.title || "Bio"} <span className="font-light text-zinc-400">{bio?.subtitle || "Info"}</span>
+               </h2>
+            </div>
+            <div className="lg:col-span-8">
+              <p className="text-xl md:text-2xl font-medium leading-relaxed text-zinc-600 max-w-4xl">
+                {bio?.content || "Agentic AI Architect building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows. Stack: Python, LangChain, FastAPI, Next.js, Vector DBs. Focused on turning research into production-grade agents."}
+              </p>
+            </div>
           </div>
 
-          {/* Journey info */}
-          <div className="lg:col-span-7">
-            <span className="text-[10px] font-black text-[#8B65BF] uppercase tracking-widest block mb-4">Evolution</span>
-            <h2 className="text-3xl font-black mb-8">Journey <span className="text-zinc-300">Timeline</span></h2>
-            <div className="space-y-4">
-              {journey.map((phase) => (
-                <div key={phase.phase_number} className="group p-6 bg-white border border-zinc-200 rounded-2xl hover:border-[#8B65BF] transition-all">
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm font-black text-[#8B65BF]">P{phase.phase_number}</span>
-                    <h3 className="text-lg font-bold group-hover:text-[#8B65BF] transition-colors">{phase.title}</h3>
-                  </div>
-                  <p className="text-sm text-zinc-500 mt-2 pl-9">{phase.description}</p>
+          {/* Journey Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-4 flex items-center gap-8">
+               <div className="w-16 h-16 rounded-full border-2 border-zinc-300 flex items-center justify-center p-3">
+                  <svg className="w-full h-full text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+               </div>
+               <h2 className="text-5xl font-black font-display">
+                Journey <span className="font-light text-zinc-400">Info</span>
+               </h2>
+            </div>
+            <div className="lg:col-span-8 space-y-2">
+              {journey.length > 0 ? journey.map((phase) => (
+                <div key={phase.phase_number} className="text-lg md:text-xl font-bold leading-snug">
+                  <span className="font-black mr-2">Phase {phase.phase_number} →</span>
+                  <span className="text-zinc-500 font-medium">{phase.subtitle} →</span>
+                  <span className="text-zinc-600 font-medium ml-1">{phase.description}</span>
                 </div>
-              ))}
+              )) : (
+                <div className="text-zinc-400 animate-pulse font-mono tracking-widest uppercase text-sm">Sequence_Loading_Protocol...</div>
+              )}
             </div>
           </div>
 
