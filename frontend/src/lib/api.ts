@@ -1,4 +1,4 @@
-import { BlogPost, Project } from '../types';
+import { BlogPost, Project, AboutData, Service, ContactInfo, ContactMessage } from '../types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 
@@ -52,7 +52,41 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
 }
 
 export async function getHomeData(): Promise<HomeData> {
-  // Using absolute URL to ensure server-side fetching works reliably
   const data = await fetchAPI('/home/');
   return data || { hero: null, bio: null, journey: [] };
+}
+
+export async function getAboutData(): Promise<AboutData> {
+  const data = await fetchAPI('/about/');
+  return data || { section: null, team: [] };
+}
+
+export async function getServices(): Promise<Service[]> {
+  const data = await fetchAPI('/services/');
+  return data || [];
+}
+
+export async function getContactInfo(): Promise<ContactInfo | null> {
+  const data = await fetchAPI('/contact/info/');
+  // Since info is a list view, we expect an array
+  if (Array.isArray(data) && data.length > 0) {
+    return data[0];
+  }
+  return null;
+}
+
+export async function sendContactMessage(message: ContactMessage): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/contact/message/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+    return res.ok;
+  } catch (error) {
+    console.error('Error sending contact message:', error);
+    return false;
+  }
 }

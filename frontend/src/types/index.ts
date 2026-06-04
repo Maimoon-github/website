@@ -56,14 +56,13 @@ export interface HeroSection {
   background_image: string | null;
 }
 
-export interface Service {
+export interface AboutSection {
   id: number;
   title: string;
-  slug: string;
-  short_description: string;
-  detailed_description: string;
-  icon_name: string;
-  price_starting_at: string;
+  content: string;
+  mission_statement: string;
+  vision_statement: string;
+  featured_image: string | null;
 }
 
 export interface TeamMember {
@@ -74,4 +73,35 @@ export interface TeamMember {
   photo: string | null;
   linkedin_url: string;
   twitter_url: string;
+}
+
+export interface AboutData {
+  section: AboutSection | null;
+  team: TeamMember[];
+}
+
+export interface Service {
+  id: number;
+  title: string;
+  slug: string;
+  short_description: string;
+  detailed_description: string;
+  icon_name: string;
+  price_starting_at: string | null;
+  is_active: boolean;
+}
+
+export interface ContactInfo {
+  id: number;
+  email: string;
+  phone: string;
+  address: string;
+  google_maps_url: string;
+}
+
+export interface ContactMessage {
+  name: string;
+  email: string;
+  subject?: string;
+  message: string;
 }
