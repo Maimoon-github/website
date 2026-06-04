@@ -42,15 +42,14 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Center: Logo (Multi-line precise layout) */}
-          <div className="flex-none text-center transform translate-y-1">
+          {/* Center: Logo Image (Strictly replaced text with provided logo image) */}
+          <div className="flex-none text-center">
             <Link href="/" className="inline-block group">
-              <span className="block text-[32px] font-black tracking-[0.25em] text-[#8B65BF] leading-[1] font-display">
-                MAIMOON
-              </span>
-              <span className="block text-[10px] font-black tracking-[0.4em] uppercase text-zinc-800 mt-1 font-mono">
-                AGENTIC AI ENGINEER
-              </span>
+              <img 
+                src="/image/maimoon logo.jpeg" 
+                alt="MAIMOON Agentic AI Engineer" 
+                className="h-16 w-auto mix-blend-multiply transition-transform group-hover:scale-105"
+              />
             </Link>
           </div>
 
