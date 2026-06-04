@@ -1,4 +1,4 @@
-import { BlogPost, Project, AboutData, Service, ContactInfo, ContactMessage } from '../types';
+import { AboutData, Service, ContactInfo, ContactMessage } from '../types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap");
 @import "tailwindcss";
 
 /* 
@@ -7,15 +7,15 @@
 */
 
 @theme inline {
-  --color-lotus-core: #5F2DA6;      /* Deep Violet Core */
-  --color-lotus-deep: #4E3473;      /* Deep Haze */
-  --color-lotus-glow: #8B65BF;      /* Ethereal Glow */
-  --color-lotus-surface: #1F1A40;   /* Surface Layer */
-  --color-lotus-void: #131026;      /* Deep Void */
-  
-  --font-display: 'Manrope', sans-serif;
-  --font-body: 'Hanken Grotesk', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --color-lotus-core: #5f2da6; /* Deep Violet Core */
+  --color-lotus-deep: #4e3473; /* Deep Haze */
+  --color-lotus-glow: #8b65bf; /* Ethereal Glow */
+  --color-lotus-surface: #1f1a40; /* Surface Layer */
+  --color-lotus-void: #131026; /* Deep Void */
+
+  --font-display: "Manrope", sans-serif;
+  --font-body: "Hanken Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   /* Custom Transitions */
   --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -23,10 +23,11 @@
 
 :root {
   --background: #131026;
-  --foreground: #E5DEFE;
-  --accent: #8B65BF;
-  --surface: #1F1A40;
+  --foreground: #e5defe;
+  --accent: #8b65bf;
+  --surface: #1f1a40;
   --void: #131026;
+  --muted: #968e9c;
   --glow-color: rgba(139, 101, 191, 0.4);
 }
 
@@ -39,7 +40,7 @@
 body {
   background-color: var(--void);
   color: var(--foreground);
-  font-family: 'Hanken Grotesk', sans-serif;
+  font-family: "Hanken Grotesk", sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -47,15 +48,20 @@ body {
 
 /* --- Typography --- */
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Manrope', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Manrope", sans-serif;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #F3EEFF;
+  color: #f3eeff;
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 /* --- UI Components --- */
@@ -68,12 +74,12 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(31, 26, 64, 0.5);
   border: 1px solid rgba(139, 101, 191, 0.3);
   border-radius: 9999px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #8B65BF;
+  color: #8b65bf;
 }
 
 /* --- Mystical Utilities --- */
@@ -100,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .lotus-gradient-text {
-  background: linear-gradient(135deg, #F3EEFF 0%, #8B65BF 100%);
+  background: linear-gradient(135deg, #f3eeff 0%, #8b65bf 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -109,8 +115,13 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Animations --- */
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
@@ -118,8 +129,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
 }
 
 .animate-pulse-glow {
@@ -129,8 +147,12 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Marquee Enhancements --- */
 
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee-container {
@@ -175,17 +197,17 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  color: #968E9C;
+  color: #968e9c;
   transition: color 0.3s ease;
 }
 
 .marquee-item:hover {
-  color: #E5DEFE;
+  color: #e5defe;
 }
 
 .marquee-dot {
@@ -215,5 +237,10 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--accent);
 }
 
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

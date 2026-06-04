@@ -17,26 +17,28 @@ export default function Header() {
   const pathname = usePathname();
 
   // Close sidebar on route change
-  useEffect(() => setIsOpen(false), [pathname]);
+  useEffect(() => {
+    if (isOpen) setIsOpen(false);
+  }, [pathname, isOpen]);
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#F2F2F2]/95 backdrop-blur-md border-b border-zinc-200">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--void)]/95 backdrop-blur-md border-b border-[var(--lotus-glow)]/15">
         {/* max-w aligned with home page's 1200px for perfect vertical rhythm */}
-        <div className="max-w-[1248px] mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-10 h-20 flex items-center justify-between">
           
           {/* Left Block: Star + Phone 
               Controlled gaps (gap-12) for a breathable, non-tangled look
           */}
           <div className="flex items-center gap-8 lg:gap-12 flex-1">
-            <button className="text-[#131026] hover:text-[#8B65BF] transition-all transform hover:scale-110 active:scale-95">
+            <button className="text-[var(--foreground)] hover:text-[var(--accent)] transition-all transform hover:scale-110 active:scale-95">
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
               </svg>
             </button>
             <div className="hidden lg:flex items-baseline gap-2">
-              <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#8B65BF]">Call:</span>
-              <span className="text-xs font-bold text-[#131026] tracking-tight">0321 0011001</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[var(--accent)]">Call:</span>
+              <span className="text-xs font-bold text-[var(--foreground)] tracking-tight">0321 0011001</span>
             </div>
           </div>
 
@@ -48,7 +50,7 @@ export default function Header() {
               <img 
                 src="/image/maimoon logo.jpeg" 
                 alt="MAIMOON" 
-                className="h-12 md:h-14 w-auto mix-blend-multiply transition-transform group-hover:scale-105 duration-300"
+                className="h-12 md:h-14 w-auto brightness-110 contrast-125 transition-transform group-hover:scale-105 duration-300"
               />
             </Link>
           </div>
@@ -58,8 +60,8 @@ export default function Header() {
           */}
           <div className="flex items-center justify-end gap-8 lg:gap-12 flex-1">
             <div className="hidden lg:flex items-baseline gap-2 text-right">
-              <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[#8B65BF]">Mail:</span>
-              <span className="text-xs font-bold text-[#131026]">info@maimoonamin.com</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[var(--accent)]">Mail:</span>
+              <span className="text-xs font-bold text-[var(--foreground)]">info@maimoonamin.com</span>
             </div>
             
             <button 
@@ -67,9 +69,9 @@ export default function Header() {
               className="group p-1 relative flex flex-col gap-1.5 w-6 items-end"
               aria-label="Toggle Menu"
             >
-              <span className="h-0.5 w-full bg-[#131026] rounded-full group-hover:bg-[#8B65BF] transition-all" />
-              <span className="h-0.5 w-3/4 bg-[#131026] rounded-full group-hover:bg-[#8B65BF] transition-all" />
-              <span className="h-0.5 w-full bg-[#131026] rounded-full group-hover:bg-[#8B65BF] transition-all" />
+              <span className="h-0.5 w-full bg-[var(--foreground)] rounded-full group-hover:bg-[var(--accent)] transition-all" />
+              <span className="h-0.5 w-3/4 bg-[var(--foreground)] rounded-full group-hover:bg-[var(--accent)] transition-all" />
+              <span className="h-0.5 w-full bg-[var(--foreground)] rounded-full group-hover:bg-[var(--accent)] transition-all" />
             </button>
           </div>
         </div>
@@ -114,8 +116,9 @@ export default function Header() {
           </nav>
 
           <div className="absolute bottom-12 left-12 right-12 p-8 rounded-2xl bg-white/5 border border-white/10">
-            <p className="text-[10px] uppercase font-black tracking-widest text-[#8B65BF] mb-2">Inquiry</p>
-            <p className="text-sm font-medium">Have a specific project? <br/> Let's build the architecture.</p>
+            <p className="text-[var(--muted)] text-sm mb-8 leading-relaxed max-w-xs mx-auto md:mx-0">
+              Crafting the future of the web with autonomous agents and premium digital experiences. Let&apos;s build something extraordinary.
+            </p>
           </div>
         </aside>
       </div>
