@@ -60,9 +60,9 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative">
-              <div className="absolute -inset-4 bg-[#8B65BF]/20 blur-[60px] rounded-full opacity-50" />
-              <div className="relative border-4 border-[#1F1A40] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700">
+            <div className="lg:col-span-5 relative animate-float">
+              <div className="absolute -inset-4 bg-[#8B65BF]/20 blur-[60px] rounded-full opacity-50 animate-pulse-glow" />
+              <div className="relative border-4 border-[#1F1A40] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700 ethereal-glow-lg">
                 <img 
                   src="/image/hero image.jpeg" 
                   alt={hero?.title || "System Architecture"} 
