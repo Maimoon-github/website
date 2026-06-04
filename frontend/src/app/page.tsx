@@ -1,8 +1,6 @@
 import { getHomeData } from '../lib/api';
 import { getPosts } from '../lib/posts';
 import { getProjects } from '../lib/projects';
-import BlogCard from '../components/BlogCard';
-import ProjectCard from '../components/ProjectCard';
 import Link from 'next/link';
 
 export default async function HomePage() {
@@ -15,129 +13,93 @@ export default async function HomePage() {
   const { hero, bio, journey } = homeData;
 
   return (
-    <main className="flex-grow pt-16 bg-[#131026] text-[#e5defe] selection:bg-[#8B65BF]/30 selection:text-white">
-      {/* 1. Hero Section - Mimicking 'Stitch' screen.png */}
-      <section className="py-24 px-6 max-w-[1280px] mx-auto overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="relative z-10 animate-in fade-in slide-in-from-left-8 duration-1000">
-            {/* System Status Chip */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1F1A40]/50 border border-[#8B65BF]/30 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8B65BF] animate-pulse shadow-[0_0_8px_#8B65BF]" />
-              <span className="text-[10px] uppercase tracking-[0.15em] font-black text-[#8B65BF] font-mono">
-                {hero?.system_status || "SYSTEM ARCHITECTURE READY"}
+    <main className="min-h-screen bg-[#F2F2F2]">
+      {/* 1. Hero Section - Focused & Clear */}
+      <section className="pt-12 pb-20 overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <span className="inline-block px-3 py-1 bg-[#8B65BF]/10 text-[#8B65BF] text-[10px] font-black tracking-widest uppercase rounded-full mb-6">
+                {hero?.system_status || "SYSTEM READY"}
               </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl text-[#131026] mb-6">
+                {hero?.title || "Agentic AI"} <br/>
+                <span className="text-[#8B65BF]">{hero?.title_accent || "Engineer Architect"}</span>
+              </h1>
+              <p className="text-lg text-zinc-600 font-medium leading-relaxed mb-10 max-w-lg">
+                {hero?.description || "Building autonomous systems that transform complex LLM orchestration into scalable automation."}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/projects" className="bg-[#131026] text-white px-8 py-4 rounded-xl font-bold transition-all hover:bg-[#8B65BF] shadow-lg shadow-black/10">
+                  See My Work
+                </Link>
+                <Link href="/contact" className="bg-white border border-zinc-200 text-[#131026] px-8 py-4 rounded-xl font-bold transition-all hover:border-[#8B65BF] hover:text-[#8B65BF]">
+                  Get In Touch
+                </Link>
+              </div>
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-black leading-[1.05] tracking-tight mb-8 font-display">
-              {hero?.title || "Agentic AI"} <br />
-              <span className="text-[#8B65BF] italic">{hero?.title_accent || "Engineer Architect"}</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-[#ccc3d2] font-medium leading-relaxed max-w-xl mb-12">
-              {hero?.description || "AI Developer & Agentic Workflow Architect building autonomous systems that transform complex LLM orchestration into scalable, high-impact automation."}
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                href={hero?.protocol_link || "/contact"}
-                className="bg-[#8B65BF] hover:bg-[#a57edb] text-[#131026] px-10 py-4 rounded-md font-black text-xs tracking-widest transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(139,101,191,0.3)]"
-              >
-                {hero?.protocol_text || "INITIALIZE PROTOCOL"}
-              </Link>
-              <Link 
-                href={hero?.architecture_link || "/projects"}
-                className="bg-transparent border border-[#8B65BF]/40 hover:border-[#8B65BF] text-[#8B65BF] px-10 py-4 rounded-md font-black text-xs tracking-widest transition-all hover:bg-[#8B65BF]/5"
-              >
-                {hero?.architecture_text || "VIEW ARCHITECTURE"}
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative group animate-in fade-in slide-in-from-right-8 duration-1000">
-            {/* Aesthetic Glow Orb behind image */}
-            <div className="absolute -inset-10 bg-[#8B65BF]/20 blur-[120px] rounded-full opacity-50 group-hover:opacity-80 transition-opacity" />
-            
-            <div className="relative border-4 border-[#1F1A40] rounded-2xl overflow-hidden shadow-2xl scale-95 hover:scale-100 transition-transform duration-700">
-              {hero?.hero_image ? (
-                <img src={hero.hero_image} alt="Hero" className="w-full h-full object-cover" />
-              ) : (
-                <div className="aspect-[16/10] bg-[#1c192f] flex items-center justify-center">
-                   <div className="text-center p-8 border border-dashed border-[#3a364e] rounded-xl">
-                      <p className="text-[#8B65BF] font-mono text-sm mb-2">&gt; ASSET_MISSING</p>
-                      <p className="text-[10px] text-[#968e9c] uppercase tracking-widest">Awaiting visual synchronization</p>
-                   </div>
-                </div>
-              )}
-              {/* Inner Glow Overlay */}
-              <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
+            <div className="relative group lg:block hidden">
+              <div className="absolute -inset-4 bg-[#8B65BF]/10 rounded-3xl -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
+              <div className="relative aspect-video rounded-2xl overflow-hidden border-2 border-white shadow-2xl">
+                {hero?.hero_image ? (
+                  <img src={hero.hero_image} alt="Hero" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-zinc-200 flex items-center justify-center">
+                    <svg className="w-12 h-12 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Tech Stack Bar - Void Surface with Glass effect */}
-      <div className="relative z-20 w-full bg-[#1F1A40]/90 backdrop-blur-md border-y border-[#3a364e] overflow-hidden py-4">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="flex items-center gap-x-12 gap-y-2 text-[10px] uppercase tracking-[0.2em] font-black text-[#968e9c] whitespace-nowrap overflow-x-auto no-scrollbar font-mono">
+      {/* 2. Simplified Tech Bar */}
+      <div className="bg-white border-y border-zinc-200 py-6">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 opacity-60 grayscale hover:grayscale-0 transition-all">
             {hero?.tech_stack ? hero.tech_stack.split(',').map((item, i) => (
-              <span key={i} className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8B65BF]/40" />
-                {item.trim()}
-              </span>
+              <span key={i} className="text-[10px] font-black uppercase tracking-[0.2em]">{item.trim()}</span>
             )) : (
-              <>
-                <span>LLM/Ollama</span>
-                <span>LangGraph</span>
-                <span>CrewAI</span>
-                <span>MCP Context</span>
-                <span>Qdrant</span>
-                <span>FastAPI/NixOS</span>
-                <span>Guardrails</span>
-              </>
+              ['FastAPI', 'Next.js', 'PyTorch', 'Docker', 'Redis'].map(item => (
+                <span key={item} className="text-[10px] font-black uppercase tracking-[0.2em]">{item}</span>
+              ))
             )}
           </div>
         </div>
       </div>
 
-      {/* 3. Bio & Journey Sections - Balanced Atmospheric Layout */}
-      <section className="py-32 px-6 max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+      {/* 3. Logic & Story - More Readable */}
+      <section className="py-24 max-w-[1200px] mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
-          <div className="lg:col-span-12 space-y-32">
-            {/* Bio info */}
-            <div className="flex flex-col md:flex-row gap-12 items-start text-justify">
-              <div className="flex items-center gap-6 min-w-[320px]">
-                <div className="w-16 h-16 rounded-full bg-[#1F1A40] border border-[#8B65BF]/30 flex items-center justify-center shadow-[0_0_20px_rgba(139,101,191,0.1)]">
-                   <svg className="w-8 h-8 text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                </div>
-                <h2 className="text-4xl font-extrabold tracking-tight font-display">Bio <span className="text-[#968e9c] font-light">Info</span></h2>
-              </div>
-              <p className="text-xl text-[#ccc3d2] leading-relaxed max-w-4xl font-body">
-                {bio?.content || "Agentic AI Architect building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows."}
-              </p>
-            </div>
+          {/* Bio info */}
+          <div className="lg:col-span-5">
+            <span className="text-[10px] font-black text-[#8B65BF] uppercase tracking-widest block mb-4">Discovery</span>
+            <h2 className="text-3xl font-black mb-6">The Bio <span className="text-zinc-300">Info</span></h2>
+            <p className="text-lg text-zinc-600 leading-relaxed font-medium">
+              {bio?.content || "Building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows."}
+            </p>
+          </div>
 
-            {/* Journey info */}
-            <div className="flex flex-col md:flex-row gap-12 items-start text-justify">
-              <div className="flex items-center gap-6 min-w-[320px]">
-                <div className="w-16 h-16 rounded-full bg-[#1F1A40] border border-[#8B65BF]/30 flex items-center justify-center shadow-[0_0_20px_rgba(139,101,191,0.1)]">
-                   <svg className="w-8 h-8 text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L16 4m0 13V4m0 0L9 7" /></svg>
-                </div>
-                <h2 className="text-4xl font-extrabold tracking-tight font-display">Journey <span className="text-[#968e9c] font-light">Info</span></h2>
-              </div>
-              <div className="space-y-6">
-                {journey.length > 0 ? journey.map((phase) => (
-                  <div key={phase.phase_number} className="text-lg leading-relaxed border-l-2 border-[#1F1A40] pl-8 hover:border-[#8B65BF]/50 transition-colors font-body">
-                    <span className="font-black text-[#8B65BF] uppercase text-sm tracking-widest block mb-1 font-mono">Phase {phase.phase_number}</span>
-                    <span className="font-bold text-white mr-2">{phase.title}</span>
-                    <span className="text-[#968e9c] block mt-1">{phase.description}</span>
+          {/* Journey info */}
+          <div className="lg:col-span-7">
+            <span className="text-[10px] font-black text-[#8B65BF] uppercase tracking-widest block mb-4">Evolution</span>
+            <h2 className="text-3xl font-black mb-8">Journey <span className="text-zinc-300">Timeline</span></h2>
+            <div className="space-y-4">
+              {journey.map((phase) => (
+                <div key={phase.phase_number} className="group p-6 bg-white border border-zinc-200 rounded-2xl hover:border-[#8B65BF] transition-all">
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm font-black text-[#8B65BF]">P{phase.phase_number}</span>
+                    <h3 className="text-lg font-bold group-hover:text-[#8B65BF] transition-colors">{phase.title}</h3>
                   </div>
-                )) : (
-                  <p className="text-[#968e9c] italic font-body">Timeline in progress...</p>
-                )}
-              </div>
+                  <p className="text-sm text-zinc-500 mt-2 pl-9">{phase.description}</p>
+                </div>
+              ))}
             </div>
           </div>
+
         </div>
       </section>
     </main>
