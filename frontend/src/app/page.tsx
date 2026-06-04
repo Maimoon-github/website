@@ -66,7 +66,7 @@ export default async function HomePage() {
                 {hero?.hero_image ? (
                   <img 
                     src={hero.hero_image.startsWith('http') ? hero.hero_image : `${backendUrl}${hero.hero_image}`} 
-                    alt="System Architecture" 
+                    alt={hero.title || "System Architecture"} 
                     className="w-full aspect-[4/3] object-cover" 
                   />
                 ) : (
@@ -128,7 +128,7 @@ export default async function HomePage() {
             <div className="lg:col-span-8 space-y-2">
               {journey.length > 0 ? journey.map((phase) => (
                 <div key={phase.phase_number} className="text-lg md:text-xl font-bold leading-snug">
-                  <span className="font-black mr-2">Phase {phase.phase_number} →</span>
+                  <span className="font-black mr-2">{phase.title} →</span>
                   <span className="text-zinc-500 font-medium">{phase.subtitle} →</span>
                   <span className="text-zinc-600 font-medium ml-1">{phase.description}</span>
                 </div>

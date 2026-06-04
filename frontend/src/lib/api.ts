@@ -17,11 +17,13 @@ export interface HomeData {
   } | null;
   bio: {
     title: string;
+    subtitle: string;
     content: string;
   } | null;
   journey: Array<{
     phase_number: number;
     title: string;
+    subtitle: string;
     description: string;
   }>;
 }
@@ -50,6 +52,7 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
 }
 
 export async function getHomeData(): Promise<HomeData> {
+  // Using absolute URL to ensure server-side fetching works reliably
   const data = await fetchAPI('/home/');
   return data || { hero: null, bio: null, journey: [] };
 }
