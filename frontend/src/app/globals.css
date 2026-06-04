@@ -46,7 +46,13 @@ h1, h2, h3 {
 }
 
 .label-small {
-  text-[10px] uppercase tracking-[0.2em] font-black text-[#8B65BF] mb-2 block;
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 900;
+  color: #8B65BF;
+  margin-bottom: 0.5rem;
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -59,4 +65,10 @@ h1, h2, h3 {
 
 .btn-secondary {
   @apply border-2 border-[#131026] text-[#131026] px-8 py-3 rounded-lg font-bold text-sm transition-all hover:bg-[#131026] hover:text-white;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
