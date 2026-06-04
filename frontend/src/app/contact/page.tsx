@@ -1,20 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
-// We use client component for the form state.
+import React, { useState, useEffect } from "react";
+import { getContactInfo, sendContactMessage } from "../../lib/api";
+import { ContactInfo } from "../../types";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  useEffect(() => {
+    async function fetchInfo() {
+      const info = await getContactInfo();
+      setContactInfo(info);
+    }
+    fetchInfo();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
-    // Simulate API call
-    setTimeout(() => {
+    
+    const success = await sendContactMessage(formData);
+    
+    if (success) {
       setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-    }, 1500);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } else {
+      setStatus("error");
+    }
   };
 
   return (
@@ -42,17 +56,29 @@ export default function ContactPage() {
                  </div>
                  <div>
                     <h3 className="text-xl font-bold mb-1">Direct Ping</h3>
-                    <p className="text-[#968E9C]">hello@antigravity.agency</p>
+                    <p className="text-[#968E9C]">{contactInfo?.email || "hello@antigravity.agency"}</p>
                  </div>
               </div>
               
+              {contactInfo?.phone && (
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full border border-[#8B65BF]/30 flex items-center justify-center p-2 bg-[#1F1A40]/50 shrink-0">
+                      <svg className="w-full h-full text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  </div>
+                  <div>
+                      <h3 className="text-xl font-bold mb-1">Voice Up-link</h3>
+                      <p className="text-[#968E9C]">{contactInfo.phone}</p>
+                  </div>
+                </div>
+              )}
+
               <div className="flex items-start gap-4">
                  <div className="w-12 h-12 rounded-full border border-[#8B65BF]/30 flex items-center justify-center p-2 bg-[#1F1A40]/50 shrink-0">
                     <svg className="w-full h-full text-[#8B65BF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                  </div>
                  <div>
                     <h3 className="text-xl font-bold mb-1">Global Node</h3>
-                    <p className="text-[#968E9C]">Remote & Accessible Worldwide</p>
+                    <p className="text-[#968E9C]">{contactInfo?.address || "Remote & Accessible Worldwide"}</p>
                  </div>
               </div>
             </div>
@@ -72,6 +98,11 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                {status === "error" && (
+                  <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-lg text-sm font-bold">
+                    FAILED TO SEND TRANSMISSION. PLEASE RETRY OR USE DIRECT PING.
+                  </div>
+                )}
                 <div>
                   <label htmlFor="name" className="block text-xs font-black tracking-widest text-[#968E9C] mb-2 uppercase">Entity Name</label>
                   <input 
@@ -97,11 +128,22 @@ export default function ContactPage() {
                   />
                 </div>
                 <div>
+                  <label htmlFor="subject" className="block text-xs font-black tracking-widest text-[#968E9C] mb-2 uppercase">Subject</label>
+                  <input 
+                    type="text" 
+                    id="subject" 
+                    value={formData.subject}
+                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                    className="w-full bg-[#131026]/50 border border-[#1F1A40] rounded-lg px-4 py-3 text-[#E5DEFE] focus:outline-none focus:border-[#8B65BF]/50 focus:ring-1 focus:ring-[#8B65BF]/50 transition-all font-medium"
+                    placeholder="Operation type"
+                  />
+                </div>
+                <div>
                   <label htmlFor="message" className="block text-xs font-black tracking-widest text-[#968E9C] mb-2 uppercase">Payload (Message)</label>
                   <textarea 
                     id="message" 
                     required
-                    rows={5}
+                    rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     className="w-full bg-[#131026]/50 border border-[#1F1A40] rounded-lg px-4 py-3 text-[#E5DEFE] focus:outline-none focus:border-[#8B65BF]/50 focus:ring-1 focus:ring-[#8B65BF]/50 transition-all resize-none font-medium"
