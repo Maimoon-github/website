@@ -43,7 +43,11 @@ export default async function HomePage() {
               <div className="absolute -inset-4 bg-[#8B65BF]/10 rounded-3xl -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
               <div className="relative aspect-video rounded-2xl overflow-hidden border-2 border-white shadow-2xl">
                 {hero?.hero_image ? (
-                  <img src={hero.hero_image} alt="Hero" className="w-full h-full object-cover" />
+                  <img 
+                    src={hero.hero_image.startsWith('http') ? hero.hero_image : `http://localhost:8000${hero.hero_image}`} 
+                    alt="Hero" 
+                    className="w-full h-full object-cover" 
+                  />
                 ) : (
                   <div className="w-full h-full bg-zinc-200 flex items-center justify-center">
                     <svg className="w-12 h-12 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>

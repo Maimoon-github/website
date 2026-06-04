@@ -24,16 +24,19 @@ class HeroSection(models.Model):
         return self.title
 
 class BioSection(models.Model):
-    title = models.CharField(max_length=255, default="Bio Info")
+    title = models.CharField(max_length=255, default="Bio")
+    subtitle = models.CharField(max_length=255, default="Info")
     content = models.TextField()
+    icon = models.CharField(max_length=100, blank=True, help_text="Lucide icon name or SVG path")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} {self.subtitle}"
 
 class JourneyPhase(models.Model):
     phase_number = models.PositiveIntegerField()
     title = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255, blank=True)
     description = models.TextField()
     
     class Meta:
