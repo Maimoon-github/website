@@ -1,30 +1,33 @@
-import React from "react";
+import React from 'react';
 
 interface SectionHeaderProps {
   title: string;
+  accentTitle?: string;
   subtitle?: string;
-  badge?: string;
-  align?: "left" | "center";
+  pillText?: string;
+  centered?: boolean;
 }
 
-export default function SectionHeader({ title, subtitle, badge, align = "left" }: SectionHeaderProps) {
-  const isCenter = align === "center";
-
+export default function SectionHeader({
+  title,
+  accentTitle,
+  subtitle,
+  pillText,
+  centered = false
+}: SectionHeaderProps) {
   return (
-    <div className={`mb-16 ${isCenter ? "text-center" : "text-left"}`}>
-      {badge && (
-        <div className="text-[var(--accent)] font-mono text-sm tracking-widest uppercase mb-4">
-          {badge}
+    <div className={`flex flex-col ${centered ? 'items-center text-center' : 'items-start'} mb-16`}>
+      {pillText && (
+        <div className="pill-badge mb-6">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+          {pillText}
         </div>
       )}
       <h2 className="text-5xl md:text-7xl font-black font-display mb-6">
-        {title.split(" ")[0]}{" "}
-        <span className="text-[var(--accent)] font-light">
-          {title.split(" ").slice(1).join(" ")}
-        </span>
+        {title} {accentTitle && <span className="text-[var(--accent)] font-light">{accentTitle}</span>}
       </h2>
       {subtitle && (
-        <p className={`text-xl text-[#968E9C] font-medium leading-relaxed max-w-2xl ${isCenter ? "mx-auto" : ""}`}>
+        <p className={`text-xl text-[var(--muted)] font-medium leading-relaxed max-w-2xl ${centered ? 'mx-auto' : ''}`}>
           {subtitle}
         </p>
       )}
