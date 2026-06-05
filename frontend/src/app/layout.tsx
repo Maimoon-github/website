@@ -4,24 +4,6 @@ import "./globals.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Antigravity",
-    default: "Antigravity | Premium AI & Web Design Agency",
-  },
-  description: "Boutique digital agency building the future of the web with agentic AI and premium aesthetics.",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +14,7 @@ export default function RootLayout({
       lang="en"
       className="h-full antialiased dark"
     >
-      <body className="min-h-screen flex flex-col bg-[#131026] text-[#e5defe] overflow-x-hidden selection:bg-[#8B65BF]/30">
+      <body className="min-h-screen flex flex-col bg-[var(--void)] text-[var(--foreground)] overflow-x-hidden selection:bg-[var(--accent)]/30">
         <Header />
         {children}
         <Footer />

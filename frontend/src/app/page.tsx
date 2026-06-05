@@ -4,9 +4,8 @@ import { getProjects } from '../lib/projects';
 import Link from 'next/link';
 
 export default async function HomePage() {
-  const [homeData, posts, projects] = await Promise.all([
+  const [homeData, projects] = await Promise.all([
     getHomeData(),
-    getPosts(),
     getProjects()
   ]);
 

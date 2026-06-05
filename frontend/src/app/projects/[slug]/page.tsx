@@ -15,7 +15,7 @@ export default async function ProjectDetailPage({ params: { slug } }: { params: 
   const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000';
   
   return (
-    <main className="min-h-screen bg-[#131026] text-[#E5DEFE] pb-32">
+    <main className="min-h-screen bg-[var(--void)] text-[var(--foreground)] pb-32">
       {/* Immersive Header */}
       <header className="relative py-48 overflow-hidden">
         {project.cover_image && (
@@ -25,12 +25,12 @@ export default async function ProjectDetailPage({ params: { slug } }: { params: 
               alt="" 
               className="w-full h-full object-cover blur-2xl scale-110" 
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#131026] via-[#131026]/80 to-[#131026]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--void)] via-[var(--void)]/80 to-[var(--void)]" />
           </div>
         )}
         
         <div className="relative z-10 max-w-[1440px] mx-auto px-10">
-          <Link href="/projects" className="inline-flex items-center gap-3 text-[10px] font-black tracking-widest text-[#8B65BF] hover:text-[#E5DEFE] transition-colors mb-12 uppercase">
+          <Link href="/projects" className="inline-flex items-center gap-3 text-[10px] font-black tracking-widest text-[var(--accent)] hover:text-[var(--foreground)] transition-colors mb-12 uppercase">
             <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             <span>RETURN TO ARCHIVES</span>
           </Link>
@@ -42,7 +42,7 @@ export default async function ProjectDetailPage({ params: { slug } }: { params: 
 
           <h1 className="text-6xl md:text-9xl font-black mb-16 tracking-tighter leading-[0.9]">
             {project.title.split(' ').map((word, i) => (
-              <span key={i} className={i % 2 === 1 ? 'text-[#8B65BF] italic block' : 'block'}>
+              <span key={i} className={i % 2 === 1 ? 'text-[var(--accent)] italic block' : 'block'}>
                 {word}
               </span>
             ))}
@@ -118,8 +118,8 @@ export default async function ProjectDetailPage({ params: { slug } }: { params: 
                    />
                 </div>
                 {img.caption && (
-                  <figcaption className="text-xs font-mono text-[#8B65BF]/60 tracking-wider uppercase">
-                    // {img.caption}
+                  <figcaption className="text-xs font-mono text-[var(--accent)]/60 tracking-wider uppercase">
+                    {`// ${img.caption}`}
                   </figcaption>
                 )}
               </figure>

@@ -18,8 +18,11 @@ export default function Header() {
 
   // Close sidebar on route change
   useEffect(() => {
-    if (isOpen) setIsOpen(false);
-  }, [pathname, isOpen]);
+    if (isOpen) {
+      setIsOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <>
