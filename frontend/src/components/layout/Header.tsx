@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
@@ -16,13 +17,14 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close sidebar on route change
-  useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  // Close sidebar on mount or if pathname changes via a simpler mechanism if needed, 
+  // but better to just handle it on link click or in a cleaner way.
+  // The lint error was set-state-in-effect which happens when you set state unconditionally 
+  // or based on props that change frequently.
+  
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -42,11 +44,13 @@ export default function Header() {
           </div>
 
           <div className="flex-none px-4">
-            <Link href="/" className="group block py-2">
-              <img 
+            <Link href="/" className="group block py-2 relative h-12 md:h-14 w-32">
+              <Image 
                 src="/image/maimoon logo.jpeg" 
                 alt="MAIMOON" 
-                className="h-12 md:h-14 w-auto brightness-110 contrast-125 transition-transform group-hover:scale-105 duration-300"
+                fill
+                className="object-contain brightness-110 contrast-125 transition-transform group-hover:scale-105 duration-300"
+                priority
               />
             </Link>
           </div>
@@ -97,6 +101,7 @@ export default function Header() {
               <Link 
                 key={link.name} 
                 href={link.href}
+                onClick={handleLinkClick}
                 className={`text-5xl font-black tracking-tighter transition-all hover:pl-4 hover:text-[var(--accent)] ${
                   pathname === link.href ? 'text-[var(--accent)]' : 'text-zinc-500'
                 }`}

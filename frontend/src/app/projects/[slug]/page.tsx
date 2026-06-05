@@ -1,15 +1,18 @@
 import { getProjectBySlug } from '../../../lib/projects';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
-export async function generateMetadata({ params: { slug } }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const project = await getProjectBySlug(resolvedParams.slug);
   if (!project) return {};
   return { title: `${project.title} | Antigravity` };
 }
 
-export default async function ProjectDetailPage({ params: { slug } }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(slug);
+export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const project = await getProjectBySlug(resolvedParams.slug);
   if (!project) notFound();
 
   const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000';
@@ -20,10 +23,12 @@ export default async function ProjectDetailPage({ params: { slug } }: { params: 
       <header className="relative py-48 overflow-hidden">
         {project.cover_image && (
           <div className="absolute inset-0 z-0 opacity-20">
-            <img 
+            <Image 
               src={project.cover_image.startsWith('http') ? project.cover_image : `${backendUrl}${project.cover_image}`} 
               alt="" 
-              className="w-full h-full object-cover blur-2xl scale-110" 
+              fill
+              className="object-cover blur-2xl scale-110" 
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[var(--void)] via-[var(--void)]/80 to-[var(--void)]" />
           </div>
@@ -110,11 +115,12 @@ export default async function ProjectDetailPage({ params: { slug } }: { params: 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {project.gallery.map((img) => (
               <figure key={img.id} className="space-y-4 group">
-                <div className="overflow-hidden rounded-2xl border border-[#8B65BF]/10">
-                   <img 
+                <div className="overflow-hidden rounded-2xl border border-[#8B65BF]/10 relative aspect-video">
+                   <Image 
                     src={img.image.startsWith('http') ? img.image : `${backendUrl}${img.image}`} 
-                    alt={img.caption} 
-                    className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000 scale-100 group-hover:scale-105" 
+                    alt={img.caption || "Project Visual"} 
+                    fill
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-100 group-hover:scale-105" 
                    />
                 </div>
                 {img.caption && (

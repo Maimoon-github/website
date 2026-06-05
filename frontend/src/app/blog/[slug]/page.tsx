@@ -1,4 +1,3 @@
-import React from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,8 +26,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000';
+
   return (
     <main className="min-h-screen bg-[#131026] text-[#E5DEFE] py-32 relative">
+      {/* ... */}
       <div className="absolute top-0 left-0 w-1/2 h-96 bg-[#8B65BF]/5 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="max-w-[900px] mx-auto px-6 lg:px-10 relative z-10 w-full">
@@ -58,11 +60,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {post.featured_image && (
-          <div className="w-full aspect-[21/9] bg-[#1F1A40] rounded-2xl mb-16 overflow-hidden border border-[#1F1A40]">
-            <img 
-              src={post.featured_image.startsWith("http") ? post.featured_image : `http://localhost:8000${post.featured_image}`}
+          <div className="w-full aspect-[21/9] bg-[#1F1A40] rounded-2xl mb-16 overflow-hidden border border-[#1F1A40] relative">
+            <Image 
+              src={post.featured_image.startsWith("http") ? post.featured_image : `${backendUrl}${post.featured_image}`}
               alt={post.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </div>
         )}

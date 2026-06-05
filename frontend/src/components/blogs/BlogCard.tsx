@@ -1,15 +1,19 @@
 import Link from 'next/link';
 import { BlogPost } from '../../types';
+import Image from 'next/image';
 
 export default function BlogCard({ post }: { post: BlogPost }) {
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000';
+
   return (
-    <div className="group relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+    <div className="group relative bg-[var(--void)] border border-[var(--surface)] rounded-2xl overflow-hidden hover:border-[var(--accent)]/40 transition-all duration-300">
       {post.featured_image && (
-        <div className="aspect-video overflow-hidden">
-          <img 
-            src={post.featured_image} 
+        <div className="aspect-video overflow-hidden relative border-b border-[var(--surface)]">
+          <Image 
+            src={post.featured_image.startsWith('http') ? post.featured_image : `${backendUrl}${post.featured_image}`} 
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
       )}
