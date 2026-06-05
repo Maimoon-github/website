@@ -26,13 +26,9 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--void)]/95 backdrop-blur-md border-b border-[var(--lotus-glow)]/15">
-        {/* max-w aligned with home page's 1200px for perfect vertical rhythm */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--void)]/95 backdrop-blur-md border-b border-[var(--accent)]/15">
         <div className="max-w-[1440px] mx-auto px-10 h-20 flex items-center justify-between">
           
-          {/* Left Block: Star + Phone 
-              Controlled gaps (gap-12) for a breathable, non-tangled look
-          */}
           <div className="flex items-center gap-8 lg:gap-12 flex-1">
             <button className="text-[var(--foreground)] hover:text-[var(--accent)] transition-all transform hover:scale-110 active:scale-95">
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -45,9 +41,6 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Center Block: Logo 
-              Ensuring the logo is the absolute center of the viewport
-          */}
           <div className="flex-none px-4">
             <Link href="/" className="group block py-2">
               <img 
@@ -58,9 +51,6 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Right Block: Email + Menu 
-              Mirrored gaps for perfect symmetry
-          */}
           <div className="flex items-center justify-end gap-8 lg:gap-12 flex-1">
             <div className="hidden lg:flex items-baseline gap-2 text-right">
               <span className="text-[10px] font-black uppercase tracking-[0.15em] text-[var(--accent)]">Mail:</span>
@@ -80,10 +70,8 @@ export default function Header() {
         </div>
       </header>
 
-      {/* spacer height matches header's h-20 */}
       <div className="h-20" />
 
-      {/* Sidebar - Precise Slide-in */}
       <div 
         className={`fixed inset-0 z-[60] transition-all duration-500 ease-in-out ${
           isOpen ? 'visible opacity-100' : 'invisible opacity-0 pointer-events-none'
@@ -91,13 +79,13 @@ export default function Header() {
       >
         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
         <aside 
-          className={`absolute top-0 right-0 h-full w-full max-w-[400px] bg-[#131026] text-white p-12 shadow-2xl transition-transform duration-500 transform ${
+          className={`absolute top-0 right-0 h-full w-full max-w-[400px] bg-[var(--void)] text-[var(--foreground)] p-12 shadow-2xl transition-transform duration-500 transform ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
           <div className="flex justify-between items-center mb-16">
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#8B65BF]">Navigation Area</span>
-            <button onClick={() => setIsOpen(false)} className="text-white/60 hover:text-[#8B65BF]">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--accent)]">Navigation Area</span>
+            <button onClick={() => setIsOpen(false)} className="text-[var(--foreground)]/60 hover:text-[var(--accent)]">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -109,8 +97,8 @@ export default function Header() {
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={`text-5xl font-black tracking-tighter transition-all hover:pl-4 hover:text-[#8B65BF] ${
-                  pathname === link.href ? 'text-[#8B65BF]' : 'text-zinc-500'
+                className={`text-5xl font-black tracking-tighter transition-all hover:pl-4 hover:text-[var(--accent)] ${
+                  pathname === link.href ? 'text-[var(--accent)]' : 'text-zinc-500'
                 }`}
               >
                 {link.name}
@@ -119,7 +107,7 @@ export default function Header() {
           </nav>
 
           <div className="absolute bottom-12 left-12 right-12 p-8 rounded-2xl bg-white/5 border border-white/10">
-            <p className="text-[var(--muted)] text-sm mb-8 leading-relaxed max-w-xs mx-auto md:mx-0">
+            <p className="text-[var(--muted)] text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
               Crafting the future of the web with autonomous agents and premium digital experiences. Let&apos;s build something extraordinary.
             </p>
           </div>
