@@ -36,11 +36,13 @@ export default async function ProjectsPage() {
         {/* Call to Action */}
         <div className="mt-32 p-16 rounded-3xl bg-[var(--surface)]/30 border border-[var(--accent)]/20 text-center relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/10 blur-[80px] rounded-full group-hover:bg-[var(--accent)]/20 transition-all duration-700" />
-          <h2 className="text-3xl font-black mb-6 relative z-10">HAVE A PROTOCOL TO DISCUSS?</h2>
-          <p className="text-[var(--muted)] mb-10 max-w-xl mx-auto relative z-10">
+          <h2 className="text-5xl font-black mb-6 relative z-10 tracking-tighter leading-none">
+            HAVE A <span className="text-[var(--accent)] italic">PROTOCOL</span> TO DISCUSS?
+          </h2>
+          <p className="text-[var(--muted)] mb-10 max-w-xl mx-auto relative z-10 text-sm font-medium tracking-tight leading-relaxed">
             I am always interested in architecting new autonomous systems and exploring LLM frontiers.
           </p>
-          <Link href="/contact" className="inline-block bg-[var(--accent)] text-[var(--void)] px-10 py-5 rounded-md font-black text-xs tracking-widest transition-all hover:scale-105 shadow-[0_0_40px_rgba(139,101,191,0.3)] relative z-10">
+          <Link href="/contact" className="inline-block bg-[var(--accent)] text-[var(--void)] px-12 py-6 rounded-md font-black text-xs tracking-[0.2em] transition-all hover:scale-105 shadow-[0_0_50px_rgba(139,101,191,0.4)] relative z-10">
             ESTABLISH CONNECTION
           </Link>
         </div>

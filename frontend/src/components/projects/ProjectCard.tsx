@@ -35,10 +35,10 @@ export default function ProjectCard({ project }: { project: Project }) {
                {project.category_display || 'OPERATION'}
              </span>
           </div>
-          <h3 className="text-2xl font-black text-[var(--foreground)] mb-4 group-hover:text-[var(--accent)] transition-colors leading-tight">
+          <h3 className="text-3xl font-black text-[var(--foreground)] mb-4 group-hover:text-[var(--accent)] transition-colors leading-[0.9] tracking-tighter italic">
             {project.title}
           </h3>
-          <p className="text-sm text-[var(--muted)] line-clamp-3 leading-relaxed mb-6 font-medium">
+          <p className="text-xs text-[var(--muted)] line-clamp-3 leading-relaxed mb-6 font-medium tracking-tight">
             {project.short_info || project.description}
           </p>
 

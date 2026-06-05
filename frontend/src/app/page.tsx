@@ -60,17 +60,17 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative animate-float">
-              <div className="absolute -inset-4 bg-[var(--accent)]/20 blur-[60px] rounded-full opacity-50 animate-pulse-glow" />
-              <div className="relative border-4 border-[var(--surface)] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700 ethereal-glow-lg aspect-[4/3]">
+            <div className="lg:col-span-6 relative animate-float lg:translate-x-12">
+              <div className="absolute -inset-10 bg-[var(--accent)]/30 blur-[100px] rounded-full opacity-40 animate-pulse-glow" />
+              <div className="relative border-[1px] border-[var(--surface)] rounded-3xl overflow-hidden shadow-2xl transform lg:rotate-1 hover:rotate-0 transition-transform duration-1000 ethereal-glow-lg aspect-[16/11]">
                 <Image 
                   src={hero?.hero_image ? (hero.hero_image.startsWith('http') ? hero.hero_image : `${backendUrl}${hero.hero_image}`) : "/image/hero image.jpeg"} 
                   alt={hero?.title || "System Architecture"} 
                   fill
-                  className="object-cover" 
+                  className="object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" 
                   priority
                 />
-                <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[var(--void)]/20 to-transparent pointer-events-none" />
               </div>
             </div>
 
@@ -97,41 +97,41 @@ export default async function HomePage() {
         <div className="max-w-[1440px] mx-auto px-10 space-y-32 relative z-10">
           
           {/* Bio Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-4 flex items-center gap-8">
-               <div className="w-16 h-16 rounded-full border-2 border-[var(--accent)]/30 flex items-center justify-center p-3 bg-[var(--surface)]/50">
-                  <svg className="w-full h-full text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 flex items-center gap-10">
+               <div className="w-20 h-20 rounded-3xl border border-[var(--accent)]/30 flex items-center justify-center p-4 bg-[var(--surface)]/40 shadow-xl">
+                  <svg className="w-full h-full text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                </div>
-               <h2 className="text-5xl font-black font-display text-[var(--foreground)]">
-                {bio?.title || "Bio"} <span className="font-light text-[var(--accent)]">{bio?.subtitle || "Info"}</span>
+               <h2 className="text-6xl font-black font-display text-[var(--foreground)] tracking-tighter">
+                {bio?.title || "Bio"} <span className="font-light italic text-[var(--accent)] opacity-80">{bio?.subtitle || "Info"}</span>
                </h2>
             </div>
-            <div className="lg:col-span-8">
-              <p className="text-xl md:text-2xl font-medium leading-relaxed text-[var(--muted)] max-w-4xl">
-                {bio?.content || "Agentic AI Architect building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows. Stack: Python, LangChain, FastAPI, Next.js, Vector DBs. Focused on turning research into production-grade agents."}
+            <div className="lg:col-span-7 pt-4">
+              <p className="text-2xl font-medium leading-[1.4] text-[var(--muted)] max-w-4xl tracking-tight">
+                {bio?.content || "Agentic AI Architect building autonomous, tool-using AI systems. Designs LLM agents with memory, planning & function calling for real-world workflows."}
               </p>
             </div>
           </div>
 
           {/* Journey Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-4 flex items-center gap-8">
-               <div className="w-16 h-16 rounded-full border-2 border-[var(--accent)]/30 flex items-center justify-center p-3 bg-[var(--surface)]/50">
-                  <svg className="w-full h-full text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 flex items-center gap-10">
+               <div className="w-20 h-20 rounded-3xl border border-[var(--accent)]/30 flex items-center justify-center p-4 bg-[var(--surface)]/40 shadow-xl">
+                  <svg className="w-full h-full text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                </div>
-               <h2 className="text-5xl font-black font-display text-[var(--foreground)]">
-                Journey <span className="font-light text-[var(--accent)]">Info</span>
+               <h2 className="text-6xl font-black font-display text-[var(--foreground)] tracking-tighter">
+                Journey <span className="font-light italic text-[var(--accent)] opacity-80">Info</span>
                </h2>
             </div>
-            <div className="lg:col-span-8 space-y-4">
+            <div className="lg:col-span-7 space-y-3">
               {journey.length > 0 ? journey.map((phase) => (
-                <div key={phase.phase_number} className="text-lg md:text-xl font-bold leading-snug p-6 rounded-xl border border-[var(--accent)]/10 bg-[var(--surface)]/30 hover:border-[var(--accent)]/40 transition-all group">
-                  <span className="font-black mr-2 text-[var(--accent)]">{phase.title} →</span>
-                  <span className="text-[var(--foreground)] font-medium">{phase.subtitle} →</span>
-                  <span className="text-[var(--muted)] font-medium ml-1">{phase.description}</span>
+                <div key={phase.phase_number} className="text-lg font-bold leading-none p-4 rounded-xl border border-[var(--surface)] bg-[var(--surface)]/20 hover:border-[var(--accent)]/30 hover:bg-[var(--surface)]/40 transition-all flex items-center group">
+                  <span className="font-black mr-3 text-[var(--accent)] text-xs tracking-widest">{phase.title} →</span>
+                  <span className="text-[var(--foreground)] font-bold text-xs mr-2">{phase.subtitle} →</span>
+                  <span className="text-[var(--muted)] font-medium text-[10px] opacity-70 tracking-tight">{phase.description}</span>
                 </div>
               )) : (
-                <div className="text-[var(--accent)] animate-pulse font-mono tracking-widest uppercase text-sm">Sequence_Loading_Protocol...</div>
+                <div className="text-[var(--accent)] animate-pulse font-mono tracking-[0.5em] uppercase text-[10px]">SEQUENCE_INITIALIZING...</div>
               )}
             </div>
           </div>

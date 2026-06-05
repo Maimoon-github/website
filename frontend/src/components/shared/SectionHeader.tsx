@@ -23,8 +23,8 @@ export default function SectionHeader({
           {pillText}
         </div>
       )}
-      <h2 className="text-5xl md:text-7xl font-black font-display mb-6">
-        {title} {accentTitle && <span className="text-[var(--accent)] font-light">{accentTitle}</span>}
+      <h2 className="text-5xl md:text-8xl font-black font-display mb-8 tracking-tighter leading-[0.9]">
+        {title} {accentTitle && <span className="text-[var(--accent)] font-light italic opacity-90">{accentTitle}</span>}
       </h2>
       {subtitle && (
         <p className={`text-xl text-[var(--muted)] font-medium leading-relaxed max-w-2xl ${centered ? 'mx-auto' : ''}`}>
