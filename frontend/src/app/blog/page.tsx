@@ -5,6 +5,7 @@ import { getPosts } from "../../lib/posts";
 import { BlogPost } from "../../types";
 import SectionHeader from "../../components/shared/SectionHeader";
 import GlassCard from "../../components/shared/GlassCard";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Blog | Antigravity",
@@ -32,20 +33,20 @@ export default async function BlogPage() {
               <Link key={post.slug} href={`/blog/${post.slug}`} className="group block focus:outline-none">
                 <GlassCard className="p-0 overflow-hidden h-full flex flex-col border border-[var(--surface)] hover:border-[var(--accent)]/40 transition-all duration-300">
                   {/* Image Section */}
-                  {post.featured_image && (
-                    <div className="w-full h-48 bg-[var(--void)] overflow-hidden border-b border-[var(--surface)]">
-                      <img 
+                  <div className="w-full h-48 bg-[var(--void)] overflow-hidden border-b border-[var(--surface)] relative">
+                    {post.featured_image ? (
+                      <Image 
                         src={post.featured_image.startsWith("http") ? post.featured_image : `${backendUrl}${post.featured_image}`}
                         alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                    </div>
-                  )}
-                  {!post.featured_image && (
-                    <div className="w-full h-48 bg-[var(--void)] overflow-hidden border-b border-[var(--surface)] flex items-center justify-center">
-                       <span className="text-[var(--accent)]/30 font-mono text-xs tracking-widest uppercase">No Image Logged</span>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-[var(--accent)]/30 font-mono text-xs tracking-widest uppercase">No Image Logged</span>
+                      </div>
+                    )}
+                  </div>
                   
                   <div className="p-8 flex-grow flex flex-col">
                     <div className="text-[var(--accent)] font-mono text-xs uppercase tracking-widest mb-3">

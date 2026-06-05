@@ -3,6 +3,7 @@ import { getProjects } from '../lib/projects';
 import Link from 'next/link';
 import PillBadge from '../components/shared/PillBadge';
 import SectionHeader from '../components/shared/SectionHeader';
+import Image from 'next/image';
 
 export default async function HomePage() {
   const [homeData, projects] = await Promise.all([
@@ -61,11 +62,13 @@ export default async function HomePage() {
 
             <div className="lg:col-span-5 relative animate-float">
               <div className="absolute -inset-4 bg-[var(--accent)]/20 blur-[60px] rounded-full opacity-50 animate-pulse-glow" />
-              <div className="relative border-4 border-[var(--surface)] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700 ethereal-glow-lg">
-                <img 
+              <div className="relative border-4 border-[var(--surface)] rounded-2xl overflow-hidden shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-700 ethereal-glow-lg aspect-[4/3]">
+                <Image 
                   src={hero?.hero_image ? (hero.hero_image.startsWith('http') ? hero.hero_image : `${backendUrl}${hero.hero_image}`) : "/image/hero image.jpeg"} 
                   alt={hero?.title || "System Architecture"} 
-                  className="w-full aspect-[4/3] object-cover" 
+                  fill
+                  className="object-cover" 
+                  priority
                 />
                 <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10" />
               </div>
@@ -152,10 +155,11 @@ export default async function HomePage() {
                 {/* Image Section */}
                 <div className="aspect-square overflow-hidden relative">
                   {project.cover_image ? (
-                    <img 
+                    <Image 
                       src={project.cover_image.startsWith('http') ? project.cover_image : `${backendUrl}${project.cover_image}`} 
                       alt={project.title} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
                     />
                   ) : (
                     <div className="w-full h-full bg-[var(--surface)]/50 flex items-center justify-center">

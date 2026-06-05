@@ -1,8 +1,8 @@
-import React from "react";
 import type { Metadata } from "next";
 import { getAboutData } from "../../lib/api";
 import SectionHeader from "../../components/shared/SectionHeader";
 import GlassCard from "../../components/shared/GlassCard";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About | Antigravity",
@@ -58,10 +58,11 @@ export default async function AboutPage() {
             <div className="absolute -inset-4 bg-[var(--accent)]/10 blur-[60px] rounded-full opacity-50" />
             <div className="relative border-4 border-[var(--surface)] rounded-2xl overflow-hidden aspect-square flex items-center justify-center bg-[var(--void)]">
               {section?.featured_image ? (
-                <img 
+                <Image 
                   src={section.featured_image.startsWith('http') ? section.featured_image : `${backendUrl}${section.featured_image}`} 
                   alt={section.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <span className="text-[var(--accent)]/40 font-mono text-sm tracking-widest uppercase text-center px-8">
@@ -81,12 +82,13 @@ export default async function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {team.map((member) => (
                 <GlassCard key={member.id} className="p-8 group">
-                  <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6 border-2 border-[var(--accent)]/20 group-hover:border-[var(--accent)]/60 transition-all">
+                  <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6 border-2 border-[var(--accent)]/20 group-hover:border-[var(--accent)]/60 transition-all relative">
                     {member.photo ? (
-                      <img 
+                      <Image 
                         src={member.photo.startsWith('http') ? member.photo : `${backendUrl}${member.photo}`} 
                         alt={member.name}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
                     ) : (
                       <div className="w-full h-full bg-[var(--void)] flex items-center justify-center">

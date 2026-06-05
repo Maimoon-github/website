@@ -1,4 +1,3 @@
-import React from "react";
 import type { Metadata } from "next";
 import { getServices } from "../../lib/api";
 import SectionHeader from "../../components/shared/SectionHeader";

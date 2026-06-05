@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Project } from '../../types';
+import Image from 'next/image';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000';
@@ -12,10 +13,11 @@ export default function ProjectCard({ project }: { project: Project }) {
       {/* Image Section */}
       <div className="aspect-[16/10] overflow-hidden relative border-b border-[var(--surface)]">
         {imageUrl ? (
-          <img 
+          <Image 
             src={imageUrl} 
             alt={project.title} 
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+            fill
+            className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
           />
         ) : (
           <div className="w-full h-full bg-[var(--surface)] flex items-center justify-center">
