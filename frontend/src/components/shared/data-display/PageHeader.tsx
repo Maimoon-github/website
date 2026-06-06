@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { Breadcrumbs } from "../navigation"
 
 interface PageHeaderProps {
   badge?: string
@@ -7,6 +8,7 @@ interface PageHeaderProps {
   description?: string
   align?: "left" | "center"
   className?: string
+  showBreadcrumbs?: boolean
 }
 
 export function PageHeader({
@@ -16,6 +18,7 @@ export function PageHeader({
   description,
   align = "left",
   className,
+  showBreadcrumbs = true,
 }: PageHeaderProps) {
   return (
     <header className={cn(
@@ -23,6 +26,12 @@ export function PageHeader({
       align === "center" ? "text-center md:text-center" : "text-center lg:text-left",
       className
     )}>
+      {showBreadcrumbs && (
+        <Breadcrumbs className={cn(
+          "mb-12",
+          align === "center" ? "justify-center" : "justify-center lg:justify-start"
+        )} />
+      )}
       {badge && (
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent-purple/30 bg-accent-purple/5 text-[10px] font-mono uppercase tracking-[0.2em] text-accent-light mb-6">
           {badge}

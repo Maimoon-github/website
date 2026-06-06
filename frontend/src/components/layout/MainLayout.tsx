@@ -1,5 +1,6 @@
 import Navbar from "./Navbar"
 import Footer from "./Footer"
+import { ScrollToTop } from "@/components/shared/navigation"
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -13,6 +14,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         {children}
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }
