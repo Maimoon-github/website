@@ -1,7 +1,5 @@
 import Hero from '@/components/home/Hero';
 import DomainExplorer from '@/components/home/DomainExplorer';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import ProjectCard from '@/components/projects/ProjectCard';
 import BlogCard from '@/components/blog/BlogCard';
 import { ProjectService } from '@/services/projects.service';
@@ -23,11 +21,8 @@ export default async function Home() {
   const posts = postsRes.data;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-1">
-        <Hero />
+    <>
+      <Hero />
         
         <DomainExplorer />
 
@@ -103,9 +98,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-      </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

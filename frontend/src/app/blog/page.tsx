@@ -1,8 +1,7 @@
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import BlogCard from '@/components/blog/BlogCard';
 import { BlogService } from '@/services/blog.service';
 import { PageHeader } from '@/components/shared/data-display';
+import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,11 +9,7 @@ export default async function BlogPage() {
   const { data: posts, error } = await BlogService.getPosts();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-1 pt-32 pb-24">
-        <section className="max-w-7xl mx-auto px-4">
+    <Container className="pt-32 pb-24">
           <PageHeader 
             badge="Transmission Log"
             title="TECHNICAL"
@@ -47,10 +42,6 @@ export default async function BlogPage() {
               <p className="text-gray-500 font-mono uppercase tracking-widest">No transmissions found in current sector.</p>
             </div>
           )}
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+    </Container>
   );
 }

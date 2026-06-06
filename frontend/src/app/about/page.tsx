@@ -1,7 +1,6 @@
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import { Download, Linkedin, Twitter, Github, Mail } from 'lucide-react';
 import { CoreService } from '@/services/core.service';
+import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,11 +8,7 @@ export default async function AboutPage() {
   const { data: profile } = await CoreService.getProfile();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-1 pt-32 pb-24">
-        <section className="max-w-4xl mx-auto px-4 py-12">
+    <Container className="pt-32 pb-24">
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start mb-20 text-white">
             <div className="w-48 h-48 rounded-3xl overflow-hidden glass border-accent-purple/30 p-2 shrink-0 animate-float">
               <img 
@@ -104,10 +99,6 @@ export default async function AboutPage() {
               </div>
             </div>
           </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+    </Container>
   );
 }

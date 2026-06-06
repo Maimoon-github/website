@@ -1,8 +1,7 @@
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import ProjectCard from '@/components/projects/ProjectCard';
 import { ProjectService } from '@/services/projects.service';
 import { PageHeader } from '@/components/shared/data-display';
+import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,11 +9,7 @@ export default async function ProjectsPage() {
   const { data: projects, error } = await ProjectService.getProjects();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-1 pt-32 pb-24">
-        <section className="max-w-7xl mx-auto px-4">
+    <Container className="pt-32 pb-24">
           <PageHeader 
             badge="Production Repository"
             title="SELECTED"
@@ -48,10 +43,6 @@ export default async function ProjectsPage() {
               <p className="text-gray-500 font-mono uppercase tracking-widest">No projects found in this registry.</p>
             </div>
           )}
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+    </Container>
   );
 }

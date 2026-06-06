@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "The definitive technical resource for designing and building production-grade Agentic AI systems.",
 };
 
+import MainLayout from "@/components/layout/MainLayout";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="bg-background text-foreground antialiased selection:bg-accent-purple selection:text-white">
-        {children}
+        <MainLayout>
+          {children}
+        </MainLayout>
       </body>
     </html>
   );

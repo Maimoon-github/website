@@ -1,9 +1,8 @@
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import ArticleCard from '@/components/knowledge/ArticleCard';
 import { KnowledgeService } from '@/services/knowledge.service';
 import { Bot, Map, GraduationCap } from 'lucide-react';
 import { PageHeader } from '@/components/shared/data-display';
+import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,11 +10,7 @@ export default async function KnowledgeHub() {
   const { data: domains, error } = await KnowledgeService.getDomains();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-1 pt-32 pb-24">
-        <section className="max-w-7xl mx-auto px-4">
+    <Container className="pt-32 pb-24">
           <PageHeader 
             badge="Cognitive Repository"
             title="THE"
@@ -71,10 +66,6 @@ export default async function KnowledgeHub() {
               <p className="text-gray-500 font-mono uppercase tracking-widest">No domains indexed in collective memory.</p>
             </div>
           )}
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+    </Container>
   );
 }
