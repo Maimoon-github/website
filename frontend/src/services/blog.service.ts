@@ -1,35 +1,59 @@
-import api, { PaginatedResponse } from '@/lib/api';
+import api, { PaginatedResponse, ApiResponse } from '@/lib/api';
 
+/**
+ * Blog interfaces.
+ */
 export interface Post {
   id: number;
   title: string;
   slug: string;
-  excerpt: string;
-  featured_image: string;
-  category_name: string;
   author_name: string;
+  category: number;
+  category_name: string;
+  tags: Array<{ id: number; name: string; slug: string }>;
+  featured_image: string | null;
+  excerpt: string;
+  content: string;
   published_at: string;
   view_count: number;
+  reading_time: string;
+  [key: string]: any;
 }
 
+/**
+ * BlogService handles fetching blog posts, categories, and tags.
+ */
 export const BlogService = {
-  getPosts: async (params = {}) => {
-    try {
-      const response = await api.get<PaginatedResponse<Post>>('blog/posts/', { params });
-      return { data: response.data.results || [], error: null };
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-      return { data: [], error: 'Transmission failed. Buffer empty.' };
-    }
+  /**
+   * Fetches a list of blog posts with search and filter capabilities.
+   */
+  getPosts: async (params?: { search?: string; category?: string; tag?: string }): Promise<ApiResponse<Post[]>> => {
+    let endpoint = 'blog/posts/';
+    const queryParts = [];
+    if (params?.search) queryParts.push(`search=${params.search}`);
+    if (params?.category) queryParts.push(`category=${params.category}`);
+    if (params?.tag) queryParts.push(`tag=${params.tag}`);
+    if (queryParts.length > 0) endpoint += `?${queryParts.join('&')}`;
+
+    const response = await api.get<PaginatedResponse<Post>>(endpoint);
+    return {
+      data: response.data?.results || [],
+      error: response.error,
+      status: response.status
+    };
   },
 
-  getPost: async (slug: string) => {
-    try {
-      const response = await api.get<Post & { content: string }>(`blog/posts/${slug}/`);
-      return { data: response.data, error: null };
-    } catch (error) {
-       console.error(`Error fetching post ${slug}:`, error);
-       return { data: null, error: `Signal lost: Record ${slug} corrupted or missing.` };
-    }
+  /**
+   * Fetches a single post by its slug.
+   */
+  getPost: async (slug: string): Promise<ApiResponse<Post>> => {
+    return api.get<Post>(`blog/posts/${slug}/`);
+  },
+
+  /**
+   * Submits a comment to a specific post.
+   */
+  submitComment: async (slug: string, data: { name: string; email: string; content: string }): Promise<ApiResponse<any>> => {
+    return api.post(`blog/posts/${slug}/comment/`, data);
   }
 };

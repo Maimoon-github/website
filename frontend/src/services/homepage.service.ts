@@ -1,5 +1,8 @@
-import api, { PaginatedResponse } from '@/lib/api';
+import api, { PaginatedResponse, ApiResponse } from '@/lib/api';
 
+/**
+ * Interfaces for Homepage components.
+ */
 export interface HeroContent {
   id: number;
   title: string;
@@ -9,6 +12,8 @@ export interface HeroContent {
   primary_cta_link: string;
   secondary_cta_text: string;
   secondary_cta_link: string;
+  is_active: boolean;
+  [key: string]: any;
 }
 
 export interface StatCounter {
@@ -16,27 +21,34 @@ export interface StatCounter {
   label: string;
   value: string;
   icon: string;
-  order: number;
+  [key: string]: any;
 }
 
+/**
+ * HomepageService provides data for the landing page.
+ */
 export const HomepageService = {
-  getHeroContent: async () => {
-    try {
-      const response = await api.get<PaginatedResponse<HeroContent>>('homepage/hero/');
-      return { data: response.data.results[0] || null, error: null };
-    } catch (error) {
-      console.error('Error fetching hero content:', error);
-      return { data: null, error: 'Hero content unavailable.' };
-    }
+  /**
+   * Fetches the primary hero section content.
+   */
+  getHeroContent: async (): Promise<ApiResponse<HeroContent>> => {
+    const response = await api.get<PaginatedResponse<HeroContent>>('homepage/hero/');
+    return {
+      data: response.data?.results?.[0] || null,
+      error: response.error,
+      status: response.status
+    };
   },
 
-  getStats: async () => {
-    try {
-      const response = await api.get<PaginatedResponse<StatCounter>>('homepage/stats/');
-      return { data: response.data.results || [], error: null };
-    } catch (error) {
-      console.error('Error fetching stats:', error);
-      return { data: [], error: 'Stats unavailable.' };
-    }
+  /**
+   * Fetches the statistics counters for the homepage.
+   */
+  getStats: async (): Promise<ApiResponse<StatCounter[]>> => {
+    const response = await api.get<PaginatedResponse<StatCounter>>('homepage/stats/');
+    return {
+      data: response.data?.results || [],
+      error: response.error,
+      status: response.status
+    };
   }
 };

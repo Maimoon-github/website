@@ -1,13 +1,15 @@
-import axios from 'axios';
+/**
+ * Central API Client for Antigravity Frontend
+ * Handles fetching, error parsing, and Next.js caching integration.
+ */
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/';
 
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+export interface ApiResponse<T> {
+  data: T | null;
+  error: string | null;
+  status?: number;
+}
 
 export interface PaginatedResponse<T> {
   count: number;
@@ -16,29 +18,92 @@ export interface PaginatedResponse<T> {
   results: T[];
 }
 
+export type FetchOptions = RequestInit & {
+  revalidate?: number | false;
+  tags?: string[];
+};
+
+class ApiClient {
+  private async request<T>(
+    endpoint: string,
+    options: FetchOptions = {}
+  ): Promise<ApiResponse<T>> {
+    const { revalidate, tags, ...restOptions } = options;
+    const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+
+    try {
+      const response = await fetch(url, {
+        ...restOptions,
+        headers: {
+          'Content-Type': 'application/json',
+          ...restOptions.headers,
+        },
+        next: {
+          revalidate: revalidate !== undefined ? revalidate : 3600, // Default 1 hour
+          tags,
+        },
+      });
+
+      if (!response.ok) {
+        let errorMessage = `API Error: ${response.status} ${response.statusText}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorData.message || errorMessage;
+        } catch {
+          // Fallback if not JSON
+        }
+        return { data: null, error: errorMessage, status: response.status };
+      }
+
+      // Handle empty responses (204 No Content)
+      if (response.status === 204) {
+        return { data: null, error: null, status: 204 };
+      }
+
+      const data = await response.json();
+      return { data, error: null, status: response.status };
+    } catch (error) {
+      console.error(`Fetch error for ${url}:`, error);
+      return { 
+        data: null, 
+        error: error instanceof Error ? error.message : 'Network connection failed.',
+        status: 500 
+      };
+    }
+  }
+
+  async get<T>(endpoint: string, options?: FetchOptions) {
+    return this.request<T>(endpoint, { ...options, method: 'GET' });
+  }
+
+  async post<T>(endpoint: string, body: any, options?: FetchOptions) {
+    return this.request<T>(endpoint, {
+      ...options,
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  }
+
+  async put<T>(endpoint: string, body: any, options?: FetchOptions) {
+    return this.request<T>(endpoint, {
+      ...options,
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  }
+
+  async patch<T>(endpoint: string, body: any, options?: FetchOptions) {
+    return this.request<T>(endpoint, {
+      ...options,
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    });
+  }
+
+  async delete<T>(endpoint: string, options?: FetchOptions) {
+    return this.request<T>(endpoint, { ...options, method: 'DELETE' });
+  }
+}
+
+const api = new ApiClient();
 export default api;
-
-export const coreApi = {
-  getAbout: () => api.get('about/'),
-  getSkills: () => api.get('skills/'),
-  getExperience: () => api.get('experience/'),
-  getEducation: () => api.get('education/'),
-};
-
-export const projectsApi = {
-  getProjects: (params = {}) => api.get('projects/', { params }),
-  getProject: (slug: string) => api.get(`projects/${slug}/`),
-  getCategories: () => api.get('project-categories/'),
-};
-
-export const blogApi = {
-  getPosts: (params = {}) => api.get('posts/', { params }),
-  getPost: (slug: string) => api.get(`posts/${slug}/`),
-  submitComment: (slug: string, data: Record<string, unknown>) => api.post(`posts/${slug}/comment/`, data),
-};
-
-export const knowledgeApi = {
-  getDomains: () => api.get('knowledge/domains/'),
-  getDomain: (slug: string) => api.get(`knowledge/domains/${slug}/`),
-  getLearningPaths: () => api.get('knowledge/learning-paths/'),
-};

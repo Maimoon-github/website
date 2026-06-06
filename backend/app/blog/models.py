@@ -30,6 +30,7 @@ class Post(models.Model):
     published_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     view_count = models.PositiveIntegerField(default=0)
+    reading_time = models.CharField(max_length=50, default='10 min read')
 
     class Meta:
         ordering = ['-published_at']

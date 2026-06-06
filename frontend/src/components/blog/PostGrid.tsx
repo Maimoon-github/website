@@ -7,6 +7,7 @@ interface Post {
   published_at: string;
   featured_image?: string;
   category_name: string;
+  reading_time: string;
 }
 
 interface PostGridProps {
@@ -22,7 +23,7 @@ export default function PostGrid({ posts }: PostGridProps) {
           title={post.title}
           excerpt={post.excerpt}
           date={post.published_at}
-          readingTime="12 min read" // Should come from API
+          readingTime={post.reading_time || "12 min read"}
           slug={post.slug}
           image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
           category={post.category_name}

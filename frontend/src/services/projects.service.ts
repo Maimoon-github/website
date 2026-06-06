@@ -1,37 +1,71 @@
-import api, { PaginatedResponse } from '@/lib/api';
+import api, { PaginatedResponse, ApiResponse } from '@/lib/api';
 
+/**
+ * Project and Category interfaces.
+ */
 export interface Project {
   id: number;
   title: string;
   slug: string;
+  category: number;
+  category_name: string;
   short_description: string;
   description: string;
-  category_name: string;
+  featured_image: string | null;
   tech_stack: string[];
-  featured_image: string;
+  github_url: string | null;
+  live_url: string | null;
   is_featured: boolean;
-  github_url?: string;
-  live_url?: string;
+  screenshots: Array<{ id: number; image: string; caption: string }>;
+  created_at: string;
+  [key: string]: any;
 }
 
+export interface ProjectCategory {
+  id: number;
+  name: string;
+  slug: string;
+  [key: string]: any;
+}
+
+/**
+ * ProjectService handles fetching portfolio projects and categories.
+ */
 export const ProjectService = {
-  getProjects: async (params = {}) => {
-    try {
-      const response = await api.get<PaginatedResponse<Project>>('projects/list/', { params });
-      return { data: response.data.results || [], error: null };
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      return { data: [], error: 'Failed to fetch projects. Node offline.' };
-    }
+  /**
+   * Fetches a list of projects with optional filtering.
+   */
+  getProjects: async (params?: { featured?: boolean; category?: string }): Promise<ApiResponse<Project[]>> => {
+    let endpoint = 'projects/list/';
+    const queryParts = [];
+    if (params?.featured !== undefined) queryParts.push(`featured=${params.featured}`);
+    if (params?.category) queryParts.push(`category=${params.category}`);
+    if (queryParts.length > 0) endpoint += `?${queryParts.join('&')}`;
+    
+    const response = await api.get<PaginatedResponse<Project>>(endpoint);
+    return {
+      data: response.data?.results || [],
+      error: response.error,
+      status: response.status
+    };
   },
 
-  getProject: async (slug: string) => {
-    try {
-      const response = await api.get<Project>(`projects/list/${slug}/`);
-      return { data: response.data, error: null };
-    } catch (error) {
-      console.error(`Error fetching project ${slug}:`, error);
-      return { data: null, error: `Critical failure: Target ${slug} inaccessible.` };
-    }
+  /**
+   * Fetches a single project by its slug.
+   */
+  getProject: async (slug: string): Promise<ApiResponse<Project>> => {
+    return api.get<Project>(`projects/list/${slug}/`);
+  },
+
+  /**
+   * Fetches all project categories.
+   */
+  getCategories: async (): Promise<ApiResponse<ProjectCategory[]>> => {
+    const response = await api.get<PaginatedResponse<ProjectCategory>>('projects/categories/');
+    return {
+      data: response.data?.results || [],
+      error: response.error,
+      status: response.status
+    };
   }
 };

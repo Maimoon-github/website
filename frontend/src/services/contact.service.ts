@@ -1,13 +1,23 @@
-import api from '@/lib/api';
+import api, { ApiResponse } from '@/lib/api';
 
+/**
+ * Contact interfaces.
+ */
+export interface ContactMessage {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+/**
+ * ContactService handles form submissions and contact information.
+ */
 export const ContactService = {
-  submitMessage: async (data: { name: string; email: string; subject: string; message: string }) => {
-    try {
-      const response = await api.post('contact/messages/', data);
-      return { success: true, data: response.data };
-    } catch (error) {
-      console.error('Error submitting contact form:', error);
-      return { success: false, error };
-    }
+  /**
+   * Submits a contact message to the backend.
+   */
+  submitMessage: async (data: ContactMessage): Promise<ApiResponse<any>> => {
+    return api.post('contact/messages/', data);
   }
 };
