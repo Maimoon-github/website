@@ -1,8 +1,8 @@
-import BlogCard from '@/components/blog/BlogCard';
 import { BlogService } from '@/services/blog.service';
 import { PageHeader, EmptyState } from '@/components/shared/data-display';
 import { ErrorMessage } from '@/components/shared/feedback';
 import Container from '@/components/layout/Container';
+import { PostGrid } from '@/components/blog';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,20 +21,7 @@ export default async function BlogPage() {
       {error ? (
         <ErrorMessage message={error} />
       ) : posts && posts.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {posts.map((post) => (
-            <BlogCard
-              key={post.slug}
-              title={post.title}
-              excerpt={post.excerpt}
-              date={new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}
-              readingTime="12 min read"
-              slug={post.slug}
-              image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
-              category={post.category_name}
-            />
-          ))}
-        </div>
+        <PostGrid posts={posts} />
       ) : (
         <EmptyState 
           title="No Transmissions" 

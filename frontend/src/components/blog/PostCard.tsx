@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { DateDisplay, ReadingTimeBadge } from '@/components/shared/data-display';
 
-interface BlogCardProps {
+interface PostCardProps {
   title: string;
   excerpt: string;
   date: string;
@@ -14,7 +14,7 @@ interface BlogCardProps {
   category: string;
 }
 
-export default function BlogCard({ title, excerpt, date, readingTime, slug, image, category }: BlogCardProps) {
+export default function PostCard({ title, excerpt, date, readingTime, slug, image, category }: PostCardProps) {
   return (
     <Link href={`/blog/${slug}`} className="group">
       <Card className="h-full flex flex-col overflow-hidden border-white/5 hover:border-accent-purple/40 transition-all duration-500">

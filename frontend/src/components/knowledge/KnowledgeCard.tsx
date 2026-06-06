@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import * as Icons from 'lucide-react';
 
-interface ArticleCardProps {
+interface KnowledgeCardProps {
   title: string;
   slug: string;
   description: string;
@@ -12,7 +12,7 @@ interface ArticleCardProps {
   order: number;
 }
 
-export default function ArticleCard({ title, slug, description, icon, order }: ArticleCardProps) {
+export default function KnowledgeCard({ title, slug, description, icon, order }: KnowledgeCardProps) {
   // Dynamically resolve icon if it exists in lucide
   const IconComponent = (Icons as any)[icon] || Icons.Brain;
 

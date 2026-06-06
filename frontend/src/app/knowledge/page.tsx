@@ -1,9 +1,9 @@
-import ArticleCard from '@/components/knowledge/ArticleCard';
 import { KnowledgeService } from '@/services/knowledge.service';
 import { Bot, Map, GraduationCap } from 'lucide-react';
 import { PageHeader, EmptyState } from '@/components/shared/data-display';
 import { ErrorMessage } from '@/components/shared/feedback';
 import Container from '@/components/layout/Container';
+import { KnowledgeGrid } from '@/components/knowledge';
 
 export const dynamic = 'force-dynamic';
 
@@ -47,18 +47,7 @@ export default async function KnowledgeHub() {
       {error ? (
         <ErrorMessage message={error} />
       ) : domains && domains.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {domains.map((domain) => (
-            <ArticleCard
-              key={domain.slug}
-              title={domain.name}
-              slug={domain.slug}
-              description={domain.description}
-              icon={domain.icon}
-              order={domain.order}
-            />
-          ))}
-        </div>
+        <KnowledgeGrid domains={domains} />
       ) : (
         <EmptyState 
           title="Memory Empty" 
