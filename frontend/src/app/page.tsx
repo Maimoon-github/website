@@ -13,10 +13,13 @@ import { ArrowRight } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const [projects, posts] = await Promise.all([
+  const [projectsRes, postsRes] = await Promise.all([
     ProjectService.getProjects({ limit: 3, featured: true }),
     BlogService.getPosts({ limit: 2 })
   ]);
+
+  const projects = projectsRes.data;
+  const posts = postsRes.data;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -43,7 +46,7 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.slice(0, 3).map((project) => (
+              {projects.length > 0 ? projects.slice(0, 3).map((project) => (
                 <ProjectCard
                   key={project.slug}
                   title={project.title}
@@ -55,7 +58,11 @@ export default async function Home() {
                   github_url={project.github_url}
                   live_url={project.live_url}
                 />
-              ))}
+              )) : (
+                <div className="col-span-full py-20 text-center glass rounded-3xl border border-white/5 opacity-50">
+                  <p className="font-mono text-xs uppercase tracking-widest">Awaiting Project Data Deployment...</p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -76,7 +83,7 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {posts.slice(0, 2).map((post) => (
+              {posts.length > 0 ? posts.slice(0, 2).map((post) => (
                 <BlogCard
                   key={post.slug}
                   title={post.title}
@@ -87,7 +94,11 @@ export default async function Home() {
                   image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
                   category={post.category_name}
                 />
-              ))}
+              )) : (
+                <div className="col-span-full py-20 text-center glass rounded-3xl border border-white/5 opacity-50">
+                  <p className="font-mono text-xs uppercase tracking-widest">Awaiting Log Transmission...</p>
+                </div>
+              )}
             </div>
           </div>
         </section>

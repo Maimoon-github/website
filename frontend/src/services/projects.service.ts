@@ -18,20 +18,20 @@ export const ProjectService = {
   getProjects: async (params = {}) => {
     try {
       const response = await api.get<Project[]>('/projects/', { params });
-      return response.data;
+      return { data: response.data, error: null };
     } catch (error) {
       console.error('Error fetching projects:', error);
-      return [];
+      return { data: [], error: 'Failed to fetch projects. Node offline.' };
     }
   },
 
   getProject: async (slug: string) => {
     try {
       const response = await api.get<Project>(`/projects/${slug}/`);
-      return response.data;
+      return { data: response.data, error: null };
     } catch (error) {
       console.error(`Error fetching project ${slug}:`, error);
-      return null;
+      return { data: null, error: `Critical failure: Target ${slug} inaccessible.` };
     }
   }
 };

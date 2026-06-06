@@ -6,7 +6,7 @@ import { ProjectService } from '@/services/projects.service';
 export const dynamic = 'force-dynamic';
 
 export default async function ProjectsPage() {
-  const projects = await ProjectService.getProjects();
+  const { data: projects, error } = await ProjectService.getProjects();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -26,7 +26,12 @@ export default async function ProjectsPage() {
             </p>
           </header>
 
-          {projects.length > 0 ? (
+          {error ? (
+            <div className="glass p-20 text-center rounded-3xl border border-red-500/20 bg-red-500/5">
+              <p className="text-red-400 font-mono uppercase tracking-widest">{error}</p>
+              <p className="text-gray-500 text-sm mt-4">Check if the backend system is tactical.</p>
+            </div>
+          ) : projects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project) => (
                 <ProjectCard

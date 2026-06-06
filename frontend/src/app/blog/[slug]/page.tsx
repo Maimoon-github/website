@@ -10,9 +10,9 @@ import { Button } from '@/components/ui/Button';
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await BlogService.getPost(params.slug);
+  const { data: post, error } = await BlogService.getPost(params.slug);
 
-  if (!post) {
+  if (error || !post) {
     notFound();
   }
 

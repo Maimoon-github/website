@@ -14,20 +14,20 @@ export const KnowledgeService = {
   getDomains: async () => {
     try {
       const response = await api.get<Domain[]>('/domains/');
-      return response.data;
+      return { data: response.data, error: null };
     } catch (error) {
       console.error('Error fetching domains:', error);
-      return [];
+      return { data: [], error: 'Neural link failed. Repository unreachable.' };
     }
   },
 
   getDomain: async (slug: string) => {
     try {
       const response = await api.get<Domain>(`/domains/${slug}/`);
-      return response.data;
+      return { data: response.data, error: null };
     } catch (error) {
       console.error(`Error fetching domain ${slug}:`, error);
-      return null;
+      return { data: null, error: `Memory sector ${slug} corrupted.` };
     }
   }
 };

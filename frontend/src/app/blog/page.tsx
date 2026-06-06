@@ -6,7 +6,7 @@ import { BlogService } from '@/services/blog.service';
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
-  const posts = await BlogService.getPosts();
+  const { data: posts, error } = await BlogService.getPosts();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -22,7 +22,12 @@ export default async function BlogPage() {
             <p className="text-xl text-gray-400 max-w-xl">In-depth exploration of Agentic AI Engineering, architecture patterns, and the future of autonomy.</p>
           </header>
 
-          {posts.length > 0 ? (
+          {error ? (
+            <div className="glass p-20 text-center rounded-3xl border border-red-500/20 bg-red-500/5">
+              <p className="text-red-400 font-mono uppercase tracking-widest">{error}</p>
+              <p className="text-gray-500 text-sm mt-4">Buffer sync failed. Node offline.</p>
+            </div>
+          ) : posts.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {posts.map((post) => (
                 <BlogCard
@@ -30,7 +35,7 @@ export default async function BlogPage() {
                   title={post.title}
                   excerpt={post.excerpt}
                   date={new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}
-                  readingTime="12 min read" // This could be calculated or come from API
+                  readingTime="12 min read"
                   slug={post.slug}
                   image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
                   category={post.category_name}

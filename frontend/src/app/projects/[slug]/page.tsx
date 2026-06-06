@@ -10,9 +10,9 @@ import { Button } from '@/components/ui/Button';
 export const dynamic = 'force-dynamic';
 
 export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = await ProjectService.getProject(params.slug);
+  const { data: project, error } = await ProjectService.getProject(params.slug);
 
-  if (!project) {
+  if (error || !project) {
     notFound();
   }
 

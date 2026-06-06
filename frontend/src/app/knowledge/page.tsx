@@ -7,7 +7,7 @@ import { Bot, Map, GraduationCap } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 export default async function KnowledgeHub() {
-  const domains = await KnowledgeService.getDomains();
+  const { data: domains, error } = await KnowledgeService.getDomains();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -48,7 +48,12 @@ export default async function KnowledgeHub() {
             </div>
           </div>
 
-          {domains.length > 0 ? (
+          {error ? (
+            <div className="glass p-20 text-center rounded-3xl border border-red-500/20 bg-red-500/5">
+              <p className="text-red-400 font-mono uppercase tracking-widest">{error}</p>
+              <p className="text-gray-500 text-sm mt-4">Check node connectivity.</p>
+            </div>
+          ) : domains.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {domains.map((domain) => (
                 <ArticleCard

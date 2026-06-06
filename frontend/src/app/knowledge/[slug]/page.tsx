@@ -24,9 +24,9 @@ const iconMap: Record<string, React.ElementType> = {
 export const dynamic = 'force-dynamic';
 
 export default async function DomainDetail({ params }: { params: { slug: string } }) {
-  const domain = await KnowledgeService.getDomain(params.slug);
+  const { data: domain, error } = await KnowledgeService.getDomain(params.slug);
 
-  if (!domain) {
+  if (error || !domain) {
     notFound();
   }
 
