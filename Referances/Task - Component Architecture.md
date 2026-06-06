@@ -16,7 +16,7 @@ This task involves refactoring the frontend component structure and implementing
 
 ### Phase 1: Directory Restructuring & Basic Shared Setup
 
-- [ ] Create `frontend/src/components/shared/` and its subdirectories:
+- [x] Create `frontend/src/components/shared/` and its subdirectories:
   - `navigation/`
   - `data-display/`
   - `forms/`
@@ -24,8 +24,8 @@ This task involves refactoring the frontend component structure and implementing
   - `feedback/`
   - `seo/`
   - `social/`
-- [ ] Add `index.ts` barrel files to each subdirectory.
-- [ ] (Optional) Add `@/components/shared/*` to `tsconfig.json` paths if not already present.
+- [x] Add `index.ts` barrel files to each subdirectory.
+- [x] (Optional) Add `@/components/shared/*` to `tsconfig.json` paths if not already present. (Already covered by @/\*)
 
 ### Phase 2: Refactor Layout Components
 
