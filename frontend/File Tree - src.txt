@@ -1,0 +1,131 @@
+File Tree - src
+Root path: /home/maimoon-nixos/Antigravity code/website/frontend/src
+
+────────────────────────────────────────────────────────────────────────────────
+
+├── 📁 app/
+│   ├── 📁 about/
+│   │   └── 📄 page.tsx
+│   ├── 📁 blog/
+│   │   ├── 📁 [slug]/
+│   │   │   └── 📄 page.tsx
+│   │   └── 📄 page.tsx
+│   ├── 📁 contact/
+│   │   └── 📄 page.tsx
+│   ├── 📁 knowledge/
+│   │   ├── 📁 [slug]/
+│   │   │   └── 📄 page.tsx
+│   │   └── 📄 page.tsx
+│   ├── 📁 projects/
+│   │   ├── 📁 [slug]/
+│   │   │   └── 📄 page.tsx
+│   │   └── 📄 page.tsx
+│   ├── 📄 favicon.ico
+│   ├── 🎨 globals.css
+│   ├── 📄 layout.tsx
+│   └── 📄 page.tsx
+├── 📁 components/
+│   ├── 📁 about/
+│   │   ├── 📄 BioSection.tsx
+│   │   ├── 📄 SkillsVisualization.tsx
+│   │   ├── 📄 SpecSection.tsx
+│   │   ├── 📄 StatsGrid.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 blog/
+│   │   ├── 📄 PostCard.tsx
+│   │   ├── 📄 PostFilters.tsx
+│   │   ├── 📄 PostGrid.tsx
+│   │   ├── 📄 PostSearchBar.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 contact/
+│   │   ├── 📄 ContactForm.tsx
+│   │   ├── 📄 ContactInfo.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 home/
+│   │   ├── 📄 CTASection.tsx
+│   │   ├── 📄 DomainExplorer.tsx
+│   │   ├── 📄 FeaturedProjects.tsx
+│   │   ├── 📄 HeroSection.tsx
+│   │   ├── 📄 LatestPosts.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 knowledge/
+│   │   ├── 📄 KnowledgeCard.tsx
+│   │   ├── 📄 KnowledgeFilters.tsx
+│   │   ├── 📄 KnowledgeGrid.tsx
+│   │   ├── 📄 KnowledgeSearchBar.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 layout/
+│   │   ├── 📄 Container.tsx
+│   │   ├── 📄 Footer.tsx
+│   │   ├── 📄 MainLayout.tsx
+│   │   ├── 📄 MobileMenu.tsx
+│   │   ├── 📄 Navbar.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 projects/
+│   │   ├── 📄 ProjectCard.tsx
+│   │   ├── 📄 ProjectFilters.tsx
+│   │   ├── 📄 ProjectGrid.tsx
+│   │   ├── 📄 ProjectSearchBar.tsx
+│   │   └── 📄 index.ts
+│   ├── 📁 shared/
+│   │   ├── 📁 content/
+│   │   │   ├── 📄 CodeBlock.tsx
+│   │   │   ├── 📄 ComparisonTable.tsx
+│   │   │   ├── 📄 MarkdownRenderer.tsx
+│   │   │   └── 📄 index.ts
+│   │   ├── 📁 data-display/
+│   │   │   ├── 📄 DateDisplay.tsx
+│   │   │   ├── 📄 EmptyState.tsx
+│   │   │   ├── 📄 PageHeader.tsx
+│   │   │   ├── 📄 ReadingTimeBadge.tsx
+│   │   │   ├── 📄 SectionHeader.tsx
+│   │   │   ├── 📄 TagList.tsx
+│   │   │   └── 📄 index.ts
+│   │   ├── 📁 feedback/
+│   │   │   ├── 📄 ErrorMessage.tsx
+│   │   │   ├── 📄 LoadingSpinner.tsx
+│   │   │   ├── 📄 SkeletonCard.tsx
+│   │   │   ├── 📄 SkeletonGrid.tsx
+│   │   │   └── 📄 index.ts
+│   │   ├── 📁 forms/
+│   │   │   ├── 📄 FilterDropdown.tsx
+│   │   │   ├── 📄 FilterGroup.tsx
+│   │   │   ├── 📄 FormField.tsx
+│   │   │   ├── 📄 NewsletterForm.tsx
+│   │   │   ├── 📄 SearchBar.tsx
+│   │   │   └── 📄 index.ts
+│   │   ├── 📁 navigation/
+│   │   │   ├── 📄 Breadcrumbs.tsx
+│   │   │   ├── 📄 Pagination.tsx
+│   │   │   ├── 📄 ScrollToTop.tsx
+│   │   │   ├── 📄 TableOfContents.tsx
+│   │   │   └── 📄 index.ts
+│   │   ├── 📁 seo/
+│   │   │   ├── 📄 PageMetadata.ts
+│   │   │   ├── 📄 StructuredData.tsx
+│   │   │   └── 📄 index.ts
+│   │   ├── 📁 social/
+│   │   │   ├── 📄 RSSFeedLink.tsx
+│   │   │   ├── 📄 SocialShareButtons.tsx
+│   │   │   └── 📄 index.ts
+│   │   └── 📄 index.ts
+│   └── 📁 ui/
+│       ├── 📄 badge.tsx
+│       ├── 📄 button.tsx
+│       ├── 📄 card.tsx
+│       ├── 📄 dialog.tsx
+│       ├── 📄 dropdown-menu.tsx
+│       ├── 📄 input.tsx
+│       └── 📄 skeleton.tsx
+├── 📁 lib/
+│   ├── 📄 api.ts
+│   └── 📄 utils.ts
+└── 📁 services/
+    ├── 📄 blog.service.ts
+    ├── 📄 contact.service.ts
+    ├── 📄 core.service.ts
+    ├── 📄 homepage.service.ts
+    ├── 📄 knowledge.service.ts
+    └── 📄 projects.service.ts
+
+────────────────────────────────────────────────────────────────────────────────

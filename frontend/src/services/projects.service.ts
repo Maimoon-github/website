@@ -17,7 +17,7 @@ export interface Project {
 export const ProjectService = {
   getProjects: async (params = {}) => {
     try {
-      const response = await api.get<PaginatedResponse<Project>>('/projects/list/', { params });
+      const response = await api.get<PaginatedResponse<Project>>('projects/list/', { params });
       return { data: response.data.results || [], error: null };
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -27,7 +27,7 @@ export const ProjectService = {
 
   getProject: async (slug: string) => {
     try {
-      const response = await api.get<Project>(`/projects/list/${slug}/`);
+      const response = await api.get<Project>(`projects/list/${slug}/`);
       return { data: response.data, error: null };
     } catch (error) {
       console.error(`Error fetching project ${slug}:`, error);

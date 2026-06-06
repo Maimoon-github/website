@@ -22,7 +22,7 @@ export interface StatCounter {
 export const HomepageService = {
   getHeroContent: async () => {
     try {
-      const response = await api.get<PaginatedResponse<HeroContent>>('/homepage/hero/');
+      const response = await api.get<PaginatedResponse<HeroContent>>('homepage/hero/');
       return { data: response.data.results[0] || null, error: null };
     } catch (error) {
       console.error('Error fetching hero content:', error);
@@ -32,7 +32,7 @@ export const HomepageService = {
 
   getStats: async () => {
     try {
-      const response = await api.get<PaginatedResponse<StatCounter>>('/homepage/stats/');
+      const response = await api.get<PaginatedResponse<StatCounter>>('homepage/stats/');
       return { data: response.data.results || [], error: null };
     } catch (error) {
       console.error('Error fetching stats:', error);

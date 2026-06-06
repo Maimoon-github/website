@@ -8,16 +8,16 @@ import Container from '@/components/layout/Container';
 const iconMap: Record<string, React.ElementType> = {
   'agent-architecture': Brain,
   'multi-agent-systems': Network,
-  'memory-systems': MemoryStick,
-  'tool-use': PenTool,
-  'rag': Search,
-  'orchestration': Settings,
-  'observability': Eye,
-  'security': ShieldCheck,
-  'infrastructure': Zap,
-  'workflows': Workflow,
-  'planning': Layers,
-  'production': Terminal,
+  'agent-orchestration': MemoryStick,
+  'memory-systems': PenTool,
+  'planning-and-reasoning': Search,
+  'tool-use-and-function-calling': Settings,
+  'retrieval-augmented-generation-(rag)': Eye,
+  'workflow-automation': ShieldCheck,
+  'ai-infrastructure-and-deployment': Zap,
+  'observability-and-evaluation': Workflow,
+  'security,-governance,-and-safety': Layers,
+  'production-grade-agent-systems': Terminal,
 };
 
 export const dynamic = 'force-dynamic';

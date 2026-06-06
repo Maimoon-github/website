@@ -11,10 +11,17 @@ export interface Profile {
   stats_experience_years: string;
 }
 
+export interface Skill {
+  id: number;
+  name: string;
+  category: string;
+  level: number;
+}
+
 export const CoreService = {
   getProfile: async () => {
     try {
-      const response = await api.get<PaginatedResponse<Profile>>('/about/profile/');
+      const response = await api.get<PaginatedResponse<Profile>>('about/profile/');
       return { data: response.data.results[0] || null, error: null };
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -24,7 +31,7 @@ export const CoreService = {
 
   getSkills: async () => {
      try {
-       const response = await api.get<PaginatedResponse<any>>('/about/skills/');
+       const response = await api.get<PaginatedResponse<Skill>>('about/skills/');
        return { data: response.data.results, error: null };
      } catch {
        return { data: [], error: 'Skills inaccessible.' };
