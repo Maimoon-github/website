@@ -1,6 +1,5 @@
-from rest_framework import viewsets
-from .models import HeroContent, StatCounter, PageSection
-from .serializers import HeroContentSerializer, StatCounterSerializer, PageSectionSerializer
+from .models import HeroContent, StatCounter, PageSection, PageHeader
+from .serializers import HeroContentSerializer, StatCounterSerializer, PageSectionSerializer, PageHeaderSerializer
 
 class HeroContentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = HeroContent.objects.filter(is_active=True)
@@ -15,6 +14,16 @@ class PageSectionViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         queryset = PageSection.objects.filter(is_active=True)
+        page = self.request.query_params.get('page')
+        if page:
+            queryset = queryset.filter(page=page)
+        return queryset
+
+class PageHeaderViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = PageHeaderSerializer
+
+    def get_queryset(self):
+        queryset = PageHeader.objects.all()
         page = self.request.query_params.get('page')
         if page:
             queryset = queryset.filter(page=page)

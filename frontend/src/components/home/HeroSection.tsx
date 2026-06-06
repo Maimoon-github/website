@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, Bot, Cpu, Shield, Rocket, LucideIcon } from 'lucide-react';
 import Link from 'next/link';
-import { HomepageService, HeroContent, StatCounter } from '@/services/homepage.service';
+import { HeroContent, StatCounter } from '@/services/homepage.service';
 
 const iconMap: Record<string, LucideIcon> = {
   Bot,
@@ -13,21 +12,12 @@ const iconMap: Record<string, LucideIcon> = {
   Rocket
 };
 
-export default function HeroSection() {
-  const [hero, setHero] = useState<HeroContent | null>(null);
-  const [stats, setStats] = useState<StatCounter[]>([]);
+interface HeroSectionProps {
+  hero: HeroContent | null;
+  stats: StatCounter[];
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [heroRes, statsRes] = await Promise.all([
-        HomepageService.getHeroContent(),
-        HomepageService.getStats()
-      ]);
-      if (heroRes.data) setHero(heroRes.data);
-      if (statsRes.data) setStats(statsRes.data);
-    };
-    fetchData();
-  }, []);
+export default function HeroSection({ hero, stats }: HeroSectionProps) {
 
   const title = hero?.title || "Architecting Autonomous Intelligence";
   const tagline = hero?.tagline || "The Future of Agentic AI Engineering";

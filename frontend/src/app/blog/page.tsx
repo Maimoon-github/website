@@ -1,4 +1,5 @@
 import { BlogService } from '@/services/blog.service';
+import { CoreService } from '@/services/core.service';
 import { PageHeader, EmptyState } from '@/components/shared/data-display';
 import { ErrorMessage } from '@/components/shared/feedback';
 import Container from '@/components/layout/Container';
@@ -7,15 +8,21 @@ import { PostGrid } from '@/components/blog';
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
-  const { data: posts, error } = await BlogService.getPosts();
+  const [
+    { data: posts, error },
+    { data: header }
+  ] = await Promise.all([
+    BlogService.getPosts(),
+    CoreService.getPageHeader('blog')
+  ]);
 
   return (
     <Container className="pt-32 pb-24">
       <PageHeader 
-        badge="Transmission Log"
-        title="TECHNICAL"
-        highlightedWord="LOGS"
-        description="In-depth exploration of Agentic AI Engineering, architecture patterns, and the future of autonomy."
+        badge={header?.badge || "Transmission Log"}
+        title={header?.title || "TECHNICAL"}
+        highlightedWord={header?.highlighted_word || "LOGS"}
+        description={header?.description || "In-depth exploration of Agentic AI Engineering, architecture patterns, and the future of autonomy."}
       />
 
       {error ? (

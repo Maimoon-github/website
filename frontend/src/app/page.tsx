@@ -3,6 +3,7 @@ import { DynamicPageContent } from '@/components/shared/data-display';
 import { ProjectService } from '@/services/projects.service';
 import { BlogService } from '@/services/blog.service';
 import { KnowledgeService } from '@/services/knowledge.service';
+import { HomepageService } from '@/services/homepage.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,16 +11,20 @@ export default async function Home() {
   const [
     { data: projects }, 
     { data: posts },
-    { data: domains }
+    { data: domains },
+    { data: hero },
+    { data: stats }
   ] = await Promise.all([
     ProjectService.getProjects(),
     BlogService.getPosts(),
-    KnowledgeService.getDomains()
+    KnowledgeService.getDomains(),
+    HomepageService.getHeroContent(),
+    HomepageService.getStats()
   ]);
 
   return (
     <div className="flex flex-col">
-      <HeroSection />
+      <HeroSection hero={hero} stats={stats || []} />
       <FeaturedProjects projects={projects || []} />
       <DomainExplorer domains={domains || []} />
       <LatestPosts posts={posts || []} />

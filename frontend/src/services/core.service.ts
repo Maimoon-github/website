@@ -34,6 +34,14 @@ export interface PageSection {
   [key: string]: unknown;
 }
 
+export interface PageHeader {
+  page: string;
+  badge: string;
+  title: string;
+  highlighted_word: string;
+  description: string;
+}
+
 /**
  * CoreService provides shared utilities and profile-wide data fetching.
  */
@@ -84,6 +92,18 @@ export const CoreService = {
       data: (response.data as PaginatedResponse<unknown>)?.results !== undefined 
         ? (response.data as PaginatedResponse<unknown>).results 
         : response.data,
+      error: response.error,
+      status: response.status
+    };
+  },
+
+  /**
+   * Fetches the header configuration for a specific page.
+   */
+  getPageHeader: async (page: string): Promise<ApiResponse<PageHeader>> => {
+    const response = await api.get<PaginatedResponse<PageHeader>>(`homepage/headers/?page=${page}`);
+    return {
+      data: response.data?.results?.[0] || null,
       error: response.error,
       status: response.status
     };

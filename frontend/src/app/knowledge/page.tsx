@@ -1,4 +1,5 @@
 import { KnowledgeService } from '@/services/knowledge.service';
+import { CoreService } from '@/services/core.service';
 import { Bot, Map, GraduationCap } from 'lucide-react';
 import { PageHeader, EmptyState } from '@/components/shared/data-display';
 import { ErrorMessage } from '@/components/shared/feedback';
@@ -8,15 +9,21 @@ import { KnowledgeGrid } from '@/components/knowledge';
 export const dynamic = 'force-dynamic';
 
 export default async function KnowledgeHub() {
-  const { data: domains, error } = await KnowledgeService.getDomains();
+  const [
+    { data: domains, error },
+    { data: header }
+  ] = await Promise.all([
+    KnowledgeService.getDomains(),
+    CoreService.getPageHeader('knowledge')
+  ]);
 
   return (
     <Container className="pt-32 pb-24">
       <PageHeader 
-        badge="Cognitive Repository"
-        title="THE"
-        highlightedWord="KNOWLEDGE HUB"
-        description="Structured documentation for the entire Agentic AI ecosystem. From single-agent loops to multi-agent swarms."
+        badge={header?.badge || "Cognitive Repository"}
+        title={header?.title || "THE"}
+        highlightedWord={header?.highlighted_word || "KNOWLEDGE HUB"}
+        description={header?.description || "Structured documentation for the entire Agentic AI ecosystem. From single-agent loops to multi-agent swarms."}
       />
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">

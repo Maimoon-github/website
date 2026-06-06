@@ -1,5 +1,4 @@
-from rest_framework import serializers
-from .models import HeroContent, StatCounter, PageSection
+from .models import HeroContent, StatCounter, PageSection, PageHeader
 
 class HeroContentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,4 +13,9 @@ class StatCounterSerializer(serializers.ModelSerializer):
 class PageSectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageSection
+        fields = '__all__'
+
+class PageHeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PageHeader
         fields = '__all__'
