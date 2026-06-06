@@ -1,4 +1,5 @@
 import { HeroSection, FeaturedProjects, LatestPosts, CTASection, DomainExplorer } from '@/components/home';
+import { DynamicPageContent } from '@/components/shared/data-display';
 import { ProjectService } from '@/services/projects.service';
 import { BlogService } from '@/services/blog.service';
 import { KnowledgeService } from '@/services/knowledge.service';
@@ -22,6 +23,7 @@ export default async function Home() {
       <FeaturedProjects projects={projects || []} />
       <DomainExplorer domains={domains || []} />
       <LatestPosts posts={posts || []} />
+      <DynamicPageContent page="home" />
       <CTASection />
     </div>
   );

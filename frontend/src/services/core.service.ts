@@ -23,6 +23,17 @@ export interface Skill {
   [key: string]: any; // Future-proof
 }
 
+export interface PageSection {
+  id: number;
+  page: string;
+  title: string;
+  endpoint: string;
+  component_type: string;
+  is_active: boolean;
+  order: number;
+  [key: string]: any;
+}
+
 /**
  * CoreService provides shared utilities and profile-wide data fetching.
  */
@@ -46,6 +57,31 @@ export const CoreService = {
     const response = await api.get<PaginatedResponse<Skill>>('about/skills/');
     return {
       data: response.data?.results || [],
+      error: response.error,
+      status: response.status
+    };
+  },
+
+  /**
+   * Fetches the dynamic sections configuration for a specific page.
+   */
+  getPageSections: async (page: string): Promise<ApiResponse<PageSection[]>> => {
+    const response = await api.get<PaginatedResponse<PageSection>>(`homepage/sections/?page=${page}`);
+    return {
+      data: response.data?.results || [],
+      error: response.error,
+      status: response.status
+    };
+  },
+
+  /**
+   * Fetches data from a dynamic endpoint.
+   */
+  getDynamicData: async (endpoint: string): Promise<ApiResponse<any>> => {
+    const response = await api.get<PaginatedResponse<any> | any>(endpoint);
+    // Handle both paginated and direct object responses
+    return {
+      data: response.data?.results !== undefined ? response.data.results : response.data,
       error: response.error,
       status: response.status
     };

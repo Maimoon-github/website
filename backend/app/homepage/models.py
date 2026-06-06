@@ -28,3 +28,25 @@ class StatCounter(models.Model):
 
     def __str__(self):
         return self.label
+
+class PageSection(models.Model):
+    PAGE_CHOICES = [
+        ('home', 'Homepage'),
+        ('about', 'About Page'),
+        ('projects', 'Projects Page'),
+        ('blog', 'Blog Page'),
+        ('knowledge', 'Knowledge Hub'),
+        ('contact', 'Contact Page'),
+    ]
+    page = models.CharField(max_length=20, choices=PAGE_CHOICES)
+    title = models.CharField(max_length=100)
+    endpoint = models.CharField(max_length=255, help_text="Local API path (e.g., about/awards/)")
+    component_type = models.CharField(max_length=50, default='generic', help_text="Component to use (e.g., hero, grid, stats, generic)")
+    is_active = models.BooleanField(default=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.get_page_display()} - {self.title}"
