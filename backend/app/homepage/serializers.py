@@ -1,3 +1,4 @@
+from rest_framework import serializers
 from .models import HeroContent, StatCounter, PageSection, PageHeader
 
 class HeroContentSerializer(serializers.ModelSerializer):
