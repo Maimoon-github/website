@@ -5,7 +5,7 @@ This task involves refactoring the frontend component structure and implementing
 ## Progress
 
 - [x] Phase 1: Directory Restructuring & Basic Shared Setup
-- [ ] Phase 2: Refactor Layout Components
+- [x] Phase 2: Refactor Layout Components
 - [ ] Phase 3: Implement Core Shared Components (Data Display, Feedback, Navigation) (IN PROGRESS)
 - [ ] Phase 4: Implement Advanced Shared Components (Content, SEO, Social)
 - [ ] Phase 5: Page-Specific Component Cleanup & Integration
@@ -29,9 +29,9 @@ This task involves refactoring the frontend component structure and implementing
 
 ### Phase 2: Refactor Layout Components
 
-- [ ] Move global layout components to `frontend/src/components/layout/`.
-- [ ] Ensure `Navbar`, `Footer`, and `MobileMenu` are consistent with the design system.
-- [ ] implement `Container` and `MainLayout` shared layout shells.
+- [x] Move global layout components to `frontend/src/components/layout/`.
+- [x] Ensure `Navbar`, `Footer`, and `MobileMenu` are consistent with the design system.
+- [x] implement `Container` and `MainLayout` shared layout shells.
 
 ### Phase 3: Implement Core Shared Components
 
