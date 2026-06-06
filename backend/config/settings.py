@@ -42,11 +42,11 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     # Local
-    "core",
-    "projects",
-    "blog",
-    "knowledge",
-    "contact",
+    "app.core",
+    "app.projects",
+    "app.blog",
+    "app.knowledge",
+    "app.contact",
 ]
 
 MIDDLEWARE = [
