@@ -4,7 +4,7 @@ import { ArrowLeft, Brain, Network, MemoryStick, PenTool, Search, Settings, Eye,
 import Link from 'next/link';
 import { KnowledgeService } from '@/services/knowledge.service';
 import { notFound } from 'next/navigation';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 
 const iconMap: Record<string, React.ElementType> = {
   'agent-architecture': Brain,

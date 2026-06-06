@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, ChevronRight, LucideIcon } from "lucide-react"
-import { Button } from "@/components/ui/Button"
+import { Button } from "@/components/ui/button"
 
 interface NavItem {
   name: string

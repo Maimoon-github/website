@@ -1,8 +1,10 @@
+import Head from "next/head"
+
 interface StructuredDataProps {
   data: Record<string, any>
 }
 
-export function StructuredData({ data }: StructuredDataProps) {
+export default function StructuredData({ data }: StructuredDataProps) {
   return (
     <script
       type="application/ld+json"

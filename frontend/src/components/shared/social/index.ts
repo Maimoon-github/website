@@ -1,1 +1,2 @@
-export * from "./SocialShareButtons"
+export { SocialShareButtons } from './SocialShareButtons';
+export { default as RSSFeedLink } from './RSSFeedLink';

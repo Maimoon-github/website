@@ -4,8 +4,8 @@ import { ProjectService } from '@/services/projects.service';
 import { notFound } from 'next/navigation';
 import { Github, ExternalLink, ArrowLeft, Layers, Cpu, Shield, Activity } from 'lucide-react';
 import Link from 'next/link';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';
 

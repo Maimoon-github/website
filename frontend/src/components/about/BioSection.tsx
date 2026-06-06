@@ -1,10 +1,10 @@
 import { Download, Github, Linkedin, Mail, Twitter } from "lucide-react"
 
-interface ProfileSectionProps {
+interface BioSectionProps {
   profile: any
 }
 
-export default function ProfileSection({ profile }: ProfileSectionProps) {
+export default function BioSection({ profile }: BioSectionProps) {
   return (
     <div className="flex flex-col md:flex-row gap-12 items-center md:items-start mb-20 text-white">
       <div className="w-48 h-48 rounded-3xl overflow-hidden glass border-accent-purple/30 p-2 shrink-0 animate-float">

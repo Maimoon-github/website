@@ -1,4 +1,4 @@
-import { Hero, FeaturedProjects, LatestPosts } from '@/components/home';
+import { HeroSection, FeaturedProjects, LatestPosts } from '@/components/home';
 import { ProjectService } from '@/services/projects.service';
 import { BlogService } from '@/services/blog.service';
 
@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col">
-      <Hero />
+      <HeroSection />
       <FeaturedProjects projects={projects || []} />
       <LatestPosts posts={posts || []} />
     </div>

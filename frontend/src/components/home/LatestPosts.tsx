@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { SectionHeader } from '@/components/shared/data-display';
 import { PostCard } from '@/components/blog';
 

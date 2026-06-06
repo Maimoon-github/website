@@ -4,8 +4,8 @@ import { BlogService } from '@/services/blog.service';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, ArrowLeft, Share2, MessageSquare, Eye } from 'lucide-react';
 import Link from 'next/link';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';
 

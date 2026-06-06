@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { DateDisplay, ReadingTimeBadge } from '@/components/shared/data-display';
 
 interface PostCardProps {

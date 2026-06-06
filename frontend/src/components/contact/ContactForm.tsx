@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { AlertCircle, CheckCircle2, Send } from "lucide-react"
-import { Button } from "@/components/ui/Button"
+import { Button } from "@/components/ui/button"
 import { ContactService } from "@/services/contact.service"
 
 export default function ContactForm() {

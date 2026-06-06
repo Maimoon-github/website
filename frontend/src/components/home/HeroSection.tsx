@@ -13,7 +13,7 @@ const iconMap: Record<string, LucideIcon> = {
   Rocket
 };
 
-export default function Hero() {
+export default function HeroSection() {
   const [hero, setHero] = useState<HeroContent | null>(null);
   const [stats, setStats] = useState<StatCounter[]>([]);
 

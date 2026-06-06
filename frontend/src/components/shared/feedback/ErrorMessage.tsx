@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { AlertTriangle, RefreshCcw } from "lucide-react"
-import { Button } from "@/components/ui/Button"
+import { Button } from "@/components/ui/button"
 
 interface ErrorMessageProps {
   title?: string
