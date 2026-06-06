@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-const iconMap: any = {
+const iconMap: Record<string, React.ElementType> = {
   'agent-architecture': Brain,
   'multi-agent-systems': Network,
   'memory-systems': MemoryStick,
@@ -57,12 +57,13 @@ export default function DomainDetail({ params }: { params: { slug: string } }) {
               <div className="bg-bg-deep rounded-xl p-6 border border-white/5 font-mono text-sm overflow-x-auto my-8">
                 <code className="text-accent-light"># Initialize Agent with {title.toLowerCase()}<br/>
                 agent = AgentCore(<br/>
-                &nbsp;&nbsp;architecture="{params.slug}",<br/>
-                &nbsp;&nbsp;capabilities=["reasoning", "tool_use"]<br/>
+                &nbsp;&nbsp;architecture=&quot;{params.slug}&quot;,<br/>
+                &nbsp;&nbsp;capabilities=[&quot;reasoning&quot;, &quot;tool_use&quot;]<br/>
                 )</code>
               </div>
             </div>
           </div>
+
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              <div className="p-8 glass border-l-4 border-l-accent-purple">

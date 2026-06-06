@@ -14,7 +14,7 @@ export default function ContactPage() {
           <div>
             <header className="mb-12">
               <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter">INITIATE <span className="text-gradient">CONTACT</span></h1>
-              <p className="text-gray-400 text-lg max-w-md">Ready to build the next generation of autonomous systems? Let's discuss your vision.</p>
+              <p className="text-gray-400 text-lg max-w-md">Ready to build the next generation of autonomous systems? Let&apos;s discuss your vision.</p>
             </header>
             
             <div className="space-y-8">

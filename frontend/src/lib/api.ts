@@ -27,7 +27,7 @@ export const projectsApi = {
 export const blogApi = {
   getPosts: (params = {}) => api.get('/posts/', { params }),
   getPost: (slug: string) => api.get(`/posts/${slug}/`),
-  submitComment: (slug: string, data: any) => api.post(`/posts/${slug}/comment/`, data),
+  submitComment: (slug: string, data: Record<string, unknown>) => api.post(`/posts/${slug}/comment/`, data),
 };
 
 export const knowledgeApi = {

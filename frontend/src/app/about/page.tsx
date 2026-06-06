@@ -19,15 +19,15 @@ export default function AboutPage() {
           <div>
             <header className="mb-6">
               <h1 className="text-4xl md:text-6xl font-black mb-2 tracking-tighter">I AM <span className="text-gradient">MAIMOON</span></h1>
-              <p className="text-xl text-accent-light font-mono tracking-widest uppercase">Senior Agentic AI Architect</p>
+              <p className="text-gray-400 text-lg max-w-md">Ready to build the next generation of autonomous systems? Let&apos;s discuss your vision.</p>
             </header>
             
             <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
               <p>
-                Specializing in the intersection of large language models and autonomous reasoning, I build systems that don't just generate text—they solve problems.
+                Specializing in the intersection of large language models and autonomous reasoning, I build systems that don&apos;t just generate text&mdash;they solve problems.
               </p>
               <p>
-                With a background in full-stack engineering and a passion for cognitive architectures, I've spent the last 5 years architecting multi-agent systems that operate in complex, real-world environments.
+                With a background in full-stack engineering and a passion for cognitive architectures, I&apos;ve spent the last 5 years architecting multi-agent systems that operate in complex, real-world environments.
               </p>
             </div>
 
@@ -40,6 +40,13 @@ export default function AboutPage() {
                  <Linkedin className="w-6 h-6 hover:text-accent-light cursor-pointer transition-colors" />
                  <Twitter className="w-6 h-6 hover:text-accent-light cursor-pointer transition-colors" />
                  <Mail className="w-6 h-6 hover:text-accent-light cursor-pointer transition-colors" />
+              </div>
+              <div className="bg-bg-deep rounded-xl p-6 border border-white/5 font-mono text-sm overflow-x-auto my-8">
+                <code className="text-accent-light"># Initialize Agent<br/>
+                agent = AgentCore(<br/>
+                &nbsp;&nbsp;architecture=&quot;autonomous&quot;,<br/>
+                &nbsp;&nbsp;capabilities=[&quot;reasoning&quot;, &quot;tool_use&quot;]<br/>
+                )</code>
               </div>
             </div>
           </div>
