@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { DateDisplay, ReadingTimeBadge } from '@/components/shared/data-display';
 
 interface BlogCardProps {
   title: string;
@@ -30,9 +31,9 @@ export default function BlogCard({ title, excerpt, date, readingTime, slug, imag
         </div>
         
         <CardContent className="flex-1 p-8">
-          <div className="flex items-center gap-4 text-[10px] font-mono text-gray-400 mb-4 uppercase tracking-[0.2em]">
-            <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> {date}</span>
-            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {readingTime}</span>
+          <div className="flex items-center gap-4 mb-4">
+            <DateDisplay date={date} />
+            <ReadingTimeBadge time={readingTime} />
           </div>
           <h3 className="text-2xl font-bold mb-4 line-clamp-2 group-hover:text-accent-light transition-colors">{title}</h3>
           <p className="text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3">

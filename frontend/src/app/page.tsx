@@ -9,6 +9,7 @@ import { BlogService } from '@/services/blog.service';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { SectionHeader } from '@/components/shared/data-display';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,17 +34,17 @@ export default async function Home() {
         {/* Featured Projects Section */}
         <section className="py-24 bg-bg-deep/50">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-              <div>
-                <div className="text-accent-light font-mono text-[10px] uppercase tracking-[0.4em] mb-4">Production Assets</div>
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">Featured <span className="text-gradient">Projects</span></h2>
-              </div>
+            <SectionHeader
+              badge="Production Assets"
+              title="Featured"
+              highlightedWord="Projects"
+            >
               <Link href="/projects">
                 <Button variant="ghost" className="gap-2 group">
                   Registry Explorer <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-            </div>
+            </SectionHeader>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.length > 0 ? projects.slice(0, 3).map((project) => (
@@ -70,17 +71,17 @@ export default async function Home() {
         {/* Latest Transmissions Section */}
         <section className="py-24">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-              <div>
-                <div className="text-accent-light font-mono text-[10px] uppercase tracking-[0.4em] mb-4">Communication Stream</div>
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">Latest <span className="text-gradient">Logs</span></h2>
-              </div>
+            <SectionHeader
+              badge="Communication Stream"
+              title="Latest"
+              highlightedWord="Logs"
+            >
               <Link href="/blog">
                 <Button variant="ghost" className="gap-2 group">
                   Transmission Archive <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-            </div>
+            </SectionHeader>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {posts.length > 0 ? posts.slice(0, 2).map((post) => (

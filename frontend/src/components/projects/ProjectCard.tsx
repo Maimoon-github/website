@@ -3,6 +3,7 @@ import { Github, ExternalLink, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { TagList } from '@/components/shared/data-display';
 
 interface ProjectCardProps {
   title: string;
@@ -33,18 +34,7 @@ export default function ProjectCard({
       </div>
       
       <CardContent className="p-8 flex-1 flex flex-col">
-        <div className="flex flex-wrap gap-2 mb-6">
-          {tech_stack.slice(0, 3).map(tag => (
-            <span key={tag} className="text-[10px] font-mono tracking-widest uppercase py-1 px-3 rounded-full border border-white/10 text-gray-500 bg-white/5">
-              {tag}
-            </span>
-          ))}
-          {tech_stack.length > 3 && (
-            <span className="text-[10px] font-mono tracking-widest uppercase py-1 px-3 rounded-full border border-white/10 text-gray-500 bg-white/5">
-              +{tech_stack.length - 3}
-            </span>
-          )}
-        </div>
+        <TagList tags={tech_stack} limit={3} className="mb-6" />
         
         <h3 className="text-2xl font-bold mb-4 group-hover:text-accent-light transition-colors">{title}</h3>
         <p className="text-gray-400 text-sm mb-8 leading-relaxed line-clamp-3">
