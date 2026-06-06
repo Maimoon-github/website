@@ -1,0 +1,233 @@
+,Portfolio + Blogging Website,,,,,
+,Project Documentation Guide,,,,,
+
+,Complete technical documentation for a full-stack Portfolio & Blogging application built with Next.js (frontend) and Django (backend),,,,,
+
+,Key Information,,,,,
+
+,Frontend Framework,Next.js (React),Backend Framework,Django (Python),,
+,Application Type,Portfolio + Blogging Platform,Documentation Version,1.0,,
+,Purpose,Personal portfolio showcase + full-featured blog,Target Audience,"Developers, Clients, Recruiters",,
+,Architecture,Full-Stack (Frontend + Backend + Database),Rendering,"SSR, SSG, ISR, CSR",,
+
+
+,Workbook Contents,,,,,
+
+,Sheet Name,Description,,,,
+,Project Overview,"Purpose, key features, technology stack, and goals",,,,
+,Pages & Responsibilities,Page-level requirements with frontend/backend duties,,,,
+,Doc Structure Template,Standardized 6-section documentation template for each page,,,,
+,Common Pages,"Detailed documentation for Home, About, Projects, Blog, Contact pages",,,,
+,Tech Stack Details,"Frontend/backend technologies, libraries, and tools",,,,
+,Data Flow & Standards,Data flow patterns and documentation standards checklist,,,,
+
+
+,Documentation Standards: Consistent headings | Professional tone | Development-ready references | Uniform structure across all pages,,,,,
+,Part 1 — Project Description,,,,
+
+,1. Purpose,,,,
+,"Design and document a modern, full-stack web application that acts as both a personal portfolio and a blog platform. The website serves a dual purpose: showcasing personal projects as a portfolio and functioning as a full-featured blog platform. It is built for developers, clients, and recruiters to view projects, read technical articles, and make contact.",,,,
+
+
+
+,2. Key Features,,,,
+,Feature Category,Description,,,
+,Portfolio Showcase,"Display personal projects with descriptions, screenshots, tech stacks, and live/demo links",,,
+,Blog Platform,"Full-featured blog with post creation, rich text editing, categories, tags, and comments",,,
+,Responsive Design,"Mobile-first, adaptive layouts that work seamlessly across all device sizes",,,
+,SEO Optimization,"Meta tags, Open Graph, structured data, sitemap, and search engine friendly URLs",,,
+,Contact System,"Contact form with validation, email notifications, and optional social media links",,,
+,Admin Dashboard,"Backend interface for managing projects, blog posts, comments, and site settings",,,
+,Authentication,"User login/registration, session management, role-based access control",,,
+,Performance,"Fast page loads, image optimization, caching strategy, Core Web Vitals compliance",,,
+
+
+,3. Technology Stack,,,,
+,Layer,Technology,Technology,Purpose,
+,Frontend,Next.js 14+,Django 5+,"Python web framework with ORM, admin, security",
+,Frontend,TypeScript,Django REST Framework,RESTful API serialization and viewsets,
+,Frontend,Tailwind CSS,PostgreSQL,Primary relational database,
+,Frontend,shadcn/ui,Redis,Caching layer and session store,
+,Frontend,React Query,Celery,Background task processing,
+,Frontend,Zustand,JWT/OAuth2,Authentication token handling,
+,Frontend,Axios,WhiteNoise,Static file serving in production,
+,Frontend,Next-Auth.js,Gunicorn,WSGI HTTP server for production,
+,Page-Level Requirements & Responsibilities,,,,
+,"Each page requires documentation of its purpose, frontend responsibilities (Next.js), and backend responsibilities (Django)",,,,
+
+,Page,Purpose,Frontend Responsibilities (Next.js),Backend Responsibilities (Django),
+,Home / Landing,"First impression; showcases featured projects, latest blog posts, and personal brand","Hero section, project previews, blog post cards, CTA buttons; SSR for SEO; responsive layout with Tailwind; animated entrance effects","API endpoints: GET /featured-projects, GET /latest-posts; caching with Redis; meta tag configuration via Django settings",
+,About,"Personal bio, skills, experience, education, and professional background","Bio section, timeline component, skills visualization, downloadable resume link; SSG for static content","About model (bio, skills, experience entries); GET /about endpoint; media storage for resume PDF; admin-managed content",
+,Projects / Portfolio,"Complete listing of all projects with filtering, search, and detailed views","Project grid with filters (category, tech stack), search bar, pagination, project detail modal/page; ISR for detail pages","Project model (title, description, tech_stack, screenshots, live_url, github_url); GET /projects with filters; image upload to S3/local storage",
+,Blog / Articles,"Blog post listing with categories, tags, pagination, and search functionality","Post cards with excerpts, category/tag filters, pagination, search input; SSR for SEO; RSS feed link","Post model (title, slug, content, excerpt, category, tags, published_at, author); GET /posts with filters; full-text search via PostgreSQL",
+,Blog Post Detail,"Individual blog post with full content, author info, related posts, and comments","Rich text rendering, code syntax highlighting, social share buttons, comment section, reading time estimate; SSG or ISR","GET /posts/:slug endpoint; Comment model (post, author, content, created_at); related posts query; view count tracking",
+,Contact,"Contact form for visitors to send messages, plus social media links","Contact form with validation (name, email, subject, message), success/error states, reCAPTCHA integration; social media icons",ContactForm model; POST /contact endpoint with validation; email sending via Django EmailBackend; rate limiting; spam filtering,
+,Admin Dashboard,"Backend interface for content management (projects, posts, comments, settings)",Next.js middleware auth guards; admin layout with sidebar; CRUD tables for projects/posts; rich text editor component; analytics charts,Django Admin customization; DRF ViewSets with ModelViewSet; authentication/permission classes (IsAdminUser); admin-specific API endpoints,
+,Auth / Login,"User authentication (login, register, forgot password, profile)","Login/register forms, password reset flow, JWT token storage, protected routes middleware; Next-Auth.js integration","User model (email, password hash, role); Token authentication (JWT or session-based); POST /auth/login, /auth/register, /auth/refresh endpoints",
+,Part 2 — Per-Page Documentation Template,,,
+,Standardized 6-section documentation structure to be applied consistently for every page,,,
+
+,#,Section,Details to Document,
+,1,Page Purpose & Objectives,"What the page is intended to accomplish | Its role within the overall application | Target audience for this page | Key success metrics (engagement, conversions, etc.)",
+,2,Key Features & Functionalities,Core interactive or informational elements | User-facing capabilities specific to this page | CRUD operations available | Unique features differentiating this page,
+,3,Frontend Responsibilities (Next.js),"Component breakdown and hierarchy (pages, layouts, shared components) | Routing and navigation approach | Rendering strategy (SSR, SSG, CSR, ISR) | State management approach | API calls and data fetching logic | UI/UX considerations and accessibility (ARIA, keyboard nav, responsive design) | Loading and error states | SEO considerations (meta tags, Open Graph, structured data)",
+,4,Backend Responsibilities (Django),"Relevant models and database schema (fields, relationships, constraints) | Views and URL routing configuration | REST API endpoints (HTTP methods, request payloads, response formats, status codes) | Authentication and permission handling (public, authenticated, admin-only) | Data validation rules and business logic | Query optimization and database indexing | Admin interface configuration",
+,5,Data Flow,Step-by-step description of how data moves between frontend and backend | Request/response lifecycle for key interactions | Sequence: User action > Frontend handler > API request > Backend view > Database > Response > Frontend state update | Error handling flow | Real-time updates (if applicable),
+,6,Third-Party Integrations & Technical Considerations,"External services, libraries, or APIs required | Performance considerations (caching, lazy loading, bundle optimization) | Security considerations (XSS, CSRF, SQL injection prevention, rate limiting) | Scalability considerations | Monitoring and analytics integration | Deployment-specific notes",
+
+
+,Documentation Standards Checklist,,,
+,#,Standard,Requirement,
+,1,Consistent Headings,Use the same heading hierarchy and formatting across all page documentation,
+,2,Bullet Points,"Use consistent bullet point styles for features, responsibilities, and data items",
+,3,Professional Tone,"Write in a development-ready, professional tone suitable for technical teams",
+,4,Comprehensive Coverage,Ensure documentation is detailed enough to serve as a direct development reference,
+,5,Uniform Structure,All pages must follow the same 6-section format without omission,
+,6,Code Examples,"Include code snippets for API endpoints, models, and key components where applicable",
+,7,Error Handling,"Document error responses, edge cases, and fallback behavior for each page",
+,8,Security Notes,Include authentication requirements and permission levels for each endpoint,
+,Part 2 — Per-Page Documentation (Common Pages),,,
+,Complete 6-section documentation for each essential page of the Portfolio + Blogging Website,,,
+
+,Page,Section,Details,
+,Home / Landing,1. Purpose & Objectives,"Primary landing page; first impression for visitors. Goals: Introduce personal brand, showcase top 3-6 featured projects, display 3 latest blog posts, provide clear navigation to all sections. Target: Recruiters, clients, fellow developers. Metrics: Time on page, click-through rate to projects/blog, bounce rate.",
+,,2. Key Features,"Hero section with name, tagline, and CTA | Featured projects carousel/grid with hover effects | Latest blog posts preview cards | Skills/tech stack visual cloud | Social media links | Download resume button | Animated scroll indicator | Dark/light mode toggle | Newsletter signup (optional)",
+,,3. Frontend (Next.js),"Components: HeroSection, FeaturedProjects, LatestPosts, SkillsCloud, CTAButton, SocialLinks, Footer. Rendering: SSR for dynamic content (latest posts), static content for hero. State: React Query for server data, Zustand for UI state (theme). Fetching: Parallel API calls for projects + posts using Promise.all. API: GET /api/featured-projects, GET /api/latest-posts. Styling: Tailwind with responsive breakpoints (sm/md/lg/xl). Animations: Framer Motion for entrance animations. Accessibility: Semantic HTML, ARIA labels, skip navigation link.",
+,,4. Backend (Django),"Models: Project (title, slug, description, tech_stack[], is_featured, order, github_url, live_url, screenshots[], created_at), Post (title, slug, excerpt, content, featured_image, category, tags[], is_published, published_at, author). Views: FeaturedProjectListView (filter: is_featured=True, order_by=order), LatestPostListView (filter: is_published=True, order_by=-published_at[:3]). Serializers: ProjectSerializer (fields: all, depth: 1 for images), PostSerializer (fields: title, slug, excerpt, featured_image, published_at). Endpoints: GET /api/projects/featured/ (200 OK, 404 if empty), GET /api/posts/latest/ (200 OK). Permissions: AllowAny (public). Caching: Redis cache for 1 hour.",
+,,5. Data Flow,1. Browser requests / > Next.js SSR renders shell > calls GET /api/featured-projects + GET /api/latest-posts in parallel. 2. Django receives requests > checks Redis cache > cache miss queries PostgreSQL. 3. Serializers convert QuerySets to JSON > response returned to Next.js. 4. Next.js hydrates React components with data > renders complete page > sends to browser. 5. User clicks project card > client-side navigation to /projects/[slug] > fetches project detail API. Error: Failed API calls show fallback UI with retry button.,
+,,6. Integrations & Considerations,"Third-party: Framer Motion (animations), React Icons (social icons), next-themes (dark mode). Performance: next/image for optimized images, lazy load below-fold content, preload critical assets. Security: Content Security Policy headers, sanitize user-generated content. SEO: next/head with dynamic meta tags, Open Graph image generation, JSON-LD structured data.",
+,About,1. Purpose & Objectives,"Personal introduction and professional background. Goals: Build trust and credibility, showcase skills and experience, tell professional story. Target: Recruiters evaluating fit, clients considering hiring. Metrics: Resume download count, time spent reading.",
+,,2. Key Features,"Personal bio / summary paragraph | Professional photo | Skills list with proficiency levels | Work experience timeline | Education section | Certifications and awards | Downloadable resume/CV PDF | Social proof (testimonials, GitHub stats) | Personal interests (optional)",
+,,3. Frontend (Next.js),"Components: AboutHero, BioSection, SkillsList, ExperienceTimeline, EducationSection, ResumeDownload, StatsWidget. Rendering: SSG (content rarely changes, rebuilt on update). State: Local state for interactive timeline, modal for resume preview. Fetching: GET /api/about at build time. Styling: Timeline component with vertical line, skill bars with percentage fills. Animations: Scroll-triggered reveals for timeline items. Accessibility: Proper heading hierarchy (h1 > h2 > h3), alt text for profile photo.",
+,,4. Backend (Django),"Models: AboutProfile (bio, profile_photo, resume_file, location, email), Skill (name, proficiency_percent, category, order), Experience (company, role, start_date, end_date, description, is_current), Education (institution, degree, field, start_date, end_date). Views: AboutRetrieveView (single object retrieve), SkillListView (filter by category, order_by=order), ExperienceListView (order_by=-start_date). Serializers: AboutProfileSerializer, SkillSerializer, ExperienceSerializer, EducationSerializer. Endpoints: GET /api/about/ (200 OK), GET /api/skills/ (200 OK), GET /api/experience/ (200 OK). Media: profile_photo and resume_file served via WhiteNoise/S3.",
+,,5. Data Flow,"1. Build time: Next.js calls GET /api/about/ during static generation. 2. Django returns profile data with related skills, experience, education (select_related/prefetch_related). 3. Next.js embeds data in static HTML at build time. 4. On page load, static HTML served from CDN > hydration adds interactivity. 5. User clicks timeline item > expands detail via local state (no API call). Resume download: GET /media/resume.pdf served by Nginx/WhiteNoise.",
+,,6. Integrations & Considerations,"Third-party: react-vertical-timeline-component (timeline UI), react-countup (animated stats). Performance: SSG means instant load; optimize profile photo with next/image. Security: Resume PDF scan for malware, restrict media access. SEO: Rich structured data for Person schema (name, jobTitle, alumniOf, knowsAbout).",
+,Projects,1. Purpose & Objectives,"Comprehensive portfolio showcase. Goals: Display all projects with filtering/search, enable deep-dive into individual projects, demonstrate technical breadth and depth. Target: Technical hiring managers, potential clients. Metrics: Project detail views, filter usage, external link clicks (GitHub/live demo).",
+,,2. Key Features,"Project grid with thumbnail cards | Category filters (Web, Mobile, API, etc.) | Technology stack filters | Search by title/description | Sort options (recent, featured, alphabetical) | Pagination or infinite scroll | Project detail page with full description | Image gallery/screenshots carousel | Links to GitHub and live demo | Related projects section",
+,,3. Frontend (Next.js),"Components: ProjectsPage (layout with filters + grid), ProjectCard, ProjectFilters (category, tech, search), ProjectGrid, ProjectDetailPage, ImageGallery, TechBadgeList, RelatedProjects. Rendering: List page SSR/CSR with filters, detail pages ISR (revalidate: 3600). State: URL query params for filter state (shareable), Zustand for UI state. Fetching: GET /api/projects?category=X&tech=Y&search=Z&page=1. Routing: /projects (list), /projects/[slug] (detail). Styling: CSS Grid for responsive layout (1/2/3 columns), hover effects on cards. Accessibility: Filter announcements via aria-live, keyboard navigation for pagination.",
+,,4. Backend (Django),"Models: Project (title, slug, description, short_description, category, tech_stack[], github_url, live_url, featured_image, screenshots[], is_featured, order, created_at, updated_at), ProjectCategory (name, slug, description). Views: ProjectListView (filtering via django-filter: category, tech_stack__contains, search across title/description; pagination: 12/page), ProjectDetailView (lookup by slug). Serializers: ProjectListSerializer (lightweight: title, slug, short_description, featured_image, category, tech_stack[]), ProjectDetailSerializer (full: all fields + related projects). Endpoints: GET /api/projects/ (200 OK, pagination metadata), GET /api/projects/{slug}/ (200 OK, 404). Filtering: SearchFilter, DjangoFilterBackend. Optimization: select_related for category, prefetch_related for screenshots.",
+,,5. Data Flow,"List page: 1. User loads /projects > Next.js renders with initial SSR data (page 1, no filters). 2. User selects filter > URL updates (?category=web) > React Query fetches filtered results. 3. Django processes filters > returns paginated JSON with count, next, previous, results[]. 4. Frontend updates grid with new data. Detail page: 1. User clicks project card > navigates to /projects/[slug]. 2. ISR serves pre-rendered page if exists, otherwise SSR. 3. Related projects fetched via GET /api/projects?exclude=current_slug&category=same&limit=3.",
+,,6. Integrations & Considerations,"Third-party: yet-another-react-lightbox (image gallery), react-share (social sharing). Performance: Image optimization via next/image with blur placeholder, ISR for fast detail pages, lazy load images below fold. Security: Validate slug format, prevent SQL injection via ORM, rate limit project detail API. SEO: Dynamic meta tags per project, Open Graph images from featured_image, sitemap.xml with all project URLs.",
+,Blog / Articles,1. Purpose & Objectives,"Blog post listing and discovery. Goals: Present articles in an organized, searchable manner, drive readership, establish thought leadership. Target: Developers, tech community, potential employers. Metrics: Page views per post, average read time, subscription rate, social shares.",
+,,2. Key Features,"Post cards with title, excerpt, featured image, author, date | Category sidebar/filter | Tag cloud | Search functionality | Pagination | Sort by date/popularity | Reading time estimate | RSS feed link | Newsletter signup | Author profile cards",
+,,3. Frontend (Next.js),"Components: BlogPage, PostCard, CategorySidebar, TagCloud, SearchBar, Pagination, SortDropdown, NewsletterForm. Rendering: SSR for SEO (posts list), SSG for category/tag pages. State: URL params for filters/search/sort/page, React Query for server state. Fetching: GET /api/posts?page=1&category=X&tag=Y&search=Z&ordering=-published_at. Routing: /blog (list), /blog/[slug] (detail), /blog/category/[slug], /blog/tag/[slug]. Styling: Clean typography-focused design, card-based layout. Accessibility: Proper article semantics, skip to content link, screen reader announcements for search results.",
+,,4. Backend (Django),"Models: Post (title, slug, content, excerpt, featured_image, author [FK to User], category [FK], tags [M2M], status [draft/published], published_at, created_at, updated_at, view_count), Category (name, slug, description), Tag (name, slug), Comment (post [FK], author_name, author_email, content, is_approved, created_at). Views: PostListView (filtering: category, tags__slug, search across title/excerpt/content; ordering: -published_at, -view_count; pagination: 10/page), PostDetailView (lookup by slug, increment view_count). Serializers: PostListSerializer (id, title, slug, excerpt, featured_image, author_name, published_at, reading_time, category_name), PostDetailSerializer (all fields + comments[] + related_posts[]). Endpoints: GET /api/posts/ (200 OK), GET /api/posts/{slug}/ (200 OK, 404), GET /api/categories/ (200 OK), GET /api/tags/ (200 OK). Search: Full-text search using PostgreSQL SearchVector on title + content + excerpt.",
+,,5. Data Flow,"List: 1. User navigates to /blog > Next.js SSR fetches page 1 posts. 2. User types in search > debounced API call to GET /api/posts?search=query. 3. Django uses PostgreSQL full-text search > returns filtered results. 4. Frontend updates post list without full reload. Detail: 1. User clicks post > navigates to /blog/[slug]. 2. ISR serves pre-rendered page; if stale, revalidates in background. 3. GET /api/posts/{slug}/ returns post with comments. 4. View count incremented atomically (F() expression to avoid race conditions). Comments: POST /api/posts/{slug}/comments/ with name, email, content > moderation queue (is_approved=False by default).",
+,,6. Integrations & Considerations,"Third-party: react-markdown / MDX for content rendering, react-syntax-highlighter for code blocks, RSS package for feed generation. Performance: ISR with staggered revalidation, image optimization, code splitting for markdown renderer. Security: XSS prevention via markdown sanitization, CSRF protection on comment form, Akismet spam filtering, rate limiting on comments. SEO: Article structured data (headline, author, datePublished), meta description from excerpt, canonical URLs.",
+,Blog Post Detail,1. Purpose & Objectives,"Individual article display with rich reading experience. Goals: Deliver content in a clean, readable format, encourage engagement (comments, shares), suggest related content. Target: Readers interested in specific topics. Metrics: Time on page, scroll depth, comment count, social shares.",
+,,2. Key Features,"Rich text / Markdown rendering with syntax highlighting | Author byline with avatar | Publication date and reading time | Category and tags | Social share buttons (Twitter, LinkedIn, copy link) | Prev/next post navigation | Related posts section | Comment form and comment list | Table of contents (auto-generated from headings) | Newsletter CTA at end of post | Post reactions/likes (optional)",
+,,3. Frontend (Next.js),"Components: PostDetailPage, PostHeader, PostContent (Markdown renderer), TableOfContents, AuthorCard, ShareButtons, PostNavigation, RelatedPosts, CommentSection, CommentForm, CommentList, NewsletterCTA. Rendering: ISR (revalidate: 3600) or SSG for popular posts, fallback: blocking for new posts. State: React Query for post data, local state for TOC active section, comment form state. Fetching: GET /api/posts/{slug}, POST /api/posts/{slug}/comments. Styling: Typography scale for headings (h1-h4), code blocks with dark theme, blockquotes styled distinctly. Accessibility: Article landmark, skip to comments link, focus management after comment submission.",
+,,4. Backend (Django),"Models: Same as Blog list (Post, Category, Tag, Comment). Views: PostDetailView (retrieve by slug, atomically increment view_count), CommentCreateView (create comment for post, set is_approved=False pending moderation). Serializers: PostDetailSerializer (all Post fields + author details + category + tags[] + comments[approved_only=True] + related_posts[3] + prev/next slugs), CommentSerializer (id, author_name, content, created_at). Endpoints: GET /api/posts/{slug}/ (200 OK, 404 Not Found), POST /api/posts/{slug}/comments/ (201 Created, 400 Validation Error). Related posts: Find posts sharing most tags, exclude current, limit 3. View count: Use F('view_count') + 1 to prevent race conditions. Permission: Comments allow anonymous (name + email required).",
+,,5. Data Flow,"1. User navigates to /blog/[slug] > Next.js checks ISR cache. 2. Cache hit: serve static; cache miss: SSR fetch from GET /api/posts/{slug}/. 3. Django retrieves post with select_related('author', 'category') + prefetch_related('tags', 'comments'). 4. Serializer builds response with post + author profile + approved comments + related posts + prev/next navigation. 5. HTML rendered with react-markdown hydrating content. Comments: 1. User fills comment form (name, email, content) > POST to /api/posts/{slug}/comments/. 2. Backend validates > saves with is_approved=False. 3. Returns 201; frontend shows 'comment pending moderation' message. 4. Admin approves via Django admin; comment appears on next page load.",
+,,6. Integrations & Considerations,"Third-party: react-markdown + remark-gfm (GitHub flavored markdown), rehype-highlight (syntax highlighting), react-share (social buttons), reading-time (estimate). Performance: ISR for instant loads, lazy load comments section, defer non-critical third-party scripts. Security: bleach/sanitize HTML in markdown output, CSRF token on comment form, honeypot field for spam, rate limit: 5 comments per hour per IP. SEO: Article schema markup, canonical URL, meta description from excerpt, Open Graph with featured image.",
+,Contact,1. Purpose & Objectives,"Enable visitors to send messages and get in touch. Goals: Provide easy communication channel, capture leads/inquiries, display alternative contact methods. Target: Potential clients, recruiters, collaboration seekers. Metrics: Form submission rate, response time, conversion to meetings.",
+,,2. Key Features,"Contact form (name, email, subject, message) | Form validation with error messages | reCAPTCHA v3 integration | Success/error toast notifications | Social media links (GitHub, LinkedIn, Twitter) | Email address display (with copy button) | Location/timezone info | Calendly/booking link integration (optional) | FAQ section (optional)",
+,,3. Frontend (Next.js),"Components: ContactPage, ContactForm, FormInput, FormTextarea, SocialLinks, ContactInfoCard, SuccessToast, ErrorToast. Rendering: SSG (mostly static). State: Form state with react-hook-form (validation rules), submission status (idle/submitting/success/error). Fetching: POST /api/contact/ with form data + recaptcha token. Validation: Client-side (required fields, email format, min length) + server-side. Styling: Clean form layout with floating labels, focus states. Accessibility: Proper form labeling, error announcement via aria-describedby, focus management on submit.",
+,,4. Backend (Django),"Models: ContactMessage (name, email, subject, message, recaptcha_token, ip_address, created_at, is_read). Views: ContactCreateView (POST only, handles form submission). Validation: Validate all fields present, email format, message length (10-2000 chars), verify reCAPTCHA token with Google API. Email: On valid submission, send email to site owner via Django send_mail() with message details. Rate limiting: Max 3 submissions per IP per hour using Django Ratelimit or custom middleware. Serializers: ContactSerializer (fields: name, email, subject, message, recaptcha_token; read_only: created_at). Endpoints: POST /api/contact/ (201 Created on success, 400 Validation Error, 429 Rate Limited). Admin: ContactMessage listed in Django admin with is_read status filter.",
+,,5. Data Flow,"1. User fills contact form > client-side validation passes. 2. reCAPTCHA v3 executes in background > returns token. 3. Frontend POST {name, email, subject, message, recaptcha_token} to /api/contact/. 4. Backend validates fields > verifies reCAPTCHA with Google (score >= 0.5). 5. If valid: saves ContactMessage to database > sends notification email to ADMIN_EMAIL > returns 201. 6. Frontend shows success toast > resets form. Error flow: Validation fails > 400 with field errors > frontend displays per-field errors. Rate limit exceeded > 429 > show 'try again later' message.",
+,,6. Integrations & Considerations,"Third-party: Google reCAPTCHA v3 (spam prevention), react-hook-form (form management), react-hot-toast (notifications). Performance: Lightweight page, minimal API calls. Security: reCAPTCHA verification server-side (never trust client), rate limiting by IP, email content sanitization, log spam attempts. Privacy: GDPR-compliant (no data storage without consent checkbox), clear privacy policy link. Email: Configure Django EMAIL_BACKEND (SMTP/ SendGrid/AWS SES), async sending via Celery to avoid blocking response.",
+,Technology Stack — Detailed Breakdown,,,,
+,"Complete inventory of all technologies, libraries, and tools used across the stack",,,,
+
+,Layer,Technology,Category,Purpose / Role,
+,Frontend,Next.js 14+,Framework,"React framework with App Router, SSR, SSG, ISR, and file-based routing",
+,Frontend,TypeScript,Language,Type-safe JavaScript development with compile-time error checking,
+,Frontend,Tailwind CSS,Styling,"Utility-first CSS framework for rapid, responsive UI development",
+,Frontend,shadcn/ui,UI Library,Pre-built accessible components built on Radix UI primitives,
+,Frontend,React Query (TanStack),State Management,"Server state caching, synchronization, and background updates",
+,Frontend,Zustand,State Management,Lightweight client-side state management with minimal boilerplate,
+,Frontend,Axios,HTTP Client,Promise-based HTTP client for API requests with interceptors,
+,Frontend,react-hook-form,Forms,Performant form handling with validation and minimal re-renders,
+,Frontend,zod,Validation,TypeScript-first schema validation for forms and API responses,
+,Frontend,Framer Motion,Animation,Declarative animations and gestures for React components,
+,Frontend,react-markdown,Content,Render Markdown content safely as React components,
+,Frontend,react-syntax-highlighter,Content,Syntax highlighting for code blocks in blog posts,
+,Frontend,next-themes,UX,Dark/light mode theme switching with system preference detection,
+,Frontend,react-share,Social,Social media share buttons for blog posts and projects,
+,Frontend,lucide-react,Icons,"Modern, consistent icon library for UI elements",
+,Backend,Django 5+,Framework,"Python web framework with ORM, admin panel, security features",
+,Backend,Django REST Framework,API,"RESTful API toolkit with serializers, viewsets, and authentication",
+,Backend,PostgreSQL,Database,Primary relational database for structured data storage,
+,Backend,Redis,Cache / Queue,"In-memory cache, session store, and Celery message broker",
+,Backend,Celery,Task Queue,Asynchronous task processing for emails and background jobs,
+,Backend,Celery Beat,Scheduler,Periodic task scheduler for recurring background jobs,
+,Backend,Gunicorn,WSGI Server,Production WSGI HTTP server for serving Django application,
+,Backend,WhiteNoise,Static Files,Static file serving middleware for production deployments,
+,Backend,Pillow,Image Processing,"Image upload handling, resizing, and format conversion",
+,Backend,django-filter,API,Declarative filtering for DRF list endpoints,
+,Backend,django-cors-headers,Security,CORS header management for cross-origin API requests,
+,Backend,python-dotenv,Config,Environment variable management for local development,
+,Backend,PyJWT,Auth,JWT token generation and verification for stateless authentication,
+,Backend,django-ratelimit,Security,Rate limiting decorator for API endpoints,
+,Backend,psycopg2-binary,Database,PostgreSQL adapter for Python/Django ORM,
+,DevOps,Docker,Containerization,Container packaging for consistent development and production environments,
+,DevOps,Docker Compose,Orchestration,Multi-container local development environment setup,
+,DevOps,Git / GitHub,Version Control,Source code management with branching and CI/CD integration,
+,DevOps,GitHub Actions,CI/CD,"Automated testing, building, and deployment pipelines",
+,DevOps,Nginx,Web Server,"Reverse proxy, load balancer, and static file serving in production",
+,DevOps,AWS / Vercel,Hosting,Cloud deployment platform for frontend (Vercel) and backend (AWS),
+,DevOps,AWS S3,Storage,"Object storage for media files (project screenshots, blog images)",
+,DevOps,AWS SES,Email,Transactional email service for contact form notifications,
+,DevOps,CloudFront,CDN,Content delivery network for static assets and media files,
+,Testing,Jest,Frontend Test,JavaScript testing framework for unit and integration tests,
+,Testing,React Testing Library,Frontend Test,DOM testing utilities for React component testing,
+,Testing,Playwright,E2E Test,End-to-end testing for critical user flows,
+,Testing,pytest,Backend Test,Python testing framework for Django unit and integration tests,
+,Testing,pytest-django,Backend Test,pytest plugin for Django testing utilities and fixtures,
+,Testing,factory_boy,Backend Test,Test data generation with model factories,
+,Testing,Coverage.py,Quality,Code coverage measurement for Python test suites,
+,Testing,ESLint,Quality,JavaScript/TypeScript linting for code quality and consistency,
+,Testing,Prettier,Quality,Code formatter for consistent code style across the frontend,
+,Testing,Black,Quality,Python code formatter for consistent backend code style,
+,Testing,isort,Quality,Python import sorting for clean and organized imports,
+,Testing,mypy,Quality,Static type checking for Python code,
+Data Flow Patterns & Documentation Standards,,
+
+1. Common Data Flow Patterns,,
+Pattern,Description,Applicable Pages
+SSR (Server-Side Rendering),"Next.js fetches data on each request at the server. Django API responds with fresh data. HTML rendered server-side and sent to client. Best for SEO-critical, frequently changing content.","Home (latest data), Blog List (filtered posts), Contact (form page)"
+SSG (Static Site Generation),Next.js fetches data at build time. HTML pre-rendered and cached on CDN. Fastest page loads. Content updated only on rebuild.,"About (static bio), Project Detail (if content rarely changes)"
+ISR (Incremental Static Regeneration),"Next.js serves cached page immediately, then revalidates in background. Combines speed of SSG with freshness of SSR.","Blog Post Detail (revalidate hourly), Project Detail (revalidate on update)"
+CSR (Client-Side Rendering),"Initial page shell rendered, then data fetched in browser via React Query. Loading states shown during fetch. Good for interactive, user-specific content.","Admin Dashboard (authenticated data), Comments section (lazy loaded)"
+Form Submission Flow,User fills form > client validation > API POST request > server validation > database save > email notification > success response. Error responses update form UI.,"Contact form, Comment submission, Admin CRUD operations"
+Search / Filter Flow,User enters search term or selects filter > debounced API request > Django applies filters (PostgreSQL full-text or queryset filters) > paginated JSON response > UI updates.,"Blog search, Projects filtering, Tag/Category pages"
+Auth Flow (JWT),User submits credentials > Django validates > returns access + refresh tokens > stored in httpOnly cookies > subsequent requests include token > middleware validates > protected resource returned.,"Login, Register, Admin pages, Protected API endpoints"
+Caching Flow,Request arrives > Django checks Redis cache > cache hit: return cached JSON > cache miss: query database > serialize > store in Redis with TTL > return response. Subsequent requests served from cache.,"Home featured projects, Blog post lists, Category/tag data"
+
+
+2. Request/Response Lifecycle Example (Blog Post),,
+Step,Layer,Action
+1,Browser,User navigates to /blog/my-post-slug
+2,Next.js,ISR checks cache: stale/miss > triggers data fetch; cache hit > serves immediately
+3,Next.js,getStaticProps / fetch calls GET /api/posts/my-post-slug/
+4,Nginx,"Receives HTTP request, proxies to Gunicorn/Django"
+5,Django,URL router matches posts/<slug>/ > dispatches to PostDetailView
+6,Django,Permission check: AllowAny (public) > proceeds to view logic
+7,Django ORM,"Query: Post.objects.select_related('author','category').prefetch_related('tags','comments').get(slug='my-post-slug')"
+8,PostgreSQL,Executes optimized query with JOINs; returns row data
+9,Django ORM,F('view_count') + 1: atomically increments view counter
+10,Django ORM,"Fetches related posts: shares tags, excludes current, limit 3"
+11,Django,PostDetailSerializer serializes post + nested relationships to JSON
+12,Django,Returns HTTP 200 with JSON response body
+13,Next.js,"Receives JSON, passes as props to PostDetailPage component"
+14,Next.js,"Renders HTML: react-markdown processes content, components hydrate"
+15,Browser,"Receives complete HTML, displays page, JS hydrates interactivity"
+
+
+
+3. Documentation Standards & Best Practices,,
+Category,Standard,Requirement
+Structure,Consistent Format,Every page MUST follow the same 6-section documentation template without variation
+Structure,Uniform Headings,Use identical heading levels and naming across all page documents
+Content,Comprehensive Coverage,Documentation must be detailed enough for direct implementation without guessing
+Content,Bullet Points,"Use consistent bullet formatting for features, responsibilities, and data items"
+Tone,Professional Voice,"Write in a development-ready, professional tone suitable for engineering teams"
+Technical,Code Examples,"Include code snippets for models, serializers, views, and key frontend components"
+Technical,API Specs,"Document all endpoints with HTTP methods, URLs, payloads, response codes, and examples"
+Technical,Error Handling,"Document error responses, edge cases, and fallback UI behavior"
+Security,Auth & Permissions,Specify authentication requirements and permission levels for every endpoint
+Security,Validation Rules,"Document all data validation rules (min/max length, format, required fields)"
+Performance,Optimization Notes,"Include caching strategy, query optimization, and bundle considerations"
+SEO,Meta Information,"Document title templates, meta descriptions, Open Graph, and structured data"
+UX,Accessibility,"Note ARIA labels, keyboard navigation, semantic HTML, and screen reader support"
+Maintenance,Version Control,"Document file structure, naming conventions, and component organization"
