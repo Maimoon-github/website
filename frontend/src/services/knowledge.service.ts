@@ -13,7 +13,7 @@ export interface Domain {
 export const KnowledgeService = {
   getDomains: async () => {
     try {
-      const response = await api.get<Domain[]>('/domains/');
+      const response = await api.get<Domain[]>('/knowledge/domains/');
       return { data: response.data, error: null };
     } catch (error) {
       console.error('Error fetching domains:', error);
@@ -23,7 +23,7 @@ export const KnowledgeService = {
 
   getDomain: async (slug: string) => {
     try {
-      const response = await api.get<Domain>(`/domains/${slug}/`);
+      const response = await api.get<Domain>(`/knowledge/domains/${slug}/`);
       return { data: response.data, error: null };
     } catch (error) {
       console.error(`Error fetching domain ${slug}:`, error);

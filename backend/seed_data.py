@@ -8,6 +8,8 @@ django.setup()
 from app.knowledge.models import Domain
 from app.projects.models import Project, ProjectCategory
 from app.blog.models import Post, Category
+from app.homepage.models import HeroContent, StatCounter
+from app.about.models import AboutProfile, Skill
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -15,6 +17,51 @@ def create_admin():
     if not User.objects.filter(username='admin').exists():
         User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
         print("Admin user created (admin/adminpass)")
+
+def seed_homepage():
+    HeroContent.objects.get_or_create(
+        is_active=True,
+        defaults={
+            'title': "Architecting Autonomous Intelligence",
+            'tagline': "The Future of Agentic AI Engineering",
+            'description': "A comprehensive knowledge hub and portfolio dedicated to production-grade Agentic AI systems. From cognitive architectures to multi-agent swarms.",
+            'primary_cta_text': "Explore Domains",
+            'primary_cta_link': "/knowledge",
+            'secondary_cta_text': "View Projects",
+            'secondary_cta_link': "/projects"
+        }
+    )
+    
+    stats = [
+        {'label': 'AGENTIC', 'value': '12', 'icon': 'Bot', 'order': 0},
+        {'label': 'COGNITIVE', 'value': '25', 'icon': 'Cpu', 'order': 1},
+        {'label': 'GOVERNED', 'value': '5', 'icon': 'Shield', 'order': 2},
+        {'label': 'PRODUCTION', 'value': '10', 'icon': 'Rocket', 'order': 3},
+    ]
+    for stat in stats:
+        StatCounter.objects.get_or_create(label=stat['label'], defaults=stat)
+    print("Homepage seeded.")
+
+def seed_about():
+    AboutProfile.objects.get_or_create(
+        name="Maimoon",
+        defaults={
+            'tagline': "Agentic AI Architect & Full-Stack Engineer",
+            'bio': "Passionate about building autonomous systems and cognitive architectures.",
+            'stats_domain_count': 12,
+            'stats_project_count': '25+',
+            'stats_experience_years': '5y+'
+        }
+    )
+    
+    skills = [
+        {'name': 'Python', 'category': 'technical', 'level': 95},
+        {'name': 'Next.js', 'category': 'technical', 'level': 90},
+        {'name': 'AI Agents', 'category': 'domain', 'level': 85},
+    ]
+    for skill in skills:
+        Skill.objects.get_or_create(name=skill['name'], defaults=skill)
+    print("About data seeded.")
 
 def seed_knowledge():
     # Read Agentic_AI_Content_Architecture.csv
@@ -87,6 +134,8 @@ def seed_blog():
 
 if __name__ == '__main__':
     create_admin()
+    seed_homepage()
+    seed_about()
     seed_knowledge()
     seed_projects()
     seed_blog()

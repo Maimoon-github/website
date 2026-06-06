@@ -14,7 +14,7 @@ export interface Profile {
 export const CoreService = {
   getProfile: async () => {
     try {
-      const response = await api.get<Profile[]>('/about/');
+      const response = await api.get<Profile[]>('/about/profile/');
       return { data: response.data[0] || null, error: null };
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -24,7 +24,7 @@ export const CoreService = {
 
   getSkills: async () => {
      try {
-       const response = await api.get('/skills/');
+       const response = await api.get('/about/skills/');
        return { data: response.data, error: null };
      } catch (error) {
        return { data: [], error: 'Skills inaccessible.' };

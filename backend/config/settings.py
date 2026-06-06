@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     # Local
-    "app.core",
+    "app.homepage",
+    "app.about",
     "app.projects",
     "app.blog",
     "app.knowledge",

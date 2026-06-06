@@ -19,37 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework.routers import DefaultRouter
-
-from app.core.views import AboutProfileViewSet, SkillViewSet, ExperienceViewSet, EducationViewSet
-from app.projects.views import ProjectViewSet, ProjectCategoryViewSet
-from app.blog.views import PostViewSet, CategoryViewSet, TagViewSet
-from app.knowledge.views import DomainViewSet, LearningPathViewSet, EcosystemToolViewSet
-from app.contact.views import ContactViewSet
-
-router = DefaultRouter()
-# Core
-router.register(r'about', AboutProfileViewSet, basename='about')
-router.register(r'skills', SkillViewSet)
-router.register(r'experience', ExperienceViewSet)
-router.register(r'education', EducationViewSet)
-# Projects
-router.register(r'projects', ProjectViewSet)
-router.register(r'project-categories', ProjectCategoryViewSet)
-# Blog
-router.register(r'posts', PostViewSet)
-router.register(r'blog-categories', CategoryViewSet)
-router.register(r'tags', TagViewSet)
-# Knowledge
-router.register(r'domains', DomainViewSet)
-router.register(r'learning-paths', LearningPathViewSet)
-router.register(r'tools', EcosystemToolViewSet)
-# Contact
-router.register(r'contact', ContactViewSet, basename='contact')
-
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(router.urls)),
+    path("api/homepage/", include("app.homepage.urls")),
+    path("api/about/", include("app.about.urls")),
+    path("api/projects/", include("app.projects.urls")),
+    path("api/blog/", include("app.blog.urls")),
+    path("api/knowledge/", include("app.knowledge.urls")),
+    path("api/contact/", include("app.contact.urls")),
 ]
 
 if settings.DEBUG:
