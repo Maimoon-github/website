@@ -24,7 +24,7 @@ export default function HeroSection({ hero, stats }: HeroSectionProps) {
   const description = hero?.description || "A comprehensive knowledge hub and portfolio dedicated to production-grade Agentic AI systems. From cognitive architectures to multi-agent swarms.";
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-purple/20 blur-[120px] animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-mid/20 blur-[120px] animate-pulse delay-1000" />
@@ -44,7 +44,7 @@ export default function HeroSection({ hero, stats }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-black mb-5 tracking-tight"
         >
           {title.split(' ').map((word, i) => (
             word.toLowerCase() === 'autonomous' ? <span key={i} className="text-gradient"> {word} </span> : ` ${word} `
@@ -55,7 +55,7 @@ export default function HeroSection({ hero, stats }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-10 leading-relaxed"
+          className="max-w-xl mx-auto text-base md:text-lg text-gray-400 mb-8 leading-relaxed"
         >
           {description}
         </motion.p>
@@ -85,7 +85,7 @@ export default function HeroSection({ hero, stats }: HeroSectionProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 opacity-40 grayscale hover:grayscale-0 transition-all duration-700"
         >
           {(stats.length > 0 ? stats : [
             { label: 'AGENTIC', icon: 'Bot' },

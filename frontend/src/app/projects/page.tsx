@@ -17,7 +17,7 @@ export default async function ProjectsPage() {
   ]);
 
   return (
-    <Container className="pt-32 pb-24">
+    <Container className="pt-24 pb-20">
       <PageHeader 
         badge={header?.badge || "Production Repository"}
         title={header?.title || "SELECTED"}

@@ -12,7 +12,7 @@ interface LatestPostsProps {
 
 export default function LatestPosts({ posts }: LatestPostsProps) {
   return (
-    <section className="py-24">
+    <section className="py-16">
       <div className="max-w-7xl mx-auto px-4">
         <SectionHeader
           badge="Communication Stream"
@@ -26,7 +26,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
           </Link>
         </SectionHeader>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {posts.length > 0 ? posts.slice(0, 2).map((post) => (
             <PostCard
               key={post.slug}

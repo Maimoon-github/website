@@ -9,7 +9,7 @@ export default async function ContactPage() {
   const { data: header } = await CoreService.getPageHeader('contact');
 
   return (
-    <Container className="pt-32 pb-24">
+    <Container className="pt-24 pb-20">
       <PageHeader 
         badge={header?.badge || "Registry Connection"}
         title={header?.title || "ESTABLISH"}
@@ -17,7 +17,7 @@ export default async function ContactPage() {
         description={header?.description || "Connect with the technical architecture team for inquiries regarding Agentic AI systems and deployments."}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <ContactInfo />
         <ContactForm />
       </div>

@@ -33,9 +33,9 @@ export default function DomainExplorer({ domains: propDomains }: DomainExplorerP
   const displayDomains = propDomains || [];
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter text-white">The <span className="text-gradient">Domains</span></h2>
           <p className="text-gray-400 max-w-2xl mx-auto">Master the complete spectrum of Agentic AI Engineering through our curated domain guides.</p>
         </div>
@@ -53,9 +53,9 @@ export default function DomainExplorer({ domains: propDomains }: DomainExplorerP
               >
                 <Link 
                   href={`/knowledge/${domain.slug}`}
-                  className="group block h-full p-8 glass rounded-2xl glow-hover hover:border-accent-light/40 transition-all border border-white/5"
+                  className="group block h-full p-6 glass rounded-2xl glow-hover hover:border-accent-light/40 transition-all border border-white/5"
                 >
-                  <div className="w-12 h-12 bg-accent-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent-purple/30 transition-transform">
+                  <div className="w-10 h-10 bg-accent-purple/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-accent-purple/30 transition-transform">
                     <Icon className="text-accent-light w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 group-hover:text-accent-light transition-colors text-white uppercase tracking-tight">{domain.name}</h3>

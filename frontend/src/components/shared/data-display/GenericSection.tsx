@@ -23,7 +23,7 @@ export default function GenericSection({ title, data }: GenericSectionProps) {
     
     return (
       <Card key={index} className="glass border-white/5 overflow-hidden hover:border-accent-purple/30 transition-all">
-        <CardContent className="p-6">
+        <CardContent className="p-5">
           {properties.map(([key, value]) => {
             // Handle Images
             if (typeof value === 'string' && (value.startsWith('http') || value.startsWith('/media/')) && (value.match(/\.(jpeg|jpg|gif|png|webp)$/) || key.includes('image'))) {
@@ -83,9 +83,9 @@ export default function GenericSection({ title, data }: GenericSectionProps) {
   const isList = Array.isArray(data);
 
   return (
-    <section className="py-20 animate-in fade-in slide-in-from-bottom duration-1000">
+    <section className="py-12 animate-in fade-in slide-in-from-bottom duration-1000">
       {title && (
-        <div className="mb-12">
+        <div className="mb-10">
           <h2 className="text-2xl font-black uppercase tracking-tighter text-white">
             {title} <span className="text-accent-light">ENTRY</span>
           </h2>
@@ -93,7 +93,7 @@ export default function GenericSection({ title, data }: GenericSectionProps) {
         </div>
       )}
       
-      <div className={isList ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" : "max-w-4xl"}>
+      <div className={isList ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "max-w-4xl"}>
         {isList ? data.map((item, i) => renderItem(item, i)) : renderItem(data, 0)}
       </div>
     </section>

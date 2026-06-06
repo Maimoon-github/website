@@ -18,15 +18,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   }
 
   return (
-    <Container className="pt-32 pb-24">
+    <Container className="pt-24 pb-20">
       <article className="max-w-4xl mx-auto">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-accent-light transition-colors mb-12 font-mono text-xs uppercase tracking-widest group">
+        <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-accent-light transition-colors mb-8 font-mono text-xs uppercase tracking-widest group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Transmissions
         </Link>
 
-        <header className="mb-16">
-          <Badge className="mb-6 bg-accent-purple/20 text-accent-light border-accent-purple/30">{post.category_name}</Badge>
-          <h1 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter leading-tight text-white">
+        <header className="mb-10">
+          <Badge className="mb-4 bg-accent-purple/20 text-accent-light border-accent-purple/30">{post.category_name}</Badge>
+          <h1 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter leading-tight text-white">
             {post.title}
           </h1>
           
@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </header>
 
-        <div className="relative mb-16 rounded-3xl overflow-hidden glass p-2 border-white/10">
+        <div className="relative mb-10 rounded-3xl overflow-hidden glass p-2 border-white/10">
           <div className="relative h-[500px] w-full overflow-hidden rounded-2xl">
             <Image 
               src={post.featured_image || "https://images.unsplash.com/photo-1676299081847-824916ef03cc?auto=format&fit=crop&q=80&w=1000"} 
@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         <div className="prose prose-invert prose-purple max-w-none">
-           <div className="text-xl text-gray-400 mb-12 italic leading-relaxed font-light border-l-4 border-accent-purple pl-8">
+           <div className="text-lg text-gray-400 mb-10 italic leading-relaxed font-light border-l-4 border-accent-purple pl-6">
              {post.excerpt}
            </div>
            <div 

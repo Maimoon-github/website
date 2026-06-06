@@ -17,7 +17,7 @@ export default async function BlogPage() {
   ]);
 
   return (
-    <Container className="pt-32 pb-24">
+    <Container className="pt-24 pb-20">
       <PageHeader 
         badge={header?.badge || "Transmission Log"}
         title={header?.title || "TECHNICAL"}

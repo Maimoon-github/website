@@ -33,13 +33,13 @@ export default function PostCard({ title, excerpt, date, readingTime, slug, imag
           </div>
         </div>
         
-        <CardContent className="flex-1 p-8">
-          <div className="flex items-center gap-4 mb-4">
+        <CardContent className="flex-1 p-6">
+          <div className="flex items-center gap-4 mb-3">
             <DateDisplay date={date} />
             <ReadingTimeBadge time={readingTime} />
           </div>
-          <h3 className="text-2xl font-bold mb-4 line-clamp-2 group-hover:text-accent-light transition-colors">{title}</h3>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3">
+          <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-accent-light transition-colors">{title}</h3>
+          <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
             {excerpt}
           </p>
           <div className="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-accent-light group-hover:gap-4 transition-all">

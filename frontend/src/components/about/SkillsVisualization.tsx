@@ -17,11 +17,11 @@ export default function SkillsVisualization({ skills }: SkillsVisualizationProps
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <h3 className="text-2xl font-bold tracking-tight text-white mb-8">
         TECHNICAL <span className="text-gradient">CAPABILITIES</span>
       </h3>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {displaySkills.map((skill, i) => (
           <div key={skill.name} className="space-y-2">
             <div className="flex justify-between items-center text-sm font-mono tracking-widest text-gray-400">

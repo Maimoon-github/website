@@ -12,7 +12,7 @@ interface FeaturedProjectsProps {
 
 export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   return (
-    <section className="py-24 bg-bg-deep/50">
+    <section className="py-16 bg-bg-deep/50">
       <div className="max-w-7xl mx-auto px-4">
         <SectionHeader
           badge="Production Assets"

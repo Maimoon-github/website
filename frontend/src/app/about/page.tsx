@@ -20,7 +20,7 @@ export default async function AboutPage() {
   ]);
 
   return (
-    <Container className="pt-32 pb-24">
+    <Container className="pt-24 pb-20">
       <PageHeader 
         badge={header?.badge || "Personnel Profile"}
         title={header?.title || "IDENTITY"}
@@ -29,7 +29,7 @@ export default async function AboutPage() {
       />
       <BioSection profile={profile} />
       <StatsGrid profile={profile} />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-16">
         <SpecSection />
         <SkillsVisualization skills={skills || []} />
       </div>

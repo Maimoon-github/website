@@ -38,15 +38,15 @@ export default function ProjectCard({
         </div>
       </div>
       
-      <CardContent className="p-8 flex-1 flex flex-col">
-        <TagList tags={tech_stack} limit={3} className="mb-6" />
+      <CardContent className="p-6 flex-1 flex flex-col">
+        <TagList tags={tech_stack} limit={3} className="mb-4" />
         
-        <h3 className="text-2xl font-bold mb-4 group-hover:text-accent-light transition-colors">{title}</h3>
-        <p className="text-gray-400 text-sm mb-8 leading-relaxed line-clamp-3">
+        <h3 className="text-xl font-bold mb-3 group-hover:text-accent-light transition-colors">{title}</h3>
+        <p className="text-gray-400 text-sm mb-6 leading-relaxed line-clamp-3">
           {description}
         </p>
         
-        <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+        <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
           <Link href={`/projects/${slug}`}>
             <Button variant="ghost" size="sm" className="group/btn gap-2 font-bold uppercase tracking-wider text-[10px]">
               Details <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />

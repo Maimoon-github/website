@@ -7,7 +7,7 @@ interface PostGridProps {
 
 export default function PostGrid({ posts }: PostGridProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {posts.map((post) => (
         <PostCard
           key={post.slug}

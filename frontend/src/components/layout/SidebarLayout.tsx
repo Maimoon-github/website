@@ -30,8 +30,8 @@ export default function SidebarLayout({ children, activeSection, sidebarExtra }:
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
       </div>
 
-      <aside className="hidden lg:flex w-72 h-screen sticky top-0 border-r border-white/5 flex-col bg-background/50 backdrop-blur-xl">
-        <div className="p-8 border-b border-white/5">
+      <aside className="hidden lg:flex w-64 h-screen sticky top-0 border-r border-white/5 flex-col bg-background/50 backdrop-blur-xl">
+        <div className="p-6 border-b border-white/5">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center glow group-hover:scale-110 transition-transform">
               <span className="font-black text-white text-xs">AG</span>
@@ -40,7 +40,7 @@ export default function SidebarLayout({ children, activeSection, sidebarExtra }:
           </Link>
         </div>
 
-        <nav className="flex-1 p-6 space-y-2">
+        <nav className="flex-1 p-5 space-y-1">
           <div className="text-[10px] font-mono text-gray-500 uppercase tracking-[0.3em] mb-6 px-2">Navigation_Nodes</div>
           {sections.map((section) => {
             const Icon = section.icon;
@@ -49,7 +49,7 @@ export default function SidebarLayout({ children, activeSection, sidebarExtra }:
               <Link
                 key={section.id}
                 href={section.href}
-                className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
                   isActive 
                     ? 'bg-accent-purple/10 text-accent-light' 
                     : 'text-gray-400 hover:text-white hover:bg-white/5'

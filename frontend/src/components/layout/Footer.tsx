@@ -26,9 +26,9 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-bg-deep/80 backdrop-blur-xl pt-24 pb-12">
+    <footer className="border-t border-white/5 bg-bg-deep/80 backdrop-blur-xl pt-16 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6 group">
               <div className="w-10 h-10 bg-accent-purple rounded-lg flex items-center justify-center glow">
@@ -89,7 +89,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-gray-500 text-xs font-mono tracking-widest">
             © 2026 ANTIGRAVITY. BUILT FOR THE NEXT GENERATION.
           </p>

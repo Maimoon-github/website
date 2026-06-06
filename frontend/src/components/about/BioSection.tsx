@@ -8,7 +8,7 @@ interface BioSectionProps {
 
 export default function BioSection({ profile }: BioSectionProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-12 items-center md:items-start mb-20 text-white">
+    <div className="flex flex-col md:flex-row gap-10 items-center md:items-start mb-16 text-white">
       <div className="w-48 h-48 rounded-3xl overflow-hidden glass border-accent-purple/30 p-2 shrink-0 animate-float relative">
         <Image
           src={profile?.profile_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
@@ -21,7 +21,7 @@ export default function BioSection({ profile }: BioSectionProps) {
 
       <div>
         <header className="mb-6">
-          <h1 className="text-4xl md:text-8xl font-black mb-2 tracking-tighter uppercase line-clamp-1">
+          <h1 className="text-4xl md:text-6xl font-black mb-1 tracking-tighter uppercase line-clamp-1">
             I AM <span className="text-gradient">{profile?.name || 'MAIMOON'}</span>
           </h1>
           <p className="text-gray-400 text-lg max-w-sm font-light leading-relaxed">
@@ -29,13 +29,13 @@ export default function BioSection({ profile }: BioSectionProps) {
           </p>
         </header>
 
-        <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
+        <div className="space-y-4 text-gray-400 leading-relaxed text-base md:text-lg">
           <p>
             {profile?.bio || "Specializing in the intersection of large language models and autonomous reasoning, I build systems that don't just generate text—they solve problems."}
           </p>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="mt-6 flex flex-wrap gap-3">
           <button className="px-6 py-3 bg-accent-purple rounded-xl font-bold flex items-center gap-2 glow glow-hover transition-all">
             Download Resume <Download className="w-5 h-5" />
           </button>
@@ -47,7 +47,7 @@ export default function BioSection({ profile }: BioSectionProps) {
           </div>
         </div>
 
-        <div className="bg-bg-deep rounded-2xl p-8 border border-white/5 font-mono text-xs overflow-x-auto my-12 relative group">
+        <div className="bg-bg-deep rounded-2xl p-6 border border-white/5 font-mono text-xs overflow-x-auto my-8 relative group">
           <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-accent-light animate-pulse" />
           <code className="text-accent-light leading-loose block">
             # Initialize Agentic Protocol<br />

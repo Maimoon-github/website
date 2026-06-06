@@ -13,9 +13,9 @@ export default function StatsGrid({ profile }: StatsGridProps) {
   ]
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
       {stats.map((stat) => (
-        <div key={stat.label} className="p-8 glass text-center group hover:border-accent-purple/50 transition-all">
+        <div key={stat.label} className="p-6 glass text-center group hover:border-accent-purple/50 transition-all">
           <div className="text-3xl font-black text-gradient mb-1 group-hover:scale-110 transition-transform">{stat.value}</div>
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-gray-500">{stat.label}</div>
         </div>

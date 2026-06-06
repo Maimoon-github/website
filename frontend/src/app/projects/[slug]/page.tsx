@@ -18,24 +18,24 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   }
 
   return (
-    <Container className="pt-32 pb-24">
-      <Link href="/projects" className="inline-flex items-center gap-2 text-gray-500 hover:text-accent-light transition-colors mb-12 font-mono text-xs uppercase tracking-widest group">
+    <Container className="pt-24 pb-20">
+      <Link href="/projects" className="inline-flex items-center gap-2 text-gray-500 hover:text-accent-light transition-colors mb-8 font-mono text-xs uppercase tracking-widest group">
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Registry
       </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
         <div>
-          <header className="mb-12">
-            <Badge className="mb-6 bg-accent-purple/20 text-accent-light border-accent-purple/30">{project.category_name}</Badge>
-            <h1 className="text-4xl md:text-7xl font-black mb-8 tracking-tighter uppercase leading-none text-white">
+          <header className="mb-10">
+            <Badge className="mb-4 bg-accent-purple/20 text-accent-light border-accent-purple/30">{project.category_name}</Badge>
+            <h1 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter uppercase leading-none text-white">
               {project.title}
             </h1>
-            <p className="text-xl text-gray-400 leading-relaxed">
+            <p className="text-lg text-gray-400 leading-relaxed">
               {project.short_description}
             </p>
           </header>
 
-          <div className="flex flex-wrap gap-4 mb-12 pb-12 border-b border-white/5">
+          <div className="flex flex-wrap gap-4 mb-10 pb-10 border-b border-white/5">
             {project.github_url && (
                <a href={project.github_url} target="_blank" rel="noopener noreferrer">
                  <Button className="gap-2 bg-accent-purple hover:bg-accent-purple/90">
@@ -57,7 +57,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                <h3 className="text-xs font-mono text-gray-500 uppercase tracking-[0.4em] mb-4">Core Architecture</h3>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {Object.entries(project.tech_specs || {}).slice(0, 2).map(([key, value]) => (
-                    <div key={key} className="p-6 glass rounded-2xl border-white/5 flex items-center gap-4">
+                    <div key={key} className="p-5 glass rounded-2xl border-white/5 flex items-center gap-4">
                       <Cpu className="text-accent-light w-5 h-5" />
                       <div>
                         <div className="text-xs font-bold text-white uppercase tracking-tight">{key}</div>
@@ -77,7 +77,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         </div>
 
         <div className="relative">
-           <div className="sticky top-32">
+            <div className="sticky top-24">
              <div className="rounded-3xl overflow-hidden glass p-3 border-white/10 shadow-2xl relative">
                 <div className="relative w-full aspect-video">
                   <Image 
@@ -108,16 +108,16 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
-          <h2 className="text-3xl font-bold mb-8 uppercase tracking-tighter flex items-center gap-4 text-white">
+          <h2 className="text-2xl font-bold mb-6 uppercase tracking-tighter flex items-center gap-4 text-white">
             <Layers className="text-accent-purple" /> System Implementation
           </h2>
           <div className="prose prose-invert prose-purple max-w-none text-gray-400 space-y-6 text-lg leading-relaxed">
             <p>{project.description}</p>
-            <div className="bg-bg-deep rounded-2xl p-10 border border-white/5 my-12">
+            <div className="bg-bg-deep rounded-2xl p-8 border border-white/5 my-8">
                <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-6">Technical Specifications</h4>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  {Object.entries(project.tech_specs || {}).map(([key, value]) => (
                    <div key={key}>
                      <h5 className="text-accent-light text-xs font-bold uppercase mb-2">{key}</h5>
@@ -132,9 +132,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-8">
            <div>
-             <h3 className="text-xl font-bold mb-8 uppercase tracking-tighter text-white">Technology Stack</h3>
+              <h3 className="text-lg font-bold mb-6 uppercase tracking-tighter text-white">Technology Stack</h3>
              <div className="flex flex-wrap gap-2">
                 {Array.isArray(project.tech_stack) ? project.tech_stack.map(tech => (
                   <Badge key={tech} variant="secondary" className="px-4 py-2 font-mono text-[10px] uppercase">

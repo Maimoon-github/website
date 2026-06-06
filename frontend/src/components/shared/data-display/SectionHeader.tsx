@@ -21,7 +21,7 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={cn(
-      "mb-16 flex flex-col gap-8",
+      "mb-12 flex flex-col gap-6",
       align === "center" ? "items-center text-center" : "md:flex-row md:justify-between md:items-end",
       className
     )}>
@@ -29,16 +29,16 @@ export function SectionHeader({
         align === "center" ? "text-center" : "text-left"
       )}>
         {badge && (
-          <div className="text-accent-light font-mono text-[10px] uppercase tracking-[0.4em] mb-4">
+          <div className="text-accent-light font-mono text-[10px] uppercase tracking-[0.4em] mb-3">
             {badge}
           </div>
         )}
-        <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase cursor-default">
+        <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase cursor-default">
           {title} {highlightedWord && <span className="text-gradient">{highlightedWord}</span>}
         </h2>
         {description && (
           <p className={cn(
-            "text-xl text-gray-400 max-w-2xl mt-4",
+            "text-lg text-gray-400 max-w-2xl mt-3",
             align === "center" && "mx-auto"
           )}>
             {description}
