@@ -14,6 +14,7 @@ export default function BioSection({ profile }: BioSectionProps) {
           src={profile?.profile_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
           alt="Profile"
           fill
+          sizes="(max-width: 768px) 192px, 192px"
           className="object-cover rounded-2xl p-2"
         />
       </div>
