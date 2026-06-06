@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #131026;
+  --foreground: #ffffff;
+
+  --bg-deep: #131026;
+  --bg-dark: #1f1a40;
+  --accent-purple: #5f2da6;
+  --accent-mid: #4e3473;
+  --accent-light: #8b65bf;
+
+  --card-bg: rgba(31, 26, 64, 0.4);
+  --card-border: rgba(139, 101, 191, 0.2);
+
+  --glow-shadow: 0 0 20px rgba(95, 45, 166, 0.3);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+@layer base {
+  * {
+    border-color: var(--card-border);
+  }
+}
+
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--foreground), var(--accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow {
+  box-shadow: var(--glow-shadow);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 30px rgba(139, 101, 191, 0.5);
+  transition: all 0.3s ease;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
