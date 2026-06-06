@@ -39,7 +39,7 @@ class ApiClient {
           ...restOptions.headers,
         },
         next: {
-          revalidate: revalidate !== undefined ? revalidate : 3600, // Default 1 hour
+          revalidate: revalidate !== undefined ? revalidate : 0, // Default to 0 for fresh data during development
           tags,
         },
       });
