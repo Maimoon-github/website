@@ -10,8 +10,12 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = Project.objects.all()
         featured = self.request.query_params.get('featured')
+        category = self.request.query_params.get('category')
+        
         if featured is not None:
             queryset = queryset.filter(is_featured=featured.lower() == 'true')
+        if category:
+            queryset = queryset.filter(category__slug=category)
         return queryset
 
 class ProjectCategoryViewSet(viewsets.ReadOnlyModelViewSet):

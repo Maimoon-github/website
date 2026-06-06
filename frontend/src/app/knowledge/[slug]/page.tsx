@@ -1,24 +1,10 @@
-import { ArrowLeft, Brain, Network, MemoryStick, PenTool, Search, Settings, Eye, ShieldCheck, Zap, Layers, Workflow, Terminal } from 'lucide-react';
+import { ArrowLeft, Brain } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import Link from 'next/link';
 import { KnowledgeService } from '@/services/knowledge.service';
 import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import Container from '@/components/layout/Container';
-
-const iconMap: Record<string, React.ElementType> = {
-  'agent-architecture': Brain,
-  'multi-agent-systems': Network,
-  'agent-orchestration': MemoryStick,
-  'memory-systems': PenTool,
-  'planning-and-reasoning': Search,
-  'tool-use-and-function-calling': Settings,
-  'retrieval-augmented-generation-(rag)': Eye,
-  'workflow-automation': ShieldCheck,
-  'ai-infrastructure-and-deployment': Zap,
-  'observability-and-evaluation': Workflow,
-  'security,-governance,-and-safety': Layers,
-  'production-grade-agent-systems': Terminal,
-};
 
 export const dynamic = 'force-dynamic';
 
@@ -29,7 +15,8 @@ export default async function DomainDetail({ params }: { params: { slug: string 
     notFound();
   }
 
-  const Icon = iconMap[params.slug] || Brain;
+  // Resolve icon dynamically from backend string or fallback to Brain
+  const Icon = (Icons[domain.icon as keyof typeof Icons] as React.ElementType) || Brain;
 
   return (
     <Container className="pt-32 pb-24">

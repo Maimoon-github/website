@@ -5,7 +5,13 @@ import { BioSection, StatsGrid, SpecSection, SkillsVisualization } from '@/compo
 export const dynamic = 'force-dynamic';
 
 export default async function AboutPage() {
-  const { data: profile } = await CoreService.getProfile();
+  const [
+    { data: profile },
+    { data: skills }
+  ] = await Promise.all([
+    CoreService.getProfile(),
+    CoreService.getSkills()
+  ]);
 
   return (
     <Container className="pt-32 pb-24">
@@ -13,7 +19,7 @@ export default async function AboutPage() {
       <StatsGrid profile={profile} />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-24">
         <SpecSection />
-        <SkillsVisualization />
+        <SkillsVisualization skills={skills || []} />
       </div>
     </Container>
   );

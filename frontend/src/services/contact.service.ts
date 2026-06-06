@@ -17,7 +17,11 @@ export const ContactService = {
   /**
    * Submits a contact message to the backend.
    */
-  submitMessage: async (data: ContactMessage): Promise<ApiResponse<any>> => {
-    return api.post('contact/messages/', data);
+  submitMessage: async (data: ContactMessage): Promise<ApiResponse<any> & { success: boolean }> => {
+    const response = await api.post('contact/messages/', data);
+    return {
+      ...response,
+      success: !response.error
+    };
   }
 };

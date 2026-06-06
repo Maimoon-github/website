@@ -5,9 +5,23 @@ from .models import Post, Category, Tag
 from .serializers import PostSerializer, CategorySerializer, TagSerializer, CommentSerializer
 
 class PostViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
+
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        category = self.request.query_params.get('category')
+        tag = self.request.query_params.get('tag')
+        search = self.request.query_params.get('search')
+
+        if category:
+            queryset = queryset.filter(category__slug=category)
+        if tag:
+            queryset = queryset.filter(tags__slug=tag)
+        if search:
+            queryset = queryset.filter(title__icontains=search) | queryset.filter(content__icontains=search)
+            
+        return queryset.distinct()
 
     @action(detail=True, methods=['post'])
     def comment(self, request, slug=None):

@@ -1,23 +1,28 @@
 "use client"
-
 import { motion } from "framer-motion"
+import { Skill } from "@/services/core.service";
 
-const SKILLS = [
-  { name: "Agentic Architectures", level: 95 },
-  { name: "Autonomous Reasoning", level: 90 },
-  { name: "Cognitive Security", level: 85 },
-  { name: "Multi-Agent Systems", level: 92 },
-  { name: "Full-Stack AI Engineering", level: 88 },
-]
+interface SkillsVisualizationProps {
+  skills: Skill[];
+}
 
-export default function SkillsVisualization() {
+export default function SkillsVisualization({ skills }: SkillsVisualizationProps) {
+  // Use provided skills or fallback to defaults if none provided
+  const displaySkills = skills?.length > 0 ? skills : [
+    { name: "Agentic Architectures", level: 95 },
+    { name: "Autonomous Reasoning", level: 90 },
+    { name: "Cognitive Security", level: 85 },
+    { name: "Multi-Agent Systems", level: 92 },
+    { name: "Full-Stack AI Engineering", level: 88 },
+  ]
+
   return (
     <div className="space-y-8">
       <h3 className="text-2xl font-bold tracking-tight text-white mb-8">
         TECHNICAL <span className="text-gradient">CAPABILITIES</span>
       </h3>
       <div className="space-y-6">
-        {SKILLS.map((skill, i) => (
+        {displaySkills.map((skill, i) => (
           <div key={skill.name} className="space-y-2">
             <div className="flex justify-between items-center text-sm font-mono tracking-widest text-gray-400">
               <span>{skill.name}</span>
