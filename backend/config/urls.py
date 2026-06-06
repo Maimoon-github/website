@@ -16,8 +16,43 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+
+from core.views import AboutProfileViewSet, SkillViewSet, ExperienceViewSet, EducationViewSet
+from projects.views import ProjectViewSet, ProjectCategoryViewSet
+from blog.views import PostViewSet, CategoryViewSet, TagViewSet
+from knowledge.views import DomainViewSet, LearningPathViewSet, EcosystemToolViewSet
+from contact.views import ContactViewSet
+
+router = DefaultRouter()
+# Core
+router.register(r'about', AboutProfileViewSet, basename='about')
+router.register(r'skills', SkillViewSet)
+router.register(r'experience', ExperienceViewSet)
+router.register(r'education', EducationViewSet)
+# Projects
+router.register(r'projects', ProjectViewSet)
+router.register(r'project-categories', ProjectCategoryViewSet)
+# Blog
+router.register(r'posts', PostViewSet)
+router.register(r'blog-categories', CategoryViewSet)
+router.register(r'tags', TagViewSet)
+# Knowledge
+router.register(r'domains', DomainViewSet)
+router.register(r'learning-paths', LearningPathViewSet)
+router.register(r'tools', EcosystemToolViewSet)
+# Contact
+router.register(r'contact', ContactViewSet, basename='contact')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
