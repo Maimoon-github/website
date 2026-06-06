@@ -7,6 +7,7 @@ class Domain(models.Model):
     icon = models.CharField(max_length=50, help_text="Lucide icon name")
     order = models.IntegerField(default=0)
     key_concepts = models.JSONField(default=list)
+    specs = models.JSONField(default=dict, blank=True, help_text="e.g. {'Throughput': 'High', 'Latency': 'Low'}")
 
     class Meta:
         ordering = ['order']

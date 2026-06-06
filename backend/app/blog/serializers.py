@@ -26,5 +26,5 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'title', 'slug', 'author_name', 'category', 'category_name',
             'tags', 'featured_image', 'excerpt', 'content', 'published_at',
-            'view_count'
+            'view_count', 'reading_time'
         ]

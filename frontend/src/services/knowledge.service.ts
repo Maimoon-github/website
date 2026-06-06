@@ -11,6 +11,7 @@ export interface Domain {
   icon: string | null;
   order: number;
   key_concepts: string[];
+  specs: Record<string, string>;
   tools: Array<unknown>;
   [key: string]: unknown;
 }

@@ -92,9 +92,15 @@ export default async function DomainDetail({ params }: { params: Promise<{ slug:
            <div className="p-10 glass border-l-4 border-l-accent-purple bg-accent-purple/5">
               <h3 className="font-bold text-lg mb-4 uppercase tracking-tighter text-white">Production Specs</h3>
               <ul className="space-y-4 text-sm text-gray-400 font-mono uppercase tracking-widest">
-                <li className="flex justify-between"><span>Throughput</span> <span className="text-white">High</span></li>
-                <li className="flex justify-between"><span>State Retention</span> <span className="text-white">Persistent</span></li>
-                <li className="flex justify-between"><span>Context Limit</span> <span className="text-white">128k+</span></li>
+                {Object.entries(domain.specs || {}).map(([key, value]) => (
+                  <li key={key} className="flex justify-between">
+                    <span>{key}</span> 
+                    <span className="text-white">{value}</span>
+                  </li>
+                ))}
+                {Object.keys(domain.specs || {}).length === 0 && (
+                  <li className="text-[10px] opacity-50 uppercase">Waiting for telemetry...</li>
+                )}
               </ul>
            </div>
            <div className="p-10 glass border-l-4 border-l-accent-light bg-accent-light/5">

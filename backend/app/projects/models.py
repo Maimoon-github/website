@@ -18,6 +18,7 @@ class Project(models.Model):
     github_url = models.URLField(max_length=500, blank=True, null=True)
     live_url = models.URLField(max_length=500, blank=True, null=True)
     is_featured = models.BooleanField(default=False)
+    tech_specs = models.JSONField(default=dict, blank=True, help_text="e.g. {'Model Core': 'GPT-4', 'Latency': '150ms'}")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

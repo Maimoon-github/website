@@ -11,7 +11,7 @@ class DomainSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Domain
-        fields = ['id', 'name', 'slug', 'description', 'icon', 'order', 'key_concepts', 'tools']
+        fields = ['id', 'name', 'slug', 'description', 'icon', 'order', 'key_concepts', 'specs', 'tools']
 
 class LearningPathSerializer(serializers.ModelSerializer):
     domains = DomainSerializer(many=True, read_only=True)

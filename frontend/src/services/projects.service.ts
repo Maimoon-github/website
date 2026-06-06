@@ -16,6 +16,7 @@ export interface Project {
   github_url: string | null;
   live_url: string | null;
   is_featured: boolean;
+  tech_specs: Record<string, string>;
   screenshots: Array<{ id: number; image: string; caption: string }>;
   created_at: string;
   [key: string]: unknown;

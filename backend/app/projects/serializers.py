@@ -16,7 +16,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             'id', 'title', 'slug', 'category', 'category_name', 
             'short_description', 'description', 'featured_image', 
             'tech_stack', 'github_url', 'live_url', 'is_featured', 
-            'screenshots', 'created_at'
+            'tech_specs', 'screenshots', 'created_at'
         ]
 
 class ProjectCategorySerializer(serializers.ModelSerializer):

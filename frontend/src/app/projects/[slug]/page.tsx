@@ -55,21 +55,22 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           <div className="space-y-8">
              <div>
                <h3 className="text-xs font-mono text-gray-500 uppercase tracking-[0.4em] mb-4">Core Architecture</h3>
-               <div className="grid grid-cols-2 gap-4">
-                  <div className="p-6 glass rounded-2xl border-white/5 flex items-center gap-4">
-                    <Cpu className="text-accent-light w-5 h-5" />
-                    <div>
-                      <div className="text-xs font-bold text-white">Latency</div>
-                      <div className="text-[10px] text-gray-500 font-mono">150ms Opt</div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {Object.entries(project.tech_specs || {}).slice(0, 2).map(([key, value]) => (
+                    <div key={key} className="p-6 glass rounded-2xl border-white/5 flex items-center gap-4">
+                      <Cpu className="text-accent-light w-5 h-5" />
+                      <div>
+                        <div className="text-xs font-bold text-white uppercase tracking-tight">{key}</div>
+                        <div className="text-[10px] text-gray-500 font-mono tracking-widest uppercase">{value}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-6 glass rounded-2xl border-white/5 flex items-center gap-4">
-                    <Shield className="text-accent-light w-5 h-5" />
-                    <div>
-                      <div className="text-xs font-bold text-white">Security</div>
-                      <div className="text-[10px] text-gray-500 font-mono">End-to-End</div>
+                  ))}
+                  {Object.keys(project.tech_specs || {}).length === 0 && (
+                    <div className="p-6 glass rounded-2xl border-white/5 flex items-center gap-4 opacity-50">
+                      <Cpu className="text-gray-600 w-5 h-5" />
+                      <div className="text-[10px] text-gray-600 font-mono uppercase tracking-widest">Awaiting Node Specs...</div>
                     </div>
-                  </div>
+                  )}
                </div>
              </div>
           </div>
@@ -115,14 +116,15 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <div className="bg-bg-deep rounded-2xl p-10 border border-white/5 my-12">
                <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-6">Technical Specifications</h4>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                 <div>
-                   <h5 className="text-accent-light text-xs font-bold uppercase mb-3">Model Core</h5>
-                   <p className="text-sm font-mono tracking-wider">GPT-4-TURBO-VISION</p>
-                 </div>
-                 <div>
-                   <h5 className="text-accent-light text-xs font-bold uppercase mb-3">Response Mode</h5>
-                   <p className="text-sm font-mono tracking-wider">ASYNCHRONOUS_PULSE</p>
-                 </div>
+                 {Object.entries(project.tech_specs || {}).map(([key, value]) => (
+                   <div key={key}>
+                     <h5 className="text-accent-light text-xs font-bold uppercase mb-2">{key}</h5>
+                     <p className="text-sm font-mono tracking-wider">{value.toUpperCase()}</p>
+                   </div>
+                 ))}
+                 {Object.keys(project.tech_specs || {}).length === 0 && (
+                   <div className="col-span-full text-xs text-gray-700 font-mono italic">No additional registry metadata provided.</div>
+                 )}
                </div>
             </div>
           </div>

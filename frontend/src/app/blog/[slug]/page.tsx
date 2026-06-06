@@ -48,7 +48,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             
             <div className="flex items-center gap-6 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
               <span className="flex items-center gap-2"><Calendar className="w-4 h-4" /> {new Date(post.published_at).toLocaleDateString()}</span>
-              <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> 15 MIN READ</span>
+              <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> {post.reading_time?.toUpperCase() || '10 MIN READ'}</span>
               <span className="flex items-center gap-2"><Eye className="w-4 h-4" /> {post.view_count} CLICKS</span>
             </div>
           </div>
@@ -88,9 +88,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="flex items-center gap-2">
              <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">Tags:</span>
              <div className="flex gap-2">
-               <Badge variant="secondary">#AGENTIC</Badge>
-               <Badge variant="secondary">#LLM</Badge>
-               <Badge variant="secondary">#AUTO</Badge>
+               {post.tags?.map(tag => (
+                 <Badge key={tag.slug} variant="secondary">#{tag.name.toUpperCase()}</Badge>
+               ))}
              </div>
           </div>
         </div>
