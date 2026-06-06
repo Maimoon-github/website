@@ -14,25 +14,17 @@ class TagSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['id', 'author_name', 'content', 'created_at']
+        fields = '__all__'
 
-class PostListSerializer(serializers.ModelSerializer):
-    category_name = serializers.ReadOnlyField(source='category.name')
-    author_name = serializers.ReadOnlyField(source='author.username')
-    class Meta:
-        model = Post
-        fields = ['id', 'title', 'slug', 'excerpt', 'featured_image', 'category_name', 'author_name', 'published_at', 'view_count']
-
-class PostDetailSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(source='category.name')
     author_name = serializers.ReadOnlyField(source='author.username')
     tags = TagSerializer(many=True, read_only=True)
-    comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = '__all__'
-
-    def get_comments(self, obj):
-        comments = obj.comments.filter(is_approved=True)
-        return CommentSerializer(comments, many=True).data
+        fields = [
+            'id', 'title', 'slug', 'author_name', 'category', 'category_name',
+            'tags', 'featured_image', 'excerpt', 'content', 'published_at',
+            'view_count'
+        ]

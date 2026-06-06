@@ -1,19 +1,16 @@
 from rest_framework import viewsets
 from .models import Domain, LearningPath, EcosystemTool
-from .serializers import DomainListSerializer, DomainDetailSerializer, LearningPathSerializer, EcosystemToolSerializer
+from .serializers import DomainSerializer, LearningPathSerializer, EcosystemToolSerializer
 
 class DomainViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Domain.objects.all()
+    serializer_class = DomainSerializer
     lookup_field = 'slug'
-
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            return DomainDetailSerializer
-        return DomainListSerializer
 
 class LearningPathViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = LearningPath.objects.all()
     serializer_class = LearningPathSerializer
+    lookup_field = 'slug'
 
 class EcosystemToolViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = EcosystemTool.objects.all()

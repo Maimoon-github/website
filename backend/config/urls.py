@@ -21,11 +21,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
-from core.views import AboutProfileViewSet, SkillViewSet, ExperienceViewSet, EducationViewSet
-from projects.views import ProjectViewSet, ProjectCategoryViewSet
-from blog.views import PostViewSet, CategoryViewSet, TagViewSet
-from knowledge.views import DomainViewSet, LearningPathViewSet, EcosystemToolViewSet
-from contact.views import ContactViewSet
+from app.core.views import AboutProfileViewSet, SkillViewSet, ExperienceViewSet, EducationViewSet
+from app.projects.views import ProjectViewSet, ProjectCategoryViewSet
+from app.blog.views import PostViewSet, CategoryViewSet, TagViewSet
+from app.knowledge.views import DomainViewSet, LearningPathViewSet, EcosystemToolViewSet
+from app.contact.views import ContactViewSet
 
 router = DefaultRouter()
 # Core

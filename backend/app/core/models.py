@@ -1,40 +1,35 @@
 from django.db import models
 
 class AboutProfile(models.Model):
+    name = models.CharField(max_length=100)
+    tagline = models.CharField(max_length=200)
     bio = models.TextField()
-    profile_photo = models.ImageField(upload_to='profile/', null=True, blank=True)
-    resume_file = models.FileField(upload_to='resumes/', null=True, blank=True)
-    location = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField()
-    github = models.URLField(null=True, blank=True)
-    linkedin = models.URLField(null=True, blank=True)
-    twitter = models.URLField(null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile/', null=True, blank=True)
+    stats_domain_count = models.IntegerField(default=12)
+    stats_project_count = models.CharField(max_length=20, default='25+')
+    stats_experience_years = models.CharField(max_length=20, default='5y+')
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Profile - {self.email}"
+        return self.name
 
 class Skill(models.Model):
     CATEGORY_CHOICES = [
-        ('frontend', 'Frontend'),
-        ('backend', 'Backend'),
-        ('ai_ml', 'AI/ML'),
-        ('devops', 'DevOps'),
-        ('other', 'Other'),
+        ('technical', 'Technical'),
+        ('soft', 'Soft'),
+        ('domain', 'AI Domain'),
     ]
-    name = models.CharField(max_length=100)
-    proficiency_percent = models.IntegerField(default=80)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    order = models.IntegerField(default=0)
-
-    class Meta:
-        ordering = ['order', 'name']
+    name = models.CharField(max_length=50)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    level = models.IntegerField(default=90) # 0-100
 
     def __str__(self):
         return self.name
 
 class Experience(models.Model):
-    company = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
+    title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     description = models.TextField()
@@ -44,17 +39,13 @@ class Experience(models.Model):
         ordering = ['-start_date']
 
     def __str__(self):
-        return f"{self.role} at {self.company}"
+        return f"{self.title} at {self.company}"
 
 class Education(models.Model):
-    institution = models.CharField(max_length=255)
-    degree = models.CharField(max_length=255)
-    field = models.CharField(max_length=255)
-    start_date = models.DateField()
-    end_date = models.DateField(null=True, blank=True)
-
-    class Meta:
-        ordering = ['-start_date']
+    degree = models.CharField(max_length=100)
+    institution = models.CharField(max_length=100)
+    completion_date = models.DateField()
+    description = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.degree} from {self.institution}"
+        return self.degree

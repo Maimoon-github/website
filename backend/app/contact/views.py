@@ -1,11 +1,12 @@
-from rest_framework import serializers, viewsets, mixins
+from rest_framework import serializers, viewsets
 from .models import ContactMessage
 
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactMessage
-        fields = ['id', 'name', 'email', 'subject', 'message', 'created_at']
+        fields = '__all__'
 
-class ContactViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class ContactViewSet(viewsets.ModelViewSet):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+    http_method_names = ['post'] # Only allow creation of messages via API

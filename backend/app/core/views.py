@@ -6,13 +6,9 @@ class AboutProfileViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = AboutProfile.objects.all()
     serializer_class = AboutProfileSerializer
 
-    def get_object(self):
-        return AboutProfile.objects.first()
-
 class SkillViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
-    filterset_fields = ['category']
 
 class ExperienceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Experience.objects.all()
