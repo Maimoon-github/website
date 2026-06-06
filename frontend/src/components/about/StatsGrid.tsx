@@ -1,5 +1,7 @@
+import { Profile } from "@/services/core.service"
+
 interface StatsGridProps {
-  profile: any
+  profile: Profile | null;
 }
 
 export default function StatsGrid({ profile }: StatsGridProps) {

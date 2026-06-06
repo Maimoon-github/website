@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,12 +11,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+import { constructMetadata } from "@/components/shared/seo";
+import MainLayout from "@/components/layout/MainLayout";
+
+export const metadata = constructMetadata({
   title: "ANTIGRAVITY | Agentic AI Engineering Hub",
   description: "The definitive technical resource for designing and building production-grade Agentic AI systems.",
-};
-
-import MainLayout from "@/components/layout/MainLayout";
+});
 
 export default function RootLayout({
   children,
@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-background text-foreground antialiased selection:bg-accent-purple selection:text-white">
+    <html lang="en" className="dark scroll-smooth">
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased selection:bg-accent-purple selection:text-white font-sans`}>
         <MainLayout>
           {children}
         </MainLayout>

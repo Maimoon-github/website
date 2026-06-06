@@ -1,7 +1,16 @@
 import PostCard from './PostCard'
 
+interface Post {
+  slug: string;
+  title: string;
+  excerpt: string;
+  published_at: string;
+  featured_image?: string;
+  category_name: string;
+}
+
 interface PostGridProps {
-  posts: any[]
+  posts: Post[]
 }
 
 export default function PostGrid({ posts }: PostGridProps) {

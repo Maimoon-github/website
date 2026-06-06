@@ -1,7 +1,15 @@
 import KnowledgeCard from './KnowledgeCard'
 
+interface Domain {
+  slug: string;
+  name: string;
+  description: string;
+  icon?: string;
+  order: number;
+}
+
 interface KnowledgeGridProps {
-  domains: any[]
+  domains: Domain[]
 }
 
 export default function KnowledgeGrid({ domains }: KnowledgeGridProps) {
@@ -13,7 +21,7 @@ export default function KnowledgeGrid({ domains }: KnowledgeGridProps) {
           title={domain.name}
           slug={domain.slug}
           description={domain.description}
-          icon={domain.icon}
+          icon={domain.icon || 'Brain'}
           order={domain.order}
         />
       ))}

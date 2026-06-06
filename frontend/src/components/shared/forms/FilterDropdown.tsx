@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 interface FilterOption {
   label: string
@@ -52,7 +53,7 @@ export default function FilterDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="h-10 bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
+        <Button variant="outline" className="h-10 bg-white/5 border-white/10 hover:bg-white/10 transition-colors" disabled={isPending}>
           <span className="mr-2 text-gray-400">{label}:</span>
           {activeOption ? (
             <Badge variant="secondary" className="bg-accent-purple/20 text-accent-light border-0">
@@ -61,7 +62,7 @@ export default function FilterDropdown({
           ) : (
             "All"
           )}
-          <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+          <ChevronDown className={cn("ml-2 h-4 w-4 opacity-50", isPending && "animate-spin")} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 glass border-white/10">

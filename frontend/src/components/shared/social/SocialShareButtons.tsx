@@ -17,8 +17,6 @@ interface SocialShareButtonsProps {
 }
 
 export function SocialShareButtons({ url, title, className }: SocialShareButtonsProps) {
-  const iconSize = 40
-
   return (
     <div className={cn("flex items-center gap-4", className)}>
       <TwitterShareButton url={url} title={title}>

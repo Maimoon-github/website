@@ -15,12 +15,16 @@ export default function TableOfContents() {
 
   useEffect(() => {
     const headings = Array.from(document.querySelectorAll("h2, h3"))
-    const items: TOCItem[] = headings.map((heading) => ({
+    const tocItems: TOCItem[] = headings.map((heading) => ({
       id: heading.id,
       text: heading.textContent || "",
       level: parseInt(heading.tagName[1]),
     }))
-    setItems(items)
+    
+    // Defer setting items to avoid cascading renders warning
+    const timeoutId = setTimeout(() => {
+      setItems(tocItems)
+    }, 0)
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,7 +39,10 @@ export default function TableOfContents() {
 
     headings.forEach((heading) => observer.observe(heading))
 
-    return () => observer.disconnect()
+    return () => {
+      clearTimeout(timeoutId)
+      observer.disconnect()
+    }
   }, [])
 
   if (items.length === 0) return null

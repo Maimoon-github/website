@@ -4,8 +4,19 @@ import { Button } from '@/components/ui/button';
 import { SectionHeader } from '@/components/shared/data-display';
 import ProjectCard from '@/components/projects/ProjectCard';
 
+interface Project {
+  slug: string;
+  title: string;
+  short_description: string;
+  tech_stack: string[];
+  featured_image?: string;
+  category_name: string;
+  github_url?: string;
+  live_url?: string;
+}
+
 interface FeaturedProjectsProps {
-  projects: any[]
+  projects: Project[];
 }
 
 export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {

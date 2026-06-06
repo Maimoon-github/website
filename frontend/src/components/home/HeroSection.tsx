@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, Bot, Cpu, Shield, Rocket, ExternalLink, Github, LucideIcon } from 'lucide-react';
+import { Sparkles, ArrowRight, Bot, Cpu, Shield, Rocket, LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { HomepageService, HeroContent, StatCounter } from '@/services/homepage.service';
 

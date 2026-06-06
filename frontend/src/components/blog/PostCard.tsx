@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -19,9 +20,10 @@ export default function PostCard({ title, excerpt, date, readingTime, slug, imag
     <Link href={`/blog/${slug}`} className="group">
       <Card className="h-full flex flex-col overflow-hidden border-white/5 hover:border-accent-purple/40 transition-all duration-500">
         <div className="relative h-64 overflow-hidden">
-          <img 
+          <Image 
             src={image} 
             alt={title}
+            fill
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bg-deep/80 via-transparent to-transparent" />

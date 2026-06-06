@@ -26,7 +26,7 @@ export const CoreService = {
      try {
        const response = await api.get('/about/skills/');
        return { data: response.data, error: null };
-     } catch (error) {
+     } catch {
        return { data: [], error: 'Skills inaccessible.' };
      }
   }

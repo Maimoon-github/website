@@ -4,8 +4,17 @@ import { Button } from '@/components/ui/button';
 import { SectionHeader } from '@/components/shared/data-display';
 import { PostCard } from '@/components/blog';
 
+interface Post {
+  slug: string;
+  title: string;
+  excerpt: string;
+  published_at: string;
+  featured_image?: string;
+  category_name: string;
+}
+
 interface LatestPostsProps {
-  posts: any[]
+  posts: Post[];
 }
 
 export default function LatestPosts({ posts }: LatestPostsProps) {

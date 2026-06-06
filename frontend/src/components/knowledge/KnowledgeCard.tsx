@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import * as Icons from 'lucide-react';
 
 interface KnowledgeCardProps {
@@ -14,7 +13,7 @@ interface KnowledgeCardProps {
 
 export default function KnowledgeCard({ title, slug, description, icon, order }: KnowledgeCardProps) {
   // Dynamically resolve icon if it exists in lucide
-  const IconComponent = (Icons as any)[icon] || Icons.Brain;
+  const IconComponent = (Icons[icon as keyof typeof Icons] as React.ElementType) || Icons.Brain;
 
   return (
     <Link href={`/knowledge/${slug}`} className="group h-full">

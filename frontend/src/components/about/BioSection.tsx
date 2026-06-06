@@ -1,17 +1,20 @@
+import Image from "next/image"
 import { Download, Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { Profile } from "@/services/core.service"
 
 interface BioSectionProps {
-  profile: any
+  profile: Profile | null;
 }
 
 export default function BioSection({ profile }: BioSectionProps) {
   return (
     <div className="flex flex-col md:flex-row gap-12 items-center md:items-start mb-20 text-white">
-      <div className="w-48 h-48 rounded-3xl overflow-hidden glass border-accent-purple/30 p-2 shrink-0 animate-float">
-        <img
+      <div className="w-48 h-48 rounded-3xl overflow-hidden glass border-accent-purple/30 p-2 shrink-0 animate-float relative">
+        <Image
           src={profile?.profile_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"}
           alt="Profile"
-          className="w-full h-full object-cover rounded-2xl"
+          fill
+          className="object-cover rounded-2xl p-2"
         />
       </div>
 

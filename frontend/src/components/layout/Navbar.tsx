@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Bot, Rocket, BookOpen, User, Mail, ChevronRight } from 'lucide-react';
+import { Menu, X, Bot, Rocket, BookOpen, User, Mail } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Github, ExternalLink, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -22,10 +23,11 @@ export default function ProjectCard({
   return (
     <Card className="h-full flex flex-col group border-white/5 hover:border-accent-purple/30 overflow-hidden transition-all duration-700">
       <div className="relative h-64 overflow-hidden">
-        <img 
+        <Image 
           src={image} 
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-1000"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-bg-deep to-transparent opacity-60" />
         <div className="absolute top-4 left-4">

@@ -1,7 +1,18 @@
 import ProjectCard from './ProjectCard'
 
+interface Project {
+  slug: string;
+  title: string;
+  short_description: string;
+  tech_stack: string[];
+  featured_image?: string;
+  category_name: string;
+  github_url?: string;
+  live_url?: string;
+}
+
 interface ProjectGridProps {
-  projects: any[]
+  projects: Project[]
 }
 
 export default function ProjectGrid({ projects }: ProjectGridProps) {
