@@ -10,7 +10,7 @@ export interface Experience {
   start_date: string;
   end_date: string | null;
   description: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Education {
@@ -20,7 +20,7 @@ export interface Education {
   start_date: string;
   end_date: string | null;
   field_of_study: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**

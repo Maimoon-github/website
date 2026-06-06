@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HeroContent, StatCounter
+from .models import HeroContent, StatCounter, PageSection
 
 class HeroContentSerializer(serializers.ModelSerializer):
     class Meta:

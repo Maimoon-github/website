@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { CoreService, PageSection } from '@/services/core.service';
 import { GenericSection } from '@/components/shared/data-display';
-import { LoadingSpinner } from '@/components/shared/feedback';
 
 interface DynamicPageContentProps {
   page: string;
@@ -15,7 +14,7 @@ interface DynamicPageContentProps {
  */
 export default function DynamicPageContent({ page }: DynamicPageContentProps) {
   const [sections, setSections] = useState<PageSection[]>([]);
-  const [sectionData, setSectionData] = useState<Record<number, any>>({});
+  const [sectionData, setSectionData] = useState<Record<number, unknown>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function DynamicPageContent({ page }: DynamicPageContentProps) {
         setSections(pageSections);
         
         // Fetch data for each section
-        const dataMap: Record<number, any> = {};
+        const dataMap: Record<number, unknown> = {};
         await Promise.all(pageSections.map(async (section) => {
           const { data } = await CoreService.getDynamicData(section.endpoint);
           if (data) {

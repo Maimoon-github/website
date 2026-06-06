@@ -23,11 +23,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   'production': Terminal,
 };
 
-interface Domain {
-  name: string;
-  slug: string;
-  description: string;
-}
+import { Domain } from '@/services/knowledge.service';
 
 interface DomainExplorerProps {
   domains?: Domain[];

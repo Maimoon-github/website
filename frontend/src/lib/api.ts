@@ -76,7 +76,7 @@ class ApiClient {
     return this.request<T>(endpoint, { ...options, method: 'GET' });
   }
 
-  async post<T>(endpoint: string, body: any, options?: FetchOptions) {
+  async post<T>(endpoint: string, body: unknown, options?: FetchOptions) {
     return this.request<T>(endpoint, {
       ...options,
       method: 'POST',
@@ -84,7 +84,7 @@ class ApiClient {
     });
   }
 
-  async put<T>(endpoint: string, body: any, options?: FetchOptions) {
+  async put<T>(endpoint: string, body: unknown, options?: FetchOptions) {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PUT',
@@ -92,7 +92,7 @@ class ApiClient {
     });
   }
 
-  async patch<T>(endpoint: string, body: any, options?: FetchOptions) {
+  async patch<T>(endpoint: string, body: unknown, options?: FetchOptions) {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PATCH',

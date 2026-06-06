@@ -1,15 +1,5 @@
-import ProjectCard from './ProjectCard'
-
-interface Project {
-  slug: string;
-  title: string;
-  short_description: string;
-  tech_stack: string[];
-  featured_image?: string;
-  category_name: string;
-  github_url?: string;
-  live_url?: string;
-}
+import { Project } from '@/services/projects.service';
+import ProjectCard from './ProjectCard';
 
 interface ProjectGridProps {
   projects: Project[]

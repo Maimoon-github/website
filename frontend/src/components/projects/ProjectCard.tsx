@@ -13,8 +13,8 @@ interface ProjectCardProps {
   tech_stack: string[];
   image: string;
   category: string;
-  github_url?: string;
-  live_url?: string;
+  github_url?: string | null;
+  live_url?: string | null;
 }
 
 export default function ProjectCard({ 

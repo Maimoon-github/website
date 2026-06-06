@@ -4,14 +4,7 @@ import { Button } from '@/components/ui/button';
 import { SectionHeader } from '@/components/shared/data-display';
 import { PostCard } from '@/components/blog';
 
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  published_at: string;
-  featured_image?: string;
-  category_name: string;
-}
+import { Post } from '@/services/blog.service';
 
 interface LatestPostsProps {
   posts: Post[];
@@ -40,7 +33,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
               title={post.title}
               excerpt={post.excerpt}
               date={post.published_at}
-              readingTime="15 min"
+              readingTime={post.reading_time || "15 min"}
               slug={post.slug}
               image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
               category={post.category_name}

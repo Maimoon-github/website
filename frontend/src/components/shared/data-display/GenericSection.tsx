@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 
 interface GenericSectionProps {
   title?: string;
-  data: any | any[];
+  data: unknown | unknown[];
   type?: string;
 }
 
@@ -14,10 +14,11 @@ interface GenericSectionProps {
  * GenericSection dynamically renders data when a dedicated component is missing.
  * It detects common data patterns and uses appropriate UI elements.
  */
-export default function GenericSection({ title, data, type }: GenericSectionProps) {
+export default function GenericSection({ title, data }: GenericSectionProps) {
   if (!data) return null;
 
-  const renderItem = (item: any, index: number) => {
+  const renderItem = (item: unknown, index: number) => {
+    if (typeof item !== 'object' || item === null) return null;
     const properties = Object.entries(item).filter(([key]) => !['id', 'order', 'created_at', 'updated_at'].includes(key));
     
     return (

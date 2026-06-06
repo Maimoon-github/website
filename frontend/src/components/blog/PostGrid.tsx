@@ -1,14 +1,5 @@
-import PostCard from './PostCard'
-
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  published_at: string;
-  featured_image?: string;
-  category_name: string;
-  reading_time: string;
-}
+import { Post } from '@/services/blog.service';
+import PostCard from './PostCard';
 
 interface PostGridProps {
   posts: Post[]

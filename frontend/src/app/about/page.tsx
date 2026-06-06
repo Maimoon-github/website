@@ -1,6 +1,7 @@
 import { CoreService } from '@/services/core.service';
+import { AboutService } from '@/services/about.service';
 import Container from '@/components/layout/Container';
-import { BioSection, StatsGrid, SpecSection, SkillsVisualization } from '@/components/about';
+import { BioSection, StatsGrid, SpecSection, SkillsVisualization, ExperienceTimeline } from '@/components/about';
 import { DynamicPageContent } from '@/components/shared/data-display';
 
 export const dynamic = 'force-dynamic';
@@ -8,10 +9,12 @@ export const dynamic = 'force-dynamic';
 export default async function AboutPage() {
   const [
     { data: profile },
-    { data: skills }
+    { data: skills },
+    { data: experiences }
   ] = await Promise.all([
     CoreService.getProfile(),
-    CoreService.getSkills()
+    CoreService.getSkills(),
+    AboutService.getExperience()
   ]);
 
   return (
@@ -22,6 +25,8 @@ export default async function AboutPage() {
         <SpecSection />
         <SkillsVisualization skills={skills || []} />
       </div>
+
+      <ExperienceTimeline experiences={experiences || []} />
 
       <DynamicPageContent page="about" />
     </Container>

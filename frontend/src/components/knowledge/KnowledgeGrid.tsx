@@ -1,12 +1,5 @@
-import KnowledgeCard from './KnowledgeCard'
-
-interface Domain {
-  slug: string;
-  name: string;
-  description: string;
-  icon?: string;
-  order: number;
-}
+import { Domain } from '@/services/knowledge.service';
+import KnowledgeCard from './KnowledgeCard';
 
 interface KnowledgeGridProps {
   domains: Domain[]
