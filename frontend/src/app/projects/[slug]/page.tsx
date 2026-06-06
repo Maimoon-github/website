@@ -84,6 +84,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                     src={project.featured_image || "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000"} 
                     alt={project.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 800px"
                     className="object-cover rounded-2xl"
                     priority
                   />
@@ -96,6 +97,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                     <Image 
                       src={`https://images.unsplash.com/photo-${1677442136019 + i}?auto=format&fit=crop&q=80&w=200`} 
                       fill
+                      sizes="(max-width: 1024px) 25vw, 200px"
                       className="object-cover" 
                       alt="Gallery" 
                     />
@@ -134,11 +136,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
            <div>
              <h3 className="text-xl font-bold mb-8 uppercase tracking-tighter text-white">Technology Stack</h3>
              <div className="flex flex-wrap gap-2">
-                {project.tech_stack.map(tech => (
+                {Array.isArray(project.tech_stack) ? project.tech_stack.map(tech => (
                   <Badge key={tech} variant="secondary" className="px-4 py-2 font-mono text-[10px] uppercase">
                     {tech}
                   </Badge>
-                ))}
+                )) : (
+                  <div className="text-xs text-gray-600 font-mono italic">No stack registry entries found.</div>
+                )}
              </div>
            </div>
 

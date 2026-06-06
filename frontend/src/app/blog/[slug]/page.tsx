@@ -37,6 +37,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" 
                   alt={post.author_name} 
                   fill
+                  sizes="48px"
                   className="object-cover rounded-full p-1" 
                 />
               </div>
@@ -60,6 +61,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               src={post.featured_image || "https://images.unsplash.com/photo-1676299081847-824916ef03cc?auto=format&fit=crop&q=80&w=1000"} 
               alt={post.title}
               fill
+              sizes="(max-width: 1024px) 100vw, 896px"
               className="object-cover"
               priority
             />

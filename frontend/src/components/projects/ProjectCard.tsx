@@ -15,10 +15,11 @@ interface ProjectCardProps {
   category: string;
   github_url?: string | null;
   live_url?: string | null;
+  priority?: boolean;
 }
 
 export default function ProjectCard({ 
-  title, slug, description, tech_stack, image, category, github_url, live_url 
+  title, slug, description, tech_stack, image, category, github_url, live_url, priority = false
 }: ProjectCardProps) {
   return (
     <Card className="h-full flex flex-col group border-white/5 hover:border-accent-purple/30 overflow-hidden transition-all duration-700">
@@ -29,6 +30,7 @@ export default function ProjectCard({
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover group-hover:scale-110 transition-transform duration-1000"
+          priority={priority}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-bg-deep to-transparent opacity-60" />
         <div className="absolute top-4 left-4">

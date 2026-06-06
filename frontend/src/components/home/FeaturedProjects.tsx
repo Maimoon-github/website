@@ -27,7 +27,7 @@ export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         </SectionHeader>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.length > 0 ? projects.slice(0, 3).map((project) => (
+          {projects.length > 0 ? projects.slice(0, 3).map((project, index) => (
             <ProjectCard
               key={project.slug}
               title={project.title}
@@ -38,6 +38,7 @@ export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
               category={project.category_name}
               github_url={project.github_url}
               live_url={project.live_url}
+              priority={index === 0}
             />
           )) : (
             <div className="col-span-full py-20 text-center glass rounded-3xl border border-white/5 opacity-50">

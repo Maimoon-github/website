@@ -8,7 +8,7 @@ interface ProjectGridProps {
 export default function ProjectGrid({ projects }: ProjectGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {projects.map((project) => (
+      {projects.map((project, index) => (
         <ProjectCard
           key={project.slug}
           title={project.title}
@@ -19,6 +19,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           category={project.category_name}
           github_url={project.github_url}
           live_url={project.live_url}
+          priority={index < 2}
         />
       ))}
     </div>
