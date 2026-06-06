@@ -2,6 +2,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ProjectCard from '@/components/projects/ProjectCard';
 import { ProjectService } from '@/services/projects.service';
+import { PageHeader } from '@/components/shared/data-display';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,17 +15,12 @@ export default async function ProjectsPage() {
       
       <main className="flex-1 pt-32 pb-24">
         <section className="max-w-7xl mx-auto px-4">
-          <header className="mb-20 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent-purple/30 bg-accent-purple/5 text-[10px] font-mono uppercase tracking-[0.2em] text-accent-light mb-6">
-              Production Repository
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter cursor-default">
-              SELECTED <span className="text-gradient">WORKS</span>
-            </h1>
-            <p className="text-xl text-gray-400 max-w-2xl">
-              A showcase of production-ready Agentic AI systems and full-stack applications.
-            </p>
-          </header>
+          <PageHeader 
+            badge="Production Repository"
+            title="SELECTED"
+            highlightedWord="WORKS"
+            description="A showcase of production-ready Agentic AI systems and full-stack applications."
+          />
 
           {error ? (
             <div className="glass p-20 text-center rounded-3xl border border-red-500/20 bg-red-500/5">

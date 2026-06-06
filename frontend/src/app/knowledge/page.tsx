@@ -3,6 +3,7 @@ import Footer from '@/components/layout/Footer';
 import ArticleCard from '@/components/knowledge/ArticleCard';
 import { KnowledgeService } from '@/services/knowledge.service';
 import { Bot, Map, GraduationCap } from 'lucide-react';
+import { PageHeader } from '@/components/shared/data-display';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,13 +16,12 @@ export default async function KnowledgeHub() {
       
       <main className="flex-1 pt-32 pb-24">
         <section className="max-w-7xl mx-auto px-4">
-          <header className="mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent-purple/30 bg-accent-purple/5 text-[10px] font-mono uppercase tracking-[0.2em] text-accent-light mb-6">
-              Cognitive Repository
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter uppercase line-clamp-1">THE <span className="text-gradient">KNOWLEDGE</span> HUB</h1>
-            <p className="text-xl text-gray-400 max-w-2xl">Structured documentation for the entire Agentic AI ecosystem. From single-agent loops to multi-agent swarms.</p>
-          </header>
+          <PageHeader 
+            badge="Cognitive Repository"
+            title="THE"
+            highlightedWord="KNOWLEDGE HUB"
+            description="Structured documentation for the entire Agentic AI ecosystem. From single-agent loops to multi-agent swarms."
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
             <div className="p-8 glass bg-accent-purple/5 hover:bg-accent-purple/10 transition-colors border-white/5">
