@@ -1,7 +1,7 @@
 import { ProjectService } from '@/services/projects.service';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Github, ExternalLink, ArrowLeft, Layers, Cpu, Shield, Activity } from 'lucide-react';
+import { Github, ExternalLink, ArrowLeft, Layers, Cpu, Activity } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';

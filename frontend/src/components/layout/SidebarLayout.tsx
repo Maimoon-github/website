@@ -5,8 +5,7 @@ import {
   BookOpen, 
   Layout, 
   Send,
-  User,
-  ArrowUpRight
+  User
 } from "lucide-react";
 
 interface SidebarLayoutProps {

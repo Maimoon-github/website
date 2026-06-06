@@ -35,7 +35,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
               date={post.published_at}
               readingTime={post.reading_time || "15 min"}
               slug={post.slug}
-              image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
+              image={post.featured_image || "https://images.unsplash.com/photo-1676299081847-824916ef03cc?auto=format&fit=crop&q=80&w=800"}
               category={post.category_name}
             />
           )) : (

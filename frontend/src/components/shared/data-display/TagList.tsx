@@ -8,6 +8,7 @@ interface TagListProps {
 }
 
 export function TagList({ tags, className, limit }: TagListProps) {
+  if (!Array.isArray(tags)) return null;
   const displayTags = limit ? tags.slice(0, limit) : tags
 
   return (

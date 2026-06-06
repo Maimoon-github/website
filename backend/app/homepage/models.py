@@ -51,3 +51,18 @@ class PageSection(models.Model):
 
     def __str__(self):
         return f"{self.get_page_display()} - {self.title}"
+
+class PageHeader(models.Model):
+    PAGE_CHOICES = PageSection.PAGE_CHOICES
+    page = models.CharField(max_length=20, choices=PAGE_CHOICES, unique=True)
+    badge = models.CharField(max_length=100, blank=True)
+    title = models.CharField(max_length=100)
+    highlighted_word = models.CharField(max_length=100, blank=True)
+    description = models.TextField()
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Page Headers"
+
+    def __str__(self):
+        return f"Header for {self.get_page_display()}"
