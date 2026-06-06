@@ -1,66 +1,51 @@
 import Navbar from '@/components/layout/Navbar';
-import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import Footer from '@/components/layout/Footer';
+import BlogCard from '@/components/blog/BlogCard';
+import { BlogService } from '@/services/blog.service';
 
-const posts = [
-  {
-    title: "Mastering the Multi-Agent PRA Loop",
-    excerpt: "Why the Perception-Reasoning-Action loop is the foundational blueprint for every autonomous agent in 2026.",
-    author: "Maimoon",
-    date: "June 05, 2026",
-    readingTime: "12 min read",
-    slug: "mastering-pra-loop",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800",
-  },
-  {
-    title: "MCP: The Future of Tool Discovery",
-    excerpt: "How the Model Context Protocol is standardizing how agents interact with the world.",
-    author: "Maimoon",
-    date: "June 03, 2026",
-    readingTime: "8 min read",
-    slug: "mcp-tool-discovery",
-    image: "https://images.unsplash.com/photo-1518433278981-2268b8f2f45d?auto=format&fit=crop&q=80&w=800",
-  }
-];
+export const dynamic = 'force-dynamic';
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await BlogService.getPosts();
+
   return (
-    <main className="pt-24 min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <header className="mb-20">
-          <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter">TECHNICAL <span className="text-gradient">LOGS</span></h1>
-          <p className="text-xl text-gray-400 max-w-xl">In-depth exploration of Agentic AI Engineering, architecture patterns, and the future of autonomy.</p>
-        </header>
+      <main className="flex-1 pt-32 pb-24">
+        <section className="max-w-7xl mx-auto px-4">
+          <header className="mb-20 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent-purple/30 bg-accent-purple/5 text-[10px] font-mono uppercase tracking-[0.2em] text-accent-light mb-6">
+              Transmission Log
+            </div>
+            <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter">TECHNICAL <span className="text-gradient">LOGS</span></h1>
+            <p className="text-xl text-gray-400 max-w-xl">In-depth exploration of Agentic AI Engineering, architecture patterns, and the future of autonomy.</p>
+          </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {posts.map((post) => (
-            <article key={post.slug} className="group cursor-pointer">
-              <div className="relative h-96 mb-8 rounded-3xl overflow-hidden glass border-white/5">
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+          {posts.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {posts.map((post) => (
+                <BlogCard
+                  key={post.slug}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  date={new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}
+                  readingTime="12 min read" // This could be calculated or come from API
+                  slug={post.slug}
+                  image={post.featured_image || "https://images.unsplash.com/photo-1620712943543-bcc46386c635?auto=format&fit=crop&q=80&w=800"}
+                  category={post.category_name}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-deep via-bg-deep/20 to-transparent" />
-                
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                   <div className="flex items-center gap-4 text-xs font-mono text-accent-light mb-4 uppercase tracking-[0.2em]">
-                    <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {post.date}</span>
-                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readingTime}</span>
-                  </div>
-                  <h2 className="text-3xl font-bold mb-4 group-hover:text-accent-light transition-colors">{post.title}</h2>
-                  <p className="text-gray-400 leading-relaxed mb-6 line-clamp-2">{post.excerpt}</p>
-                  <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 font-bold text-sm">
-                    Read Transmission <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </main>
+              ))}
+            </div>
+          ) : (
+            <div className="glass p-20 text-center rounded-3xl border-dashed border-white/10">
+              <p className="text-gray-500 font-mono uppercase tracking-widest">No transmissions found in current sector.</p>
+            </div>
+          )}
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 }
