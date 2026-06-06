@@ -1,4 +1,4 @@
-import api from '@/lib/api';
+import api, { PaginatedResponse } from '@/lib/api';
 
 export interface Profile {
   id: number;
@@ -14,8 +14,8 @@ export interface Profile {
 export const CoreService = {
   getProfile: async () => {
     try {
-      const response = await api.get<Profile[]>('/about/profile/');
-      return { data: response.data[0] || null, error: null };
+      const response = await api.get<PaginatedResponse<Profile>>('/about/profile/');
+      return { data: response.data.results[0] || null, error: null };
     } catch (error) {
       console.error('Error fetching profile:', error);
       return { data: null, error: 'Profile unavailable.' };
@@ -24,8 +24,8 @@ export const CoreService = {
 
   getSkills: async () => {
      try {
-       const response = await api.get('/about/skills/');
-       return { data: response.data, error: null };
+       const response = await api.get<PaginatedResponse<any>>('/about/skills/');
+       return { data: response.data.results, error: null };
      } catch {
        return { data: [], error: 'Skills inaccessible.' };
      }

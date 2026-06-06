@@ -1,4 +1,4 @@
-import api from '@/lib/api';
+import api, { PaginatedResponse } from '@/lib/api';
 
 export interface Post {
   id: number;
@@ -15,8 +15,8 @@ export interface Post {
 export const BlogService = {
   getPosts: async (params = {}) => {
     try {
-      const response = await api.get<Post[]>('/blog/posts/', { params });
-      return { data: response.data, error: null };
+      const response = await api.get<PaginatedResponse<Post>>('/blog/posts/', { params });
+      return { data: response.data.results || [], error: null };
     } catch (error) {
       console.error('Error fetching posts:', error);
       return { data: [], error: 'Transmission failed. Buffer empty.' };

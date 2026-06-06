@@ -1,4 +1,4 @@
-import api from '@/lib/api';
+import api, { PaginatedResponse } from '@/lib/api';
 
 export interface HeroContent {
   id: number;
@@ -22,8 +22,8 @@ export interface StatCounter {
 export const HomepageService = {
   getHeroContent: async () => {
     try {
-      const response = await api.get<HeroContent[]>('/homepage/hero/');
-      return { data: response.data[0] || null, error: null };
+      const response = await api.get<PaginatedResponse<HeroContent>>('/homepage/hero/');
+      return { data: response.data.results[0] || null, error: null };
     } catch (error) {
       console.error('Error fetching hero content:', error);
       return { data: null, error: 'Hero content unavailable.' };
@@ -32,8 +32,8 @@ export const HomepageService = {
 
   getStats: async () => {
     try {
-      const response = await api.get<StatCounter[]>('/homepage/stats/');
-      return { data: response.data, error: null };
+      const response = await api.get<PaginatedResponse<StatCounter>>('/homepage/stats/');
+      return { data: response.data.results || [], error: null };
     } catch (error) {
       console.error('Error fetching stats:', error);
       return { data: [], error: 'Stats unavailable.' };

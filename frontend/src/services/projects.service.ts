@@ -1,4 +1,4 @@
-import api from '@/lib/api';
+import api, { PaginatedResponse } from '@/lib/api';
 
 export interface Project {
   id: number;
@@ -17,8 +17,8 @@ export interface Project {
 export const ProjectService = {
   getProjects: async (params = {}) => {
     try {
-      const response = await api.get<Project[]>('/projects/list/', { params });
-      return { data: response.data, error: null };
+      const response = await api.get<PaginatedResponse<Project>>('/projects/list/', { params });
+      return { data: response.data.results || [], error: null };
     } catch (error) {
       console.error('Error fetching projects:', error);
       return { data: [], error: 'Failed to fetch projects. Node offline.' };
