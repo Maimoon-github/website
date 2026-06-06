@@ -12,7 +12,7 @@ export interface Profile {
   stats_domain_count: number;
   stats_project_count: string;
   stats_experience_years: string;
-  [key: string]: any; // Future-proof
+  [key: string]: unknown; // Future-proof
 }
 
 export interface Skill {
@@ -20,7 +20,7 @@ export interface Skill {
   name: string;
   category: string;
   level: number;
-  [key: string]: any; // Future-proof
+  [key: string]: unknown; // Future-proof
 }
 
 export interface PageSection {
@@ -31,7 +31,7 @@ export interface PageSection {
   component_type: string;
   is_active: boolean;
   order: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -77,11 +77,13 @@ export const CoreService = {
   /**
    * Fetches data from a dynamic endpoint.
    */
-  getDynamicData: async (endpoint: string): Promise<ApiResponse<any>> => {
-    const response = await api.get<PaginatedResponse<any> | any>(endpoint);
+  getDynamicData: async (endpoint: string): Promise<ApiResponse<unknown>> => {
+    const response = await api.get<PaginatedResponse<unknown> | unknown>(endpoint);
     // Handle both paginated and direct object responses
     return {
-      data: response.data?.results !== undefined ? response.data.results : response.data,
+      data: (response.data as PaginatedResponse<unknown>)?.results !== undefined 
+        ? (response.data as PaginatedResponse<unknown>).results 
+        : response.data,
       error: response.error,
       status: response.status
     };

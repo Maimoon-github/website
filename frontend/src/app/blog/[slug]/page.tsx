@@ -9,8 +9,9 @@ import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const { data: post, error } = await BlogService.getPost(params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { data: post, error } = await BlogService.getPost(slug);
 
   if (error || !post) {
     notFound();

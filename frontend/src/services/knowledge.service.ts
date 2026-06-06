@@ -11,8 +11,8 @@ export interface Domain {
   icon: string | null;
   order: number;
   key_concepts: string[];
-  tools: Array<any>;
-  [key: string]: any;
+  tools: Array<unknown>;
+  [key: string]: unknown;
 }
 
 /**
@@ -41,7 +41,7 @@ export const KnowledgeService = {
   /**
    * Fetches learning paths.
    */
-  getLearningPaths: async (): Promise<ApiResponse<PaginatedResponse<any>>> => {
-    return api.get<PaginatedResponse<any>>('knowledge/learning-paths/');
+  getLearningPaths: async (): Promise<ApiResponse<PaginatedResponse<unknown>>> => {
+    return api.get<PaginatedResponse<unknown>>('knowledge/learning-paths/');
   }
 };

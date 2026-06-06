@@ -8,8 +8,9 @@ import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
-export default async function DomainDetail({ params }: { params: { slug: string } }) {
-  const { data: domain, error } = await KnowledgeService.getDomain(params.slug);
+export default async function DomainDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { data: domain, error } = await KnowledgeService.getDomain(slug);
 
   if (error || !domain) {
     notFound();

@@ -17,7 +17,7 @@ export interface Post {
   published_at: string;
   view_count: number;
   reading_time: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -53,7 +53,7 @@ export const BlogService = {
   /**
    * Submits a comment to a specific post.
    */
-  submitComment: async (slug: string, data: { name: string; email: string; content: string }): Promise<ApiResponse<any>> => {
+  submitComment: async (slug: string, data: { name: string; email: string; content: string }): Promise<ApiResponse<unknown>> => {
     return api.post(`blog/posts/${slug}/comment/`, data);
   }
 };

@@ -13,6 +13,7 @@ class HeroContent(models.Model):
 
     class Meta:
         verbose_name_plural = "Hero Content"
+        ordering = ['-updated_at']
 
     def __str__(self):
         return f"Homepage Hero - {self.updated_at}"

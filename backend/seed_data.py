@@ -132,6 +132,28 @@ def seed_blog():
     )
     print("Blog seeded.")
 
+def seed_sections():
+    sections = [
+        # Homepage Sections
+        {'page': 'home', 'title': 'Technical Prowess', 'endpoint': 'homepage/hero/', 'component_type': 'hero', 'order': 0},
+        {'page': 'home', 'title': 'Core Metrics', 'endpoint': 'homepage/stats/', 'component_type': 'stats', 'order': 1},
+        {'page': 'home', 'title': 'Knowledge Layers', 'endpoint': 'knowledge/domains/', 'component_type': 'grid', 'order': 2},
+        {'page': 'home', 'title': 'Active Projects', 'endpoint': 'projects/list/', 'component_type': 'grid', 'order': 3},
+        
+        # About Page Sections
+        {'page': 'about', 'title': 'Personnel Profile', 'endpoint': 'about/profile/', 'component_type': 'profile', 'order': 0},
+        {'page': 'about', 'title': 'Skills Matrix', 'endpoint': 'about/skills/', 'component_type': 'grid', 'order': 1},
+        {'page': 'about', 'title': 'Professional History', 'endpoint': 'about/experience/', 'component_type': 'list', 'order': 2},
+    ]
+    from app.homepage.models import PageSection
+    for section in sections:
+        PageSection.objects.get_or_create(
+            page=section['page'],
+            title=section['title'],
+            defaults=section
+        )
+    print("Page Sections seeded.")
+
 if __name__ == '__main__':
     create_admin()
     seed_homepage()
@@ -139,4 +161,5 @@ if __name__ == '__main__':
     seed_knowledge()
     seed_projects()
     seed_blog()
+    seed_sections()
 

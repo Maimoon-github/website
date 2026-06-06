@@ -9,8 +9,9 @@ import Container from '@/components/layout/Container';
 
 export const dynamic = 'force-dynamic';
 
-export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const { data: project, error } = await ProjectService.getProject(params.slug);
+export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { data: project, error } = await ProjectService.getProject(slug);
 
   if (error || !project) {
     notFound();

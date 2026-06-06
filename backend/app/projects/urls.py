@@ -9,4 +9,3 @@ router.register(r'categories', ProjectCategoryViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]
-✖ 30 problems (27 errors, 3 warnings)

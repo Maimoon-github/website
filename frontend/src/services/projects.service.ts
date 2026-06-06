@@ -18,14 +18,14 @@ export interface Project {
   is_featured: boolean;
   screenshots: Array<{ id: number; image: string; caption: string }>;
   created_at: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface ProjectCategory {
   id: number;
   name: string;
   slug: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**

@@ -10,6 +10,9 @@ class AboutProfile(models.Model):
     stats_experience_years = models.CharField(max_length=20, default='5y+')
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-updated_at']
+
     def __str__(self):
         return self.name
 
@@ -22,6 +25,9 @@ class Skill(models.Model):
     name = models.CharField(max_length=50)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     level = models.IntegerField(default=90) # 0-100
+
+    class Meta:
+        ordering = ['category', 'name']
 
     def __str__(self):
         return self.name
@@ -48,6 +54,9 @@ class Education(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True) # completion_date replaced
     description = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['-end_date']
 
     def __str__(self):
         return f"{self.degree} from {self.institution}"

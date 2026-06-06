@@ -13,7 +13,7 @@ export interface HeroContent {
   secondary_cta_text: string;
   secondary_cta_link: string;
   is_active: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface StatCounter {
@@ -21,7 +21,7 @@ export interface StatCounter {
   label: string;
   value: string;
   icon: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
