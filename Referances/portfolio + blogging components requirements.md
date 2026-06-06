@@ -1,319 +1,413 @@
-Based on your existing App Router structure and the portfolio + blogging requirements, here is a comprehensive component architecture plan. The search engine had difficulty retrieving Next.js-specific architecture guides, but this analysis is grounded in established Next.js App Router patterns, React component design principles, and modern portfolio/blog site conventions.
+Based on my analysis of both Excel files—the **Agentic AI Content Architecture** (informing the `knowledge/` domain) and the **Portfolio + Blog Documentation** (informing the portfolio, blog, about, contact, and projects pages)—here is a comprehensive, scalable component architecture for your Next.js App Router frontend.
 
 ---
 
-## Architecture Philosophy
+## 1. Executive Summary & Architectural Principles
 
-With Next.js App Router, the default strategy is **Server Components First** — keep components as Server Components unless they require client-side interactivity (state, effects, browser APIs). This plan respects that boundary while organizing components by **feature** and **reusability**.
+The current directory structure (`blog/`, `home/`, `knowledge/`, `layout/`, `projects/`, `shared/`, `ui/`) is a solid foundation. The recommended evolution introduces **categorical subfolders** within `shared/` and formalizes a **Server/Client component strategy** critical for Next.js 14+ performance.
 
----
-
-## 1. Global / Layout Components (`components/layout/`)
-
-These wrap every page or provide persistent UI chrome. They are **Shared / Reusable**.
-
-| Component       | Type             | Purpose                                              | Notes                                                                   |
-| --------------- | ---------------- | ---------------------------------------------------- | ----------------------------------------------------------------------- |
-| `Navbar`        | Client Component | Primary navigation with mobile hamburger menu        | Needs `useState` for mobile toggle; uses `usePathname` for active links |
-| `Footer`        | Server Component | Site footer with links, copyright, social icons      | Static; can be server-rendered                                          |
-| `Container`     | Server Component | Max-width wrapper with responsive padding            | Reusable layout primitive                                               |
-| `PageHeader`    | Server Component | Reusable page title + subtitle / breadcrumb block    | Accepts `title`, `subtitle`, `className` props                          |
-| `MainLayout`    | Server Component | Composes Navbar + Footer + Container around children | Used in `app/layout.tsx`                                                |
-| `MobileMenu`    | Client Component | Slide-out / overlay menu for mobile nav              | Triggered by `Navbar`                                                   |
-| `ThemeProvider` | Client Component | Dark/light mode context wrapper                      | Wraps app in `layout.tsx`                                               |
-| `SkipLink`      | Server Component | Accessibility skip-to-content link                   | WCAG requirement                                                        |
-
-**Recommendation for `layout/`:**  
-Keep only **global chrome** here. Move page-specific headers into their respective feature folders.
+**Core Principles:**
+- **Server Components by default** — Data fetching, SEO, and static layout happen on the server.
+- **Client Components for interactivity** — Forms, animations, filters, and browser APIs are explicitly isolated.
+- **Page folders for single-use, `shared/` for multi-use** — Prevents premature abstraction while maximizing reusability.
+- **shadcn/ui primitives remain untouched** in `ui/` — The single source of truth for design system primitives.
 
 ---
 
-## 2. UI Primitive Components (`components/ui/`)
-
-These are **Shared / Reusable** across the entire site. Think of this as your internal design system or shadcn/ui layer.
-
-| Component      | Type             | Purpose                                                 |
-| -------------- | ---------------- | ------------------------------------------------------- |
-| `Button`       | Client Component | All buttons (variants: primary, secondary, ghost, icon) |
-| `Card`         | Server Component | Content container with image, title, description slots  |
-| `Badge`        | Server Component | Tags, categories, status indicators                     |
-| `Input`        | Client Component | Form text inputs with label, error state                |
-| `Textarea`     | Client Component | Multi-line text input                                   |
-| `Label`        | Server Component | Form label primitive                                    |
-| `Avatar`       | Server Component | Profile image with fallback initials                    |
-| `Separator`    | Server Component | Visual divider line                                     |
-| `Skeleton`     | Server Component | Loading placeholder for async content                   |
-| `Tooltip`      | Client Component | Hover info bubbles                                      |
-| `Dialog`       | Client Component | Modal overlays (image lightbox, confirmations)          |
-| `DropdownMenu` | Client Component | Select menus, action menus                              |
-| `ScrollArea`   | Client Component | Custom scrollable regions                               |
-| `CodeBlock`    | Client Component | Syntax-highlighted code (for blog/knowledge)            |
-| `Typography`   | Server Component | H1–H6, Paragraph, Blockquote, Lead text variants        |
-
-**Recommendation:**  
-If you are using **shadcn/ui**, many of these already exist in `components/ui/`. Ensure your custom UI components follow the same composition pattern (Radix UI primitives + Tailwind) for consistency.
-
----
-
-## 3. Shared / Reusable Components (`components/shared/`)
-
-These are **domain-specific but cross-page** components — more complex than UI primitives but used in multiple sections.
-
-| Component          | Type             | Purpose                                                   | Used By                                              |
-| ------------------ | ---------------- | --------------------------------------------------------- | ---------------------------------------------------- |
-| `ContentCard`      | Server Component | Generic card for blog posts, projects, knowledge articles | Blog list, Projects list, Knowledge list             |
-| `ContentGrid`      | Server Component | Responsive grid layout for lists of `ContentCard`         | Blog, Projects, Knowledge index pages                |
-| `TagList`          | Server Component | Horizontal list of clickable category tags                | Blog posts, Project detail, Knowledge detail         |
-| `MarkdownRenderer` | Server Component | Converts MDX/markdown to JSX with custom components       | Blog `[slug]`, Knowledge `[slug]`, Projects `[slug]` |
-| `ReadingTime`      | Server Component | Displays estimated reading time                           | Blog `[slug]`, Knowledge `[slug]`                    |
-| `PublishedDate`    | Server Component | Formatted date display with icon                          | Blog, Projects, Knowledge                            |
-| `TableOfContents`  | Client Component | Sticky sidebar TOC from heading extraction                | Blog `[slug]`, Knowledge `[slug]`                    |
-| `SocialShare`      | Client Component | Share buttons (Twitter/X, LinkedIn, copy link)            | Blog `[slug]`, Knowledge `[slug]`, Projects `[slug]` |
-| `Breadcrumb`       | Server Component | Navigation breadcrumb trail                               | All `[slug]` pages                                   |
-| `SearchBar`        | Client Component | Site-wide or section-specific search                      | Blog, Knowledge, Projects index pages                |
-| `Pagination`       | Client Component | Page number navigation for lists                          | Blog, Projects, Knowledge index pages                |
-| `EmptyState`       | Server Component | "No results" / "Coming soon" illustration block           | Any list page                                        |
-| `LoadingSpinner`   | Client Component | Async operation feedback                                  | Forms, search                                        |
-| `ImageGallery`     | Client Component | Clickable image grid with lightbox                        | Projects `[slug]`, Blog `[slug]`                     |
-| `ExternalLink`     | Server Component | Link with external icon indicator                         | Any page with outbound links                         |
-| `SEOHead`          | Server Component | Metadata wrapper (or use Next.js Metadata API)            | All pages                                            |
-
-**Key Insight:**  
-`ContentCard`, `ContentGrid`, and `MarkdownRenderer` are the **highest-value shared abstractions** for a portfolio + blog because Blog, Projects, and Knowledge all follow the same "content item → list → detail" pattern.
-
----
-
-## 4. Page-Specific Components
-
-### Home Page (`components/home/` — Page-Specific)
-
-| Component          | Type             | Purpose                                                        |
-| ------------------ | ---------------- | -------------------------------------------------------------- |
-| `HeroSection`      | Server Component | Landing hero with intro, CTA, background effect                |
-| `FeaturedProjects` | Server Component | Curated project showcase grid (uses `ContentCard` from shared) |
-| `LatestPosts`      | Server Component | Recent blog posts preview (uses `ContentCard` from shared)     |
-| `TechStack`        | Server Component | Skills/technologies display (icons + labels)                   |
-| `AboutSnippet`     | Server Component | Short bio with "Read more" link to `/about`                    |
-| `SocialLinks`      | Client Component | Animated social icon bar                                       |
-| `ScrollIndicator`  | Client Component | Animated "scroll down" cue                                     |
-
-**Note:** `FeaturedProjects` and `LatestPosts` should import and configure `ContentCard` / `ContentGrid` from `shared/`, not duplicate card logic.
-
----
-
-### About Page (`components/about/` — Page-Specific)
-
-| Component            | Type             | Purpose                           |
-| -------------------- | ---------------- | --------------------------------- |
-| `AboutHero`          | Server Component | Large bio header with avatar      |
-| `BioSection`         | Server Component | Detailed biography paragraphs     |
-| `ExperienceTimeline` | Server Component | Work history vertical timeline    |
-| `SkillsGrid`         | Server Component | Categorized skill badges          |
-| `EducationSection`   | Server Component | Education/certifications list     |
-| `Testimonials`       | Client Component | Carousel of recommendation quotes |
-
----
-
-### Blog Section (`components/blog/` — Mixed)
-
-**Index Page (`/blog`) Components:**
-
-| Component    | Type             | Classification | Purpose                                  |
-| ------------ | ---------------- | -------------- | ---------------------------------------- |
-| `BlogList`   | Server Component | Page-Specific  | Fetches and renders paginated blog posts |
-| `BlogFilter` | Client Component | Page-Specific  | Category/tag filter controls             |
-| `BlogSearch` | Client Component | Page-Specific  | Debounced search input for blog posts    |
-
-**Detail Page (`/blog/[slug]`) Components:**
-
-| Component        | Type             | Classification | Purpose                                      |
-| ---------------- | ---------------- | -------------- | -------------------------------------------- |
-| `BlogPost`       | Server Component | Page-Specific  | Main article layout, uses `MarkdownRenderer` |
-| `BlogHeader`     | Server Component | Page-Specific  | Title, author, date, reading time, tags      |
-| `RelatedPosts`   | Server Component | Page-Specific  | "More articles" sidebar/footer               |
-| `PostNavigation` | Server Component | Page-Specific  | Previous / next post links                   |
-| `GiscusComments` | Client Component | Page-Specific  | GitHub Discussions comment embed             |
-
-**Reusable Blog Primitives:**  
-If `BlogHeader` and `BlogPost` share patterns with Knowledge/Projects detail pages, extract them to `shared/ContentHeader` and `shared/ContentBody`.
-
----
-
-### Projects Section (`components/projects/` — Mixed)
-
-**Index Page (`/projects`) Components:**
-
-| Component       | Type             | Classification | Purpose                              |
-| --------------- | ---------------- | -------------- | ------------------------------------ |
-| `ProjectList`   | Server Component | Page-Specific  | Grid of project cards                |
-| `ProjectFilter` | Client Component | Page-Specific  | Filter by tech stack, category, year |
-
-**Detail Page (`/projects/[slug]`) Components:**
-
-| Component        | Type             | Classification | Purpose                                                |
-| ---------------- | ---------------- | -------------- | ------------------------------------------------------ |
-| `ProjectHero`    | Server Component | Page-Specific  | Title, description, live/demo links, tech stack        |
-| `ProjectGallery` | Client Component | Page-Specific  | Screenshots carousel (uses `ImageGallery` from shared) |
-| `ProjectDetails` | Server Component | Page-Specific  | Challenge, solution, outcome sections                  |
-| `ProjectLinks`   | Server Component | Page-Specific  | GitHub, live demo, case study buttons                  |
-
----
-
-### Knowledge Section (`components/knowledge/` — Mixed)
-
-**Index Page (`/knowledge`) Components:**
-
-| Component       | Type             | Classification | Purpose                     |
-| --------------- | ---------------- | -------------- | --------------------------- |
-| `KnowledgeList` | Server Component | Page-Specific  | Grid/list of notes/articles |
-| `KnowledgeTree` | Client Component | Page-Specific  | Collapsible topic hierarchy |
-
-**Detail Page (`/knowledge/[slug]`) Components:**
-
-| Component          | Type             | Classification | Purpose                                      |
-| ------------------ | ---------------- | -------------- | -------------------------------------------- |
-| `KnowledgeArticle` | Server Component | Page-Specific  | Article body (uses `MarkdownRenderer`)       |
-| `KnowledgeHeader`  | Server Component | Page-Specific  | Title, category, last updated                |
-| `LinkedReferences` | Server Component | Page-Specific  | Bidirectional links to other knowledge notes |
-
----
-
-### Contact Page (`components/contact/` — Page-Specific)
-
-| Component     | Type             | Purpose                                     |
-| ------------- | ---------------- | ------------------------------------------- |
-| `ContactForm` | Client Component | Form with validation (name, email, message) |
-| `ContactInfo` | Server Component | Email, social links, location               |
-| `FormStatus`  | Client Component | Success / error message display             |
-
----
-
-## 5. Recommended Component Directory Structure
+## 2. Proposed Directory Structure
 
 ```
-components/
-├── ui/                    # Primitive design system (buttons, inputs, cards)
+src/components/
+│
+├── ui/                          # shadcn/ui primitives (DO NOT MODIFY STRUCTURE)
 │   ├── button.tsx
 │   ├── card.tsx
-│   ├── badge.tsx
 │   ├── input.tsx
 │   ├── textarea.tsx
-│   ├── label.tsx
+│   ├── select.tsx
+│   ├── badge.tsx
 │   ├── avatar.tsx
-│   ├── separator.tsx
-│   ├── skeleton.tsx
-│   ├── tooltip.tsx
 │   ├── dialog.tsx
 │   ├── dropdown-menu.tsx
-│   ├── code-block.tsx
-│   └── typography.tsx
+│   ├── separator.tsx
+│   ├── sheet.tsx
+│   ├── skeleton.tsx
+│   ├── tabs.tsx
+│   ├── accordion.tsx
+│   ├── tooltip.tsx
+│   ├── scroll-area.tsx
+│   └── toast.tsx
 │
-├── layout/                # Global shell components
-│   ├── navbar.tsx
-│   ├── footer.tsx
-│   ├── container.tsx
-│   ├── page-header.tsx
-│   ├── mobile-menu.tsx
-│   ├── theme-provider.tsx
-│   └── skip-link.tsx
+├── layout/                      # Global shell components (used in root layout.tsx)
+│   ├── Navbar.tsx
+│   ├── Footer.tsx
+│   ├── MobileMenu.tsx           # Client
+│   ├── ThemeProvider.tsx        # Client (next-themes wrapper)
+│   └── MainLayout.tsx           # Server, composes Navbar + Footer + Container
 │
-├── shared/                # Cross-page domain components
-│   ├── content-card.tsx
-│   ├── content-grid.tsx
-│   ├── tag-list.tsx
-│   ├── markdown-renderer.tsx
-│   ├── reading-time.tsx
-│   ├── published-date.tsx
-│   ├── table-of-contents.tsx
-│   ├── social-share.tsx
-│   ├── breadcrumb.tsx
-│   ├── search-bar.tsx
-│   ├── pagination.tsx
-│   ├── empty-state.tsx
-│   ├── loading-spinner.tsx
-│   ├── image-gallery.tsx
-│   ├── external-link.tsx
-│   └── seo-head.tsx
+├── shared/                      # Reusable, domain-agnostic components
+│   ├── navigation/
+│   │   ├── Breadcrumbs.tsx
+│   │   ├── Pagination.tsx       # Client
+│   │   ├── ScrollToTop.tsx      # Client
+│   │   └── TableOfContents.tsx  # Client (scroll spy)
+│   │
+│   ├── data-display/
+│   │   ├── EmptyState.tsx
+│   │   ├── DateDisplay.tsx
+│   │   ├── ReadingTimeBadge.tsx
+│   │   ├── TagList.tsx
+│   │   └── SectionHeader.tsx    # Reusable title + subtitle block
+│   │
+│   ├── forms/
+│   │   ├── FormField.tsx        # Wrapper for label + input + error
+│   │   ├── SearchBar.tsx        # Client (debounced)
+│   │   ├── FilterGroup.tsx      # Client
+│   │   └── FilterDropdown.tsx   # Client
+│   │
+│   ├── content/
+│   │   ├── MarkdownRenderer.tsx # Server/Client (react-markdown wrapper)
+│   │   ├── CodeBlock.tsx        # Client (react-syntax-highlighter)
+│   │   ├── ComparisonTable.tsx  # Shared table layout
+│   │   └── RichTextEditor.tsx   # Client (for admin/comments if needed)
+│   │
+│   ├── feedback/
+│   │   ├── LoadingSpinner.tsx
+│   │   ├── SkeletonCard.tsx
+│   │   ├── SkeletonGrid.tsx
+│   │   └── ErrorMessage.tsx
+│   │
+│   ├── seo/
+│   │   ├── StructuredData.tsx   # JSON-LD injection
+│   │   └── PageMetadata.tsx     # Helper for Open Graph / Twitter cards
+│   │
+│   └── social/
+│       ├── SocialShareButtons.tsx # Client (react-share wrapper)
+│       └── RSSFeedLink.tsx
 │
-├── home/                  # Page-specific: /
-│   ├── hero-section.tsx
-│   ├── featured-projects.tsx
-│   ├── latest-posts.tsx
-│   ├── tech-stack.tsx
-│   ├── about-snippet.tsx
-│   ├── social-links.tsx
-│   └── scroll-indicator.tsx
+├── home/                        # PAGE-SPECIFIC: Landing page only
+│   ├── HeroSection.tsx          # Client (Framer Motion entrance)
+│   ├── FeaturedProjects.tsx     # Server (fetches preview data)
+│   ├── LatestPosts.tsx          # Server (fetches latest blog posts)
+│   └── CTASection.tsx
 │
-├── about/                 # Page-specific: /about
-│   ├── about-hero.tsx
-│   ├── bio-section.tsx
-│   ├── experience-timeline.tsx
-│   ├── skills-grid.tsx
-│   ├── education-section.tsx
-│   └── testimonials.tsx
+├── about/                       # PAGE-SPECIFIC: About page only
+│   ├── BioSection.tsx
+│   ├── Timeline.tsx             # Client (scroll-triggered animations)
+│   ├── SkillsVisualization.tsx  # Client (chart library or CSS animation)
+│   └── ResumeDownloadButton.tsx # Client
 │
-├── blog/                  # Page-specific: /blog & /blog/[slug]
-│   ├── blog-list.tsx
-│   ├── blog-filter.tsx
-│   ├── blog-search.tsx
-│   ├── blog-post.tsx
-│   ├── blog-header.tsx
-│   ├── related-posts.tsx
-│   ├── post-navigation.tsx
-│   └── giscus-comments.tsx
+├── projects/                    # PAGE-SPECIFIC: Projects listing & detail
+│   ├── ProjectGrid.tsx
+│   ├── ProjectCard.tsx
+│   ├── ProjectFilters.tsx       # Client (category + tech stack)
+│   ├── ProjectSearchBar.tsx     # Client (extends shared SearchBar)
+│   ├── ProjectDetail.tsx        # Server (ISR page content)
+│   ├── TechStackBadge.tsx
+│   └── ProjectGallery.tsx       # Client (image carousel/lightbox)
 │
-├── projects/              # Page-specific: /projects & /projects/[slug]
-│   ├── project-list.tsx
-│   ├── project-filter.tsx
-│   ├── project-hero.tsx
-│   ├── project-gallery.tsx
-│   ├── project-details.tsx
-│   └── project-links.tsx
+├── blog/                        # PAGE-SPECIFIC: Blog listing & detail
+│   ├── PostGrid.tsx
+│   ├── PostCard.tsx
+│   ├── PostFilters.tsx          # Client (category + tag)
+│   ├── PostSearchBar.tsx        # Client
+│   ├── PostHeader.tsx           # Server
+│   ├── PostContent.tsx          # Server (uses shared MarkdownRenderer)
+│   ├── CommentSection.tsx       # Client
+│   ├── CommentForm.tsx          # Client
+│   ├── CommentCard.tsx
+│   ├── CommentList.tsx
+│   └── RelatedPosts.tsx         # Server
 │
-├── knowledge/             # Page-specific: /knowledge & /knowledge/[slug]
-│   ├── knowledge-list.tsx
-│   ├── knowledge-tree.tsx
-│   ├── knowledge-article.tsx
-│   ├── knowledge-header.tsx
-│   └── linked-references.tsx
+├── knowledge/                   # PAGE-SPECIFIC: Agentic AI Knowledge Hub
+│   ├── KnowledgeGrid.tsx
+│   ├── KnowledgeCard.tsx        # Displays domain, complexity, reading time
+│   ├── DomainExplorer.tsx       # Client (interactive visual map of 12 domains)
+│   ├── DomainCard.tsx           # Card for individual Agentic AI domains
+│   ├── LearningPathCard.tsx     # Curated learning journey card
+│   ├── KnowledgeFilters.tsx     # Client (domain + topic filters)
+│   ├── ArticleHeader.tsx        # Server
+│   ├── ArticleContent.tsx       # Server (uses shared MarkdownRenderer + diagrams)
+│   ├── ArchitectureDiagram.tsx  # Client (SVG/Canvas interactive diagrams)
+│   └── GlossaryTerm.tsx         # Inline definition component
 │
-└── contact/               # Page-specific: /contact
-    ├── contact-form.tsx
-    ├── contact-info.tsx
-    └── form-status.tsx
+└── contact/                     # PAGE-SPECIFIC: Contact page only
+    ├── ContactForm.tsx          # Client (react-hook-form + zod + reCAPTCHA)
+    ├── ContactInfo.tsx
+    └── SocialLinks.tsx          # Specific layout for contact page
 ```
 
 ---
 
-## 6. Server vs. Client Component Strategy
+## 3. Component Classification Matrix
 
-| Layer        | Default | Exceptions (use `'use client'`)                                                                                                               |
-| ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ui/`        | Server  | `Button` (if loading state), `Input`, `Textarea`, `Tooltip`, `Dialog`, `DropdownMenu`, `CodeBlock` (if copy-to-clipboard), `ScrollArea`       |
-| `layout/`    | Server  | `Navbar` (mobile toggle, path tracking), `MobileMenu` (animation), `ThemeProvider`                                                            |
-| `shared/`    | Server  | `TableOfContents` (scroll spy), `SocialShare` (clipboard API), `SearchBar` (input state), `Pagination` (URL state), `ImageGallery` (lightbox) |
-| `home/`      | Server  | `SocialLinks` (if animated), `ScrollIndicator`                                                                                                |
-| `blog/`      | Server  | `BlogFilter`, `BlogSearch`, `GiscusComments`                                                                                                  |
-| `projects/`  | Server  | `ProjectFilter`, `ProjectGallery`                                                                                                             |
-| `knowledge/` | Server  | `KnowledgeTree`                                                                                                                               |
-| `contact/`   | Server  | `ContactForm`, `FormStatus`                                                                                                                   |
+### A. Shared / Reusable Components (`shared/` & `layout/`)
+
+These components are used across **two or more pages** and should be strictly maintained as generic, composable building blocks.
+
+| Component | Category | Used By | Server/Client | Notes |
+|-----------|----------|---------|---------------|-------|
+| `Navbar` | Layout | All pages | Client | Needs mobile menu state, theme toggle |
+| `Footer` | Layout | All pages | Server | Static links, social icons |
+| `MobileMenu` | Layout | All pages | Client | Sheet/drawer for mobile nav |
+| `MainLayout` | Layout | All pages | Server | Composes Navbar + Footer around children |
+| `Container` | Layout | All pages | Server | Max-width wrapper (can be in `layout/`) |
+| `SectionHeader` | Data Display | Home, About, Projects, Blog, Knowledge | Server | Title + subtitle + optional CTA link |
+| `PageHeader` | Data Display | Projects, Blog, Knowledge, About | Server | Breadcrumb + title + description |
+| `Breadcrumbs` | Navigation | Detail pages (`[slug]`) | Server | Dynamic based on route segments |
+| `Pagination` | Navigation | Projects, Blog, Knowledge | Client | Query param sync |
+| `ScrollToTop` | Navigation | All pages | Client | IntersectionObserver or scroll listener |
+| `TableOfContents` | Navigation | Blog `[slug]`, Knowledge `[slug]` | Client | Extracts H2/H3 from content |
+| `SearchBar` | Forms | Projects, Blog, Knowledge | Client | Debounced input, URL query sync |
+| `FilterGroup` | Forms | Projects, Blog, Knowledge | Client | Composes multiple FilterDropdowns |
+| `FilterDropdown` | Forms | Projects, Blog, Knowledge | Client | Select with URL param persistence |
+| `FormField` | Forms | Contact, CommentForm, Admin | Client | Label + Input + Error message pattern |
+| `TagList` | Data Display | Projects, Blog, Knowledge | Server | Renders arrays of tags/badges |
+| `DateDisplay` | Data Display | Blog, Projects, Knowledge | Server | Formats ISO dates consistently |
+| `ReadingTimeBadge` | Data Display | Blog, Knowledge | Server | Calculated from word count |
+| `EmptyState` | Feedback | Projects, Blog, Knowledge (search) | Server | Illustration + message when no results |
+| `SkeletonCard` | Feedback | All listing pages | Client | Loading placeholder for cards |
+| `SkeletonGrid` | Feedback | All listing pages | Client | Grid of SkeletonCards |
+| `ErrorMessage` | Feedback | All pages | Client | Reusable error boundary fallback |
+| `MarkdownRenderer` | Content | Blog, Knowledge, About | Server/Client | react-markdown wrapper with plugins |
+| `CodeBlock` | Content | Blog, Knowledge | Client | Syntax highlighting wrapper |
+| `ComparisonTable` | Content | Knowledge, Projects | Server | Styled table for framework/feature comparison |
+| `SocialShareButtons` | Social | Blog, Knowledge, Projects | Client | react-share integration |
+| `RSSFeedLink` | Social | Blog listing | Server | Static link to `/rss.xml` route |
+| `StructuredData` | SEO | All pages | Server | Injects JSON-LD schema |
+
+### B. Page-Specific Components
+
+These components are **tightly coupled to a single page's data structure, layout, or user journey** and should remain in their respective page folders.
+
+#### Home Page (`app/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `HeroSection` | Personal brand value prop with animated entrance | Client |
+| `FeaturedProjects` | Curated preview of 3–4 projects with links to `/projects` | Server |
+| `LatestPosts` | Curated preview of 3–4 latest blog posts | Server |
+| `CTASection` | Call-to-action banner (hire me, subscribe, etc.) | Server |
+
+#### About Page (`app/about/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `BioSection` | Personal bio narrative + photo | Server |
+| `Timeline` | Professional/educational history with scroll animations | Client |
+| `SkillsVisualization` | Interactive chart or animated skill bars | Client |
+| `ResumeDownloadButton` | Triggers PDF download with tracking | Client |
+
+#### Projects Listing (`app/projects/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `ProjectGrid` | Responsive grid layout for project cards | Server |
+| `ProjectCard` | Thumbnail, title, excerpt, tech stack, links | Server |
+| `ProjectFilters` | Category + tech stack multi-select filters | Client |
+| `ProjectSearchBar` | Search-specific to projects (extends shared `SearchBar`) | Client |
+| `TechStackBadge` | Custom badge variant for technology names | Server |
+
+#### Project Detail (`app/projects/[slug]/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `ProjectDetail` | Main content wrapper: title, description, gallery, links | Server |
+| `ProjectGallery` | Image carousel/screenshot viewer | Client |
+
+#### Blog Listing (`app/blog/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `PostGrid` | Grid layout for blog post cards | Server |
+| `PostCard` | Excerpt, author, date, reading time, category/tags | Server |
+| `PostFilters` | Category + tag filter specific to blog taxonomy | Client |
+| `PostSearchBar` | Blog-specific search (title + content) | Client |
+
+#### Blog Post Detail (`app/blog/[slug]/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `PostHeader` | Title, author bio, publish date, reading time | Server |
+| `PostContent` | Article body composition (uses `MarkdownRenderer`) | Server |
+| `CommentSection` | Wrapper for comment list + form | Client |
+| `CommentList` | Renders threaded or flat comments | Client |
+| `CommentCard` | Individual comment display | Client |
+| `CommentForm` | Submit new comment (validation, auth state) | Client |
+| `RelatedPosts` | "You may also like" section at bottom | Server |
+
+#### Knowledge Listing (`app/knowledge/page.tsx`)
+*Derived from the **Agentic AI Content Architecture** Excel (12 domains, learning paths, domain explorer).*
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `KnowledgeGrid` | Grid for knowledge articles / domain entries | Server |
+| `KnowledgeCard` | Domain number, title, complexity level, description | Server |
+| `DomainExplorer` | Interactive visual map of the 12 Agentic AI domains | Client |
+| `DomainCard` | Individual domain card with icon + scope summary | Server |
+| `LearningPathCard` | Curated track (e.g., "AI Engineer Path") | Server |
+| `KnowledgeFilters` | Filter by domain, skill level, content type | Client |
+| `KnowledgeSearchBar` | Full-text search across technical content | Client |
+
+#### Knowledge Detail (`app/knowledge/[slug]/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `ArticleHeader` | Title, domain badge, last updated, reading time | Server |
+| `ArticleContent` | Rich technical content with diagrams, tables, code | Server |
+| `ArchitectureDiagram` | Interactive/illustrated architecture patterns | Client |
+| `GlossaryTerm` | Inline hover/click definition for technical terms | Client |
+
+#### Contact Page (`app/contact/page.tsx`)
+| Component | Purpose | Server/Client |
+|-----------|---------|---------------|
+| `ContactForm` | Name, email, subject, message + validation + reCAPTCHA | Client |
+| `ContactInfo` | Email, location, availability status | Server |
+| `SocialLinks` | Prominent social media link cards | Server |
 
 ---
 
-## 7. Key Recommendations
+## 4. Essential shadcn/ui Primitives Required
 
-1. **Unify Content Patterns:** Blog, Projects, and Knowledge all use "card → list → detail" flows. Extract `ContentCard`, `ContentGrid`, `ContentHeader`, and `ContentBody` into `shared/` to eliminate duplication.
+Based on the Portfolio Excel tech stack and component needs, the following shadcn/ui components are **essential** to install and keep in `components/ui/`:
 
-2. **Use Next.js Metadata API:** Instead of a custom `SEOHead` component, export `metadata` objects from each `page.tsx` and `layout.tsx` for better performance and static optimization.
+| UI Primitive | Used For |
+|--------------|----------|
+| `button` | CTAs, form submissions, navigation actions |
+| `card` | Base for ProjectCard, PostCard, KnowledgeCard, DomainCard |
+| `input` | Form fields, search inputs |
+| `textarea` | Contact form message, comment body |
+| `select` | FilterDropdowns, category selectors |
+| `badge` | TechStackBadge, tags, domain labels |
+| `avatar` | Author photos, commenter avatars |
+| `dialog` | Project detail modal (if used), image lightbox |
+| `dropdown-menu` | Navbar user menu, filter options |
+| `separator` | Visual dividers in content |
+| `sheet` | MobileMenu drawer |
+| `tabs` | Knowledge article sections, project detail tabs |
+| `accordion` | FAQ sections, mobile filters |
+| `tooltip` | Icon explanations, glossary hints |
+| `scroll-area` | Custom scrollbars for sidebars |
+| `skeleton` | Loading states |
+| `toast` | Form success/error notifications |
 
-3. **Co-locate Data Fetching:** Keep data fetching in `page.tsx` Server Components, then pass data down as props to child components. Do not fetch inside Client Components unless absolutely necessary.
+---
 
-4. **MDX Integration:** For blog and knowledge content, use Next.js MDX support (`@next/mdx`) and configure `MarkdownRenderer` in `shared/` as the central MDX component mapping hub.
+## 5. Server vs. Client Component Strategy
 
-5. **Avoid Premature Abstraction:** Start with components in `home/`, `blog/`, etc. Only promote to `shared/` when the same component is needed by **three or more** pages.
+With the App Router, this distinction is critical for performance and SEO.
 
-6. **Keep `ui/` Pure:** UI primitives should know nothing about your domain (no "project" or "blog" logic). They accept props and render markup.
+### Server Components (Default)
+Keep these as Server Components **unless they need interactivity**:
 
-7. **Animation Strategy:** Use `framer-motion` for layout animations, but keep the animation wrapper as a thin Client Component so the heavy content remains server-rendered.
+- **All page entry points** (`page.tsx` files)
+- `FeaturedProjects`, `LatestPosts`, `PostGrid`, `ProjectGrid`, `KnowledgeGrid`
+- `PostContent`, `ArticleContent` (wrap `MarkdownRenderer` which can be a Client Component if needed, but prefer Server)
+- `Navbar` links (static), `Footer`
+- `PageHeader`, `SectionHeader`, `Breadcrumbs`
+- `RelatedPosts`, `RSSFeedLink`
 
-This architecture maximizes server rendering (SEO, performance), minimizes client JavaScript, and keeps the codebase organized by feature while maintaining a clear shared layer for cross-cutting concerns.
+### Client Components (`"use client"`)
+Explicitly mark these:
+
+- **Forms**: `ContactForm`, `CommentForm` (useState, react-hook-form)
+- **Inputs with state**: `SearchBar`, `ProjectFilters`, `PostFilters`, `KnowledgeFilters`
+- **Animations**: `HeroSection`, `Timeline`, `SkillsVisualization`, `DomainExplorer`
+- **Browser APIs**: `ScrollToTop`, `TableOfContents` (scroll spy), `MobileMenu`
+- **Third-party wrappers**: `CodeBlock`, `SocialShareButtons`, `RichTextEditor`, `ArchitectureDiagram`
+- **Theme**: `ThemeProvider`, `ThemeToggle`
+
+**Pattern:** Compose Client Components inside Server Components. For example, the Blog `[slug]` page is a Server Component that fetches data, then renders `PostHeader` (Server) and `CommentSection` (Client) as children.
+
+---
+
+## 6. Shared Directory Expansion Recommendations
+
+Your existing `shared/` directory should be expanded with **subfolders by category** rather than a flat file list. This prevents `shared/` from becoming an unmaintainable dumping ground as the site scales.
+
+**Recommended `shared/` organization:**
+- `shared/layout/` — Structural wrappers used on every page
+- `shared/navigation/` — Wayfinding components
+- `shared/forms/` — Input primitives and composed form helpers
+- `shared/content/` — Anything that renders rich text, markdown, or media
+- `shared/data-display/` — Badges, tags, empty states, date formatting
+- `shared/feedback/` — Loading and error states
+- `shared/seo/` — Metadata and structured data helpers
+- `shared/social/` — Sharing and RSS
+
+**Barrel Exports:** Add `index.ts` files to each subfolder for clean imports:
+```typescript
+// components/shared/navigation/index.ts
+export { Breadcrumbs } from './Breadcrumbs';
+export { Pagination } from './Pagination';
+// etc.
+```
+
+---
+
+## 7. Cross-Cutting Concerns & Special Cases
+
+### A. Markdown + Code Rendering
+Both **Blog** and **Knowledge** pages require rich text rendering. Use a single `shared/content/MarkdownRenderer.tsx` that:
+- Wraps `react-markdown`
+- Uses `shared/content/CodeBlock.tsx` for fenced code blocks
+- Supports custom components for callouts, comparison tables, and architecture diagrams
+
+### B. Search & Filter Patterns
+Projects, Blog, and Knowledge all need search + filter + pagination. Rather than three separate implementations:
+- **Base**: `shared/forms/SearchBar.tsx` (generic debounced input)
+- **Page-specific wrappers**: `ProjectSearchBar.tsx`, `PostSearchBar.tsx`, `KnowledgeSearchBar.tsx` that configure the placeholder, endpoint, and filter keys.
+
+### C. Card Patterns
+`ProjectCard`, `PostCard`, `KnowledgeCard`, and `DomainCard` all share visual DNA. Consider a **private base pattern**:
+- `shared/data-display/CardShell.tsx` — Image aspect ratio, hover state, padding (optional)
+- Each page-specific card composes `ui/card.tsx` with its own metadata layout.
+
+### D. Admin Dashboard (Future-Proofing)
+The Portfolio Excel mentions an Admin Dashboard. While not in your current `app/` tree, if you add `app/admin/` later:
+- Create `components/admin/` for `AdminSidebar`, `DataTable`, `AnalyticsChart`
+- `DataTable` could eventually be promoted to `shared/data-display/` if used elsewhere
+
+---
+
+## 8. Implementation Best Practices
+
+1. **Naming Convention**
+   - PascalCase for components: `ProjectCard.tsx`
+   - CamelCase for utilities/hooks: `useDebounce.ts`
+   - Co-locate page-specific components: if only `app/blog/page.tsx` uses it, it lives in `components/blog/`
+
+2. **Import Paths**
+   Use path aliases in `tsconfig.json`:
+   ```json
+   {
+     "compilerOptions": {
+       "paths": {
+         "@/components/ui/*": ["./src/components/ui/*"],
+         "@/components/shared/*": ["./src/components/shared/*"],
+         "@/components/home/*": ["./src/components/home/*"],
+         "@/lib/*": ["./src/lib/*"]
+       }
+     }
+   }
+   ```
+
+3. **Data Fetching**
+   - Fetch in Server Components (`page.tsx`) and pass data down as props.
+   - Use React Query (TanStack) only for Client Components that need caching (comments, search results, filters).
+
+4. **State Management**
+   - **Zustand**: Use for global UI state (theme, mobile menu, auth status).
+   - **React Query**: Use for server state (blog posts, projects, knowledge articles, comments).
+   - **URL State**: Use for filter/search state to enable shareable URLs.
+
+5. **SEO**
+   - Every `page.tsx` should use `shared/seo/PageMetadata.tsx` or Next.js `metadata` export.
+   - Detail pages (`[slug]`) must generate dynamic Open Graph images and structured data.
+
+---
+
+## 9. Summary: Decision Framework
+
+When adding a new component, ask:
+
+| Question | If Yes | If No |
+|----------|--------|-------|
+| Is it used on more than one page? | Place in `shared/[category]/` | Place in `components/[page]/` |
+| Is it a shadcn primitive? | Place in `ui/` | Do not place in `ui/` |
+| Does it use `useState`, `useEffect`, or browser APIs? | Mark as `"use client"` | Keep as Server Component |
+| Is it a layout shell (Navbar/Footer)? | Place in `layout/` | Place in `shared/layout/` or page folder |
+
+This architecture ensures your Portfolio + Blogging + Knowledge Hub frontend remains **maintainable at scale**, clearly separates concerns between the portfolio content and the Agentic AI knowledge domain, and leverages Next.js App Router performance patterns effectively.
