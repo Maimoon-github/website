@@ -13,7 +13,10 @@ export function constructMetadata({
   image = "/og-image.png",
   noIndex = false,
 }: PageMetadataProps): Metadata {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
   return {
+    metadataBase: new URL(siteUrl),
     title: `${title} | Antigravity`,
     description,
     openGraph: {
