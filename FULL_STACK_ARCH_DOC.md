@@ -1,0 +1,96 @@
+# Full-Stack Architecture Documentation: Antigravity Hub
+
+This document provides a comprehensive overview of the current state of the Antigravity full-stack website, detailng the integration between the Django backend and the Next.js frontend.
+
+---
+
+## 1. Executive Summary
+
+The Antigravity Hub is a modern, high-performance portfolio and knowledge management system. It leverages a **Django Rest Framework (DRF)** backend for robust data management and a **Next.js 14 (App Router)** frontend for a bleeding-edge, performant user experience. The architecture is designed for scalability, dynamic content management, and type-safe data flow.
+
+---
+
+## 2. Backend Architecture (`/backend`)
+
+The backend is built with Python/Django, following a modular application pattern.
+
+### 2.1 Core Configuration (`@config`)
+
+- **`settings.py`**: Configures the Django environment, including database settings (SQLite for development), installed apps, and Middleware.
+- **`urls.py`**: The root routing table that delegates API requests to specific modular apps under the `/api/` prefix.
+
+### 2.2 Modular Applications (`@app`)
+
+The system is divided into six specialized Django apps:
+
+- **`homepage`**: Manages hero content, site-wide stats, global section configurations, and page headers.
+- **`about`**: Handles user profiles, professional skills, experience, and personal branding data.
+- **`projects`**: Manages portfolio items, categorized by technology and complexity.
+- **`blog`**: A full-featured CMS for posts, categories, and tags.
+- **`knowledge`**: A structured repository for "Domains" and detailed knowledge articles.
+- **`contact`**: Manages contact form submissions and professional inquiries.
+
+### 2.3 Core Logic Pattern
+
+Each app follows a consistent architectural pattern:
+
+- **Models**: Defines structured data (e.g., `Post`, `Project`, `PageSection`).
+- **Serializers**: Transforms Django models into clean JSON for API consumption.
+- **Views**: Implements `ReadOnlyModelViewSet` for most data, with specific `POST` endpoints for interactions (comments, contact forms).
+
+---
+
+## 3. Frontend Architecture (`/frontend`)
+
+The frontend is built with TypeScript and Next.js 14, prioritizing server-side rendering and component modularity.
+
+### 3.1 Service Layer (`@services`)
+
+All data fetching is abstracted into a dedicated service layer, ensuring the UI components remain decoupled from API implementation details.
+
+- **`ApiClient` (`@lib/api.ts`)**: A wrapper around the native `fetch` API, integrating Next.js caching (`revalidate`) and shared response types (`ApiResponse`, `PaginatedResponse`).
+- **Domain Services**: Files like `blog.service.ts` or `projects.service.ts` provide strongly-typed methods (e.g., `getPosts()`, `getProjectBySlug()`) that map directly to backend endpoints.
+
+### 3.2 Component Architecture (`@components`)
+
+Components are organized by scope and responsibility:
+
+- **`@components/ui`**: Base atomic components (buttons, cards, badges).
+- **`@components/layout`**: Persistent shell components like `Navbar`, `Footer`, and `Container`.
+- **`@components/shared`**: Cross-cutting components like `DynamicPageContent` and data-display utilities (`TagList`, `DateDisplay`).
+- **`@components/{page}`**: Components encapsulated within a specific routing context (e.g., `HeroSection` for Home).
+
+### 3.3 Routing and Data Fetching (`@src/app`)
+
+- **Server Components**: Pages (e.g., `app/page.tsx`) perform initial data fetching on the server using `async/await` for maximum SEO and performance.
+- **Dynamic Routing**: Uses slug-based patterns (e.g., `blog/[slug]/page.tsx`) to fetch specific content dynamically.
+
+---
+
+## 4. Full-Stack Integration & Logic
+
+### 4.1 Data Flow Cycle
+
+1.  **Request**: User navigates to a route.
+2.  **Fetch (Server)**: Next.js page calls the appropriate `Service`.
+3.  **API Call**: `Service` uses `ApiClient` to request JSON from the Django API.
+4.  **Response**: Django processes the request via ViewSets, serializes data, and returns it.
+5.  **Render**: Next.js receives typed data, passes it to components, and renders the final HTML.
+
+### 4.2 The "Dynamic Section" Bridge
+
+One of the most powerful features is the **Dynamic Section Logic**:
+
+- The backend `homepage.PageSection` model allows administrators to define new UI blocks via the Django Admin.
+- The frontend `DynamicPageContent` component fetches these configurations and dynamically renders them using a mapping system.
+- **Result**: New content sections can be added to the website without a single line of frontend code changes or redeployment.
+
+---
+
+## 5. Current Holistic State
+
+The project is in a **mature structural state**. The core integration is stable, types are consistent across the stack, and the design follows a "Black Lotus Mystical" aesthetic which is both professional and visually striking. The decoupled nature of the services and components makes the codebase highly maintainable and ready for future feature expansions.
+
+---
+
+_Generated by Antigravity AI - June 2026_
