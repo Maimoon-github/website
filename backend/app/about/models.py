@@ -18,13 +18,21 @@ class AboutProfile(models.Model):
 
 class Skill(models.Model):
     CATEGORY_CHOICES = [
-        ('technical', 'Technical'),
-        ('soft', 'Soft'),
-        ('domain', 'AI Domain'),
+        ('model_layer', 'Model Layer'),
+        ('agent_framework', 'Agent Framework'),
+        ('tool_context_layer', 'Tool/Context Layer'),
+        ('memory_retrieval', 'Memory & Retrieval'),
+        ('orchestration', 'Orchestration'),
+        ('eval_observability', 'Eval & Observability'),
+        ('serving_infra', 'Serving & Infra'),
+        ('guardrails', 'Guardrails'),
+        ('data_state', 'Data/State'),
     ]
-    name = models.CharField(max_length=50)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    level = models.IntegerField(default=90) # 0-100
+
+    name = models.CharField(max_length=50)          # e.g., "vLLM", "Ollama"
+    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
+    focus_area = models.CharField(max_length=100, blank=True, null=True)   # from "Focus Area" column
+    level = models.IntegerField(default=90)         # 0-100, kept as is
 
     class Meta:
         ordering = ['category', 'name']
