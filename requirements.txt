@@ -1,0 +1,7 @@
+name: backend
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+prefix: /home/maimoon-nixos/.conda/envs/backend
